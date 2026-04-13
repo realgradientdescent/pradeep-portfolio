@@ -1,0 +1,279 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import "../styles/global.css";
+
+const featuredProjects = [
+  {
+    slug: "multi-agent-openclaw",
+    title: "Multi-Agent OpenClaw Orchestration",
+    summary: "Designed a role-based multi-agent assistant system with explicit orchestration, specialist routing, durable memory, and handoff workflows.",
+    tags: ["Agent Architecture", "Orchestration", "Memory Design", "OpenClaw"],
+    status: "live",
+  },
+  {
+    slug: "employee-communication-simulator",
+    title: "Employee Communication Simulator",
+    summary: "Built a simulation platform for testing how leadership messages land across a 450-person org — with weighted personas, Monte Carlo analysis, multi-LLM integration, and executive reporting.",
+    tags: ["Simulation", "Multi-LLM", "Monte Carlo", "React", "Decision Support"],
+    status: "live",
+  },
+  {
+    slug: "coming-soon-3",
+    title: "Project 3 — Coming Soon",
+    summary: "Details arriving shortly. Check back soon.",
+    tags: ["TBD"],
+    status: "upcoming",
+  },
+];
+
+const capabilities = [
+  {
+    icon: "brain",
+    title: "AI Enablement & Strategy",
+    description: "Translating AI capabilities into practical engineering strategy. Making teams effective with AI, not just aware of it.",
+  },
+  {
+    icon: "workflow",
+    title: "Agentic Systems & Workflows",
+    description: "Designing multi-agent architectures with memory, routing, and orchestration that actually work across sessions.",
+  },
+  {
+    icon: "layers",
+    title: "Engineering Leadership",
+    description: "Building and leading teams that ship. Balancing product instinct with technical depth, and strategy with execution.",
+  },
+  {
+    icon: "hammer",
+    title: "Hands-On Building",
+    description: "Not just directing — building. From agent systems to portfolio copilots, I stay close to the craft.",
+  },
+];
+
+const suggestedPrompts = [
+  "Give me the 60-second version of Pradeep",
+  "What roles is he strongest for?",
+  "Show me the best projects",
+  "How does he think about AI agents?",
+];
+---
+
+<BaseLayout title="Pradeep — Engineering Leader & AI Builder">
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden">
+    <!-- Subtle gradient bg -->
+    <div class="absolute inset-0 bg-gradient-to-b from-accent-blue/5 via-transparent to-transparent pointer-events-none" />
+
+    <div class="max-w-6xl mx-auto px-6 pt-24 pb-20 md:pt-32 md:pb-28 relative">
+      <div class="max-w-3xl">
+        <!-- Terminal-style greeting -->
+        <p class="font-mono text-accent-blue text-sm mb-4 flex items-center gap-2">
+          <span class="inline-block w-2 h-2 rounded-full bg-success animate-pulse" />
+          available for opportunities
+        </p>
+
+        <!-- Name & headline -->
+        <h1 class="text-4xl md:text-6xl font-bold text-text-primary leading-tight mb-6">
+          Engineering Leader.<br />
+          <span class="text-accent-blue">AI Builder.</span><br />
+          Systems Thinker.
+        </h1>
+
+        <!-- Positioning -->
+        <p class="text-lg md:text-xl text-text-secondary leading-relaxed max-w-2xl mb-10">
+          I lead engineering teams and build practical AI systems — from multi-agent
+          orchestration to the copilot you're about to talk to. Currently exploring
+          AI enablement leadership roles where I can shape how teams build with AI.
+        </p>
+
+        <!-- CTAs -->
+        <div class="flex flex-wrap gap-4">
+          <a
+            href="/projects"
+            class="px-6 py-3 bg-accent-blue hover:bg-accent-blue-hover text-white font-medium rounded-lg transition-colors duration-200"
+          >
+            View Projects
+          </a>
+          <a
+            href="/ask"
+            class="px-6 py-3 bg-surface-800 hover:bg-surface-700 text-text-primary font-medium rounded-lg border border-border transition-colors duration-200"
+          >
+            Ask Pradeep AI
+            <span class="inline-block w-2 h-2 rounded-full bg-success ml-2 animate-pulse" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What I Do -->
+  <section class="py-20 border-t border-border">
+    <div class="max-w-6xl mx-auto px-6">
+      <p class="font-mono text-accent-blue text-sm mb-3">what I do</p>
+      <h2 class="text-3xl font-bold text-text-primary mb-12">
+        Where leadership meets building
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {capabilities.map((cap) => (
+          <div class="p-6 rounded-xl bg-surface-800/50 border border-border hover:border-accent-blue/30 transition-colors duration-300">
+            <h3 class="text-lg font-semibold text-text-primary mb-2">{cap.title}</h3>
+            <p class="text-text-secondary text-sm leading-relaxed">{cap.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Projects -->
+  <section class="py-20 border-t border-border">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="flex items-end justify-between mb-12">
+        <div>
+          <p class="font-mono text-accent-blue text-sm mb-3">featured work</p>
+          <h2 class="text-3xl font-bold text-text-primary">Projects that show how I think</h2>
+        </div>
+        <a href="/projects" class="hidden md:inline-block text-accent-blue hover:text-accent-blue-hover text-sm font-medium transition-colors">
+          View all &rarr;
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {featuredProjects.map((project) => (
+          <a
+            href={project.status === "live" ? `/projects/${project.slug}` : "#"}
+            class:list={[
+              "group block p-6 rounded-xl border transition-all duration-300",
+              project.status === "live"
+                ? "bg-surface-800/50 border-border hover:border-accent-blue/40 hover:bg-surface-800"
+                : "bg-surface-800/20 border-border/50 opacity-60 cursor-default",
+            ]}
+          >
+            {project.status === "live" && (
+              <span class="inline-flex items-center gap-1.5 text-xs font-mono text-success mb-3">
+                <span class="w-1.5 h-1.5 rounded-full bg-success" />
+                live
+              </span>
+            )}
+            {project.status === "upcoming" && (
+              <span class="inline-flex items-center gap-1.5 text-xs font-mono text-text-muted mb-3">
+                <span class="w-1.5 h-1.5 rounded-full bg-text-muted" />
+                coming soon
+              </span>
+            )}
+            <h3 class="text-lg font-semibold text-text-primary mb-2 group-hover:text-accent-blue transition-colors">
+              {project.title}
+            </h3>
+            <p class="text-text-secondary text-sm leading-relaxed mb-4">
+              {project.summary}
+            </p>
+            <div class="flex flex-wrap gap-2">
+              {project.tags.map((tag) => (
+                <span class="px-2.5 py-1 text-xs font-mono rounded-md bg-surface-900 text-text-muted border border-border">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- How I Think -->
+  <section class="py-20 border-t border-border">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="max-w-3xl">
+        <p class="font-mono text-accent-blue text-sm mb-3">perspective</p>
+        <h2 class="text-3xl font-bold text-text-primary mb-8">How I think about AI</h2>
+
+        <div class="space-y-6 text-text-secondary leading-relaxed">
+          <p>
+            I think the interesting challenge in AI right now is not raw intelligence — it's
+            <span class="text-text-primary font-medium">coordination, continuity, and controlled behavior over time</span>.
+            Single-turn AI is largely solved. What's hard is making AI systems that reliably do real work across sessions,
+            tools, and teams.
+          </p>
+          <p>
+            That's why I gravitate toward agentic systems — multi-agent architectures, memory design,
+            orchestration, and the operational patterns that make AI useful rather than impressive.
+            I care less about what a model can do in a demo and more about what it can do on Tuesday
+            morning when context is stale and the task is ambiguous.
+          </p>
+          <p>
+            As a leader, I bring this same lens to teams: how do we make AI a real capability in our
+            engineering practice, not just a feature we bolt on? How do we build systems and processes
+            that actually improve because AI is part of them?
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ask Pradeep AI Teaser -->
+  <section class="py-20 border-t border-border">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="rounded-2xl bg-gradient-to-br from-surface-800 to-surface-800/50 border border-border p-8 md:p-12">
+        <div class="max-w-2xl">
+          <p class="font-mono text-accent-blue text-sm mb-3">interactive</p>
+          <h2 class="text-3xl font-bold text-text-primary mb-4">Ask Pradeep AI</h2>
+          <p class="text-text-secondary mb-8 leading-relaxed">
+            I built a copilot grounded in my real professional context. It can answer questions about
+            my background, projects, working style, and perspective on AI — all from curated source material.
+            No hallucinations, no speculation.
+          </p>
+
+          <!-- Suggested prompts -->
+          <div class="flex flex-wrap gap-3 mb-8">
+            {suggestedPrompts.map((prompt) => (
+              <a
+                href={`/ask?q=${encodeURIComponent(prompt)}`}
+                class="px-4 py-2 rounded-lg bg-surface-900 border border-border text-sm text-text-secondary hover:text-accent-blue hover:border-accent-blue/30 transition-all duration-200"
+              >
+                {prompt}
+              </a>
+            ))}
+          </div>
+
+          <a
+            href="/ask"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-accent-blue hover:bg-accent-blue-hover text-white font-medium rounded-lg transition-colors duration-200"
+          >
+            Start a conversation
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 border-t border-border">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <h2 class="text-3xl font-bold text-text-primary mb-4">Let's talk</h2>
+      <p class="text-text-secondary mb-8 max-w-lg mx-auto">
+        Looking for an engineering leader who builds with AI, not just talks about it?
+        I'd love to connect.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a
+          href="https://linkedin.com/in/pradeep"
+          target="_blank"
+          rel="noopener"
+          class="px-6 py-3 bg-surface-800 hover:bg-surface-700 text-text-primary font-medium rounded-lg border border-border transition-colors duration-200"
+        >
+          LinkedIn
+        </a>
+        <a
+          href="mailto:pradeep@realgradientdescent.tech"
+          class="px-6 py-3 bg-accent-blue hover:bg-accent-blue-hover text-white font-medium rounded-lg transition-colors duration-200"
+        >
+          Get in touch
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

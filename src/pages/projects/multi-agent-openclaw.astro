@@ -1,0 +1,206 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import "../../styles/global.css";
+---
+
+<BaseLayout title="Multi-Agent OpenClaw Orchestration — Pradeep" description="Designing a role-based multi-agent personal operating system with explicit orchestration, memory, and handoff workflows.">
+
+  <article class="py-24">
+    <div class="max-w-3xl mx-auto px-6">
+
+      <!-- Breadcrumb -->
+      <nav class="mb-8">
+        <a href="/projects" class="font-mono text-sm text-text-muted hover:text-accent-blue transition-colors">
+          &larr; back to projects
+        </a>
+      </nav>
+
+      <!-- Header -->
+      <header class="mb-12">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="inline-flex items-center gap-1.5 text-xs font-mono text-success">
+            <span class="w-1.5 h-1.5 rounded-full bg-success" />
+            live
+          </span>
+          <span class="text-xs font-mono text-text-muted">Agentic Systems</span>
+        </div>
+
+        <h1 class="text-3xl md:text-4xl font-bold text-text-primary mb-4 leading-tight">
+          Multi-Agent OpenClaw Orchestration
+        </h1>
+
+        <p class="text-lg text-text-secondary leading-relaxed">
+          Designing a role-based multi-agent personal operating system in OpenClaw — with explicit
+          orchestration, specialist routing, durable memory, and handoff workflows that made
+          long-running AI work more reliable across sessions.
+        </p>
+
+        <div class="flex flex-wrap gap-2 mt-6">
+          {["Agent Architecture", "Orchestration", "Memory Design", "OpenClaw", "Multi-Agent", "Workflow Design"].map((tag) => (
+            <span class="px-2.5 py-1 text-xs font-mono rounded-md bg-surface-800 text-text-muted border border-border">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="space-y-12">
+
+        <!-- Problem -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">01</span>
+            The Problem
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              A single assistant can do many things, but once work becomes varied, ongoing, and
+              cross-functional, managing it through one undifferentiated agent gets messy fast.
+            </p>
+            <p>A monolithic assistant setup creates recurring issues: role confusion (the same agent tries to do research, coding, messaging, and organization all at once), weak continuity across sessions, poor specialization where every task gets the same generic treatment, hard-to-audit work where it's unclear who did what, and brittle delegation where cross-agent work drifts without durable state.</p>
+          </div>
+        </section>
+
+        <!-- What I Built -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">02</span>
+            What I Built
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              Instead of treating the assistant like one general blob, I structured it into a team
+              of specialized agents with a role-based architecture and explicit workflow rules:
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
+              <div class="p-4 rounded-lg bg-surface-800/50 border border-border">
+                <p class="font-mono text-accent-blue text-sm mb-1">Jeeves</p>
+                <p class="text-sm text-text-secondary">Orchestration, synthesis, delegation, and system integrity</p>
+              </div>
+              <div class="p-4 rounded-lg bg-surface-800/50 border border-border">
+                <p class="font-mono text-accent-blue text-sm mb-1">Ada</p>
+                <p class="text-sm text-text-secondary">Coding, implementation, debugging, and technical operations</p>
+              </div>
+              <div class="p-4 rounded-lg bg-surface-800/50 border border-border">
+                <p class="font-mono text-accent-blue text-sm mb-1">Hermes</p>
+                <p class="text-sm text-text-secondary">Research, communications workflows, and operational follow-through</p>
+              </div>
+              <div class="p-4 rounded-lg bg-surface-800/50 border border-border">
+                <p class="font-mono text-accent-blue text-sm mb-1">Scribe</p>
+                <p class="text-sm text-text-secondary">Summaries, memory curation, documentation quality, and cleanup</p>
+              </div>
+            </div>
+
+            <p>
+              The routing policy was made official — not left as an implicit prompt suggestion — so
+              the system would treat it as durable operating truth. Specialists execute within bounded
+              roles, sensitive actions remain gated, and cross-agent work gets durable handoff state
+              via baton files instead of relying on conversation alone.
+            </p>
+          </div>
+        </section>
+
+        <!-- Implementation -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">03</span>
+            Key Implementation Decisions
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              <strong class="text-text-primary">Explicit routing over implicit behavior.</strong> A common failure in agent systems is that role definitions exist in theory but not in practice. I documented and normalized the routing model so the system consistently treated research as Hermes work, coding as Ada work, curation as Scribe work, and orchestration as Jeeves work.
+            </p>
+            <p>
+              <strong class="text-text-primary">File-backed memory over session memory.</strong> Instead of assuming the system would remember, I leaned on durable artifacts: a reminder ledger, structured project notes, policy decisions in recoverable locations, and baton files for cross-session delegated work. This turned continuity from an illusion into infrastructure.
+            </p>
+            <p>
+              <strong class="text-text-primary">Bounded autonomy.</strong> Specialists could analyze, draft, stage, verify, and recommend — but not silently cross external or risky boundaries just because they technically could. The distinction between "can do" and "should do" was an explicit part of the design.
+            </p>
+          </div>
+        </section>
+
+        <!-- Challenges -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">04</span>
+            Challenges
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              Even with memory written down, specialists sometimes answered from stale role priors
+              instead of current official rules. The issue wasn't just "does memory exist" — it was
+              whether the right files were visible and loaded early enough for each specialist.
+            </p>
+            <p>
+              Startup doctrine mattered more than expected. A canonical file in a shared workspace
+              doesn't help if specialists don't have an explicit discovery path to it. And after
+              repairs, live sessions could still behave as if old rules were in force — fresh-session
+              testing turned out to be essential after doctrine changes.
+            </p>
+          </div>
+        </section>
+
+        <!-- Learnings -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">05</span>
+            What I Learned
+          </h2>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">Systems fail at the seams</h3>
+              <p class="text-sm text-text-secondary">The hard part is often not raw capability — it's routing, startup visibility, artifact discoverability, and persistence across sessions.</p>
+            </div>
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">Memory must be retrievable</h3>
+              <p class="text-sm text-text-secondary">A system can have the correct information on disk and still fail if the retrieval path is weak or inconsistent.</p>
+            </div>
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">Role design needs enforcement</h3>
+              <p class="text-sm text-text-secondary">Specialist roles aren't real until they're encoded in doctrine, discoverable at startup, and tested against real tasks.</p>
+            </div>
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">Durable files beat implied memory</h3>
+              <p class="text-sm text-text-secondary">The more I treated reminders, policies, and handoffs as explicit artifacts, the more reliable the whole system became.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Why It Matters -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">06</span>
+            Why This Matters
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              This project demonstrates systems thinking, workflow design, role architecture,
+              memory-aware product design, and practical understanding of agent limitations.
+              It's not about using AI casually — it's about designing an operating model for AI agents.
+            </p>
+            <p class="text-text-primary font-medium italic border-l-2 border-accent-blue pl-4">
+              "The real challenge in agent systems is rarely just intelligence — it's coordination,
+              continuity, and controlled behavior over time."
+            </p>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Navigation -->
+      <div class="mt-16 pt-8 border-t border-border flex justify-between items-center">
+        <a href="/projects" class="text-text-secondary hover:text-accent-blue transition-colors text-sm">
+          &larr; All projects
+        </a>
+        <a href="/ask" class="text-accent-blue hover:text-accent-blue-hover transition-colors text-sm font-medium">
+          Ask about this project &rarr;
+        </a>
+      </div>
+
+    </div>
+  </article>
+
+</BaseLayout>

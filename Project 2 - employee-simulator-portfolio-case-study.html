@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Communication Simulator - Portfolio Case Study</title>
+    <style>
+      :root {
+        --bg: #f4f8f1;
+        --paper: rgba(255, 255, 255, 0.82);
+        --paper-strong: #ffffff;
+        --line: #d7e3d2;
+        --ink: #17211c;
+        --muted: #5f6e63;
+        --accent: #2f6d4d;
+        --accent-soft: #dfeee2;
+        --accent-warm: #8e5a2d;
+        --warm-soft: #f4e8dc;
+        --danger: #a14545;
+        --danger-soft: #f6e0e0;
+        --shadow: 0 18px 60px rgba(48, 72, 52, 0.08);
+        --serif: Georgia, "Times New Roman", serif;
+        --sans: "Segoe UI", Aptos, Inter, sans-serif;
+        --mono: "Cascadia Code", Consolas, monospace;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: var(--sans);
+        color: var(--ink);
+        background:
+          radial-gradient(circle at top left, rgba(110, 163, 119, 0.20), transparent 28%),
+          radial-gradient(circle at bottom right, rgba(223, 202, 174, 0.16), transparent 24%),
+          linear-gradient(180deg, #f8fbf6 0%, var(--bg) 100%);
+      }
+
+      .page {
+        width: min(1400px, calc(100vw - 40px));
+        margin: 20px auto 48px;
+        display: grid;
+        grid-template-columns: 280px minmax(0, 1fr);
+        gap: 20px;
+      }
+
+      .toc, .hero, .section {
+        background: var(--paper);
+        border: 1px solid rgba(255, 255, 255, 0.74);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(16px);
+      }
+
+      .toc {
+        position: sticky;
+        top: 20px;
+        align-self: start;
+        padding: 22px 20px;
+      }
+
+      .toc .label, .section-label {
+        margin: 0 0 10px;
+        color: var(--accent);
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .toc h1, .hero h2, .section h3, .section h4, .section h5 {
+        margin: 0;
+        font-family: var(--serif);
+        letter-spacing: -0.03em;
+      }
+
+      .toc h1 { font-size: 28px; line-height: 0.98; }
+      .toc p, .section-title p, .narrative-block p, .issue-cell p, .highlight p, .footer-note, .hero .subhead {
+        color: var(--muted);
+        line-height: 1.62;
+      }
+
+      .toc nav { display: grid; gap: 8px; }
+      .toc nav a {
+        text-decoration: none;
+        padding: 10px 12px;
+        border-radius: 14px;
+        color: var(--muted);
+      }
+
+      .content { display: grid; gap: 18px; }
+      .hero { padding: 34px; }
+      .hero-grid, .two-col, .three-col, .kpi-grid, .issue-grid-columns, .flow-row {
+        display: grid;
+        gap: 16px;
+      }
+
+      .hero-grid { grid-template-columns: 1.4fr 0.9fr; align-items: end; }
+      .hero h2 { font-size: clamp(42px, 6vw, 72px); line-height: 0.93; letter-spacing: -0.05em; }
+      .hero .thesis, .quote {
+        padding: 18px 20px;
+        border-left: 4px solid var(--accent);
+        background: rgba(255, 255, 255, 0.70);
+        border-radius: 18px;
+        font-family: var(--serif);
+      }
+
+      .hero .thesis { font-size: 20px; line-height: 1.42; }
+      .meta-panel, .narrative-block, .diagram, .issue, .footer-note {
+        padding: 20px;
+        border-radius: 22px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.76);
+      }
+
+      .meta-list, .signal-list, .decision-list, .learning-list, .site-list, .artifact-list {
+        margin: 14px 0 0;
+        padding-left: 18px;
+        display: grid;
+        gap: 8px;
+        color: var(--muted);
+      }
+
+      .section { padding: 28px; }
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 18px;
+        align-items: end;
+      }
+
+      .section-title { display: grid; gap: 6px; }
+      .section-title h3 { font-size: 32px; }
+      .kpi-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .kpi {
+        padding: 18px;
+        border-radius: 20px;
+        background: var(--paper-strong);
+        border: 1px solid var(--line);
+      }
+
+      .kpi span {
+        display: block;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 11px;
+      }
+
+      .kpi strong {
+        display: block;
+        margin-top: 8px;
+        font-size: 34px;
+        line-height: 1;
+        font-family: var(--serif);
+      }
+
+      .kpi small { display: block; margin-top: 10px; color: var(--muted); line-height: 1.5; }
+      .two-col { grid-template-columns: 1fr 1fr; }
+      .three-col { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+      .stack-table {
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: 18px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+      }
+
+      .stack-table th, .stack-table td {
+        padding: 14px 16px;
+        text-align: left;
+        vertical-align: top;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .stack-table th {
+        width: 18%;
+        background: rgba(255, 255, 255, 0.72);
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 11px;
+      }
+
+      .stack-table td { background: rgba(255, 255, 255, 0.56); line-height: 1.6; }
+      .flow-row { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+      .flow-card {
+        min-height: 118px;
+        padding: 14px;
+        border-radius: 18px;
+        background: white;
+        border: 1px solid var(--line);
+        display: grid;
+        gap: 6px;
+      }
+
+      .flow-card span { color: var(--muted); line-height: 1.5; font-size: 13px; }
+      .flow-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent);
+        font-size: 26px;
+        font-weight: 600;
+      }
+
+      .ascii-diagram {
+        margin: 0;
+        padding: 18px 20px;
+        border-radius: 18px;
+        background: #12211b;
+        color: #ecf4ee;
+        font-family: var(--mono);
+        font-size: 12px;
+        line-height: 1.5;
+        overflow: auto;
+      }
+
+      .issue-grid { display: grid; gap: 16px; }
+      .issue-grid-columns { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .issue-cell {
+        padding: 14px;
+        border-radius: 16px;
+        background: rgba(244, 248, 241, 0.88);
+        border: 1px solid var(--line);
+      }
+
+      .issue-cell h5 {
+        margin-bottom: 8px;
+        font-size: 14px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-family: var(--sans);
+      }
+
+      .highlight {
+        padding: 18px 20px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.78);
+        border-left: 4px solid var(--accent);
+      }
+
+      .quote {
+        font-size: 23px;
+        line-height: 1.42;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(248, 242, 235, 0.76));
+      }
+
+      @media (max-width: 1100px) {
+        .page { grid-template-columns: 1fr; }
+        .toc { position: static; }
+        .hero-grid, .two-col, .three-col, .kpi-grid, .issue-grid-columns, .flow-row { grid-template-columns: 1fr; }
+        .flow-arrow { transform: rotate(90deg); min-height: 24px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <aside class="toc">
+        <p class="label">Portfolio Reference</p>
+        <h1>Employee Communication Simulator</h1>
+        <p>A detailed case-study document for turning this project into a strong portfolio page, interview story, or leadership writeup.</p>
+        <nav>
+          <a href="#overview">Overview</a>
+          <a href="#stack">Stack</a>
+          <a href="#architecture">Architecture</a>
+          <a href="#decisions">Design Decisions</a>
+          <a href="#issues">Issues and Resolutions</a>
+          <a href="#leadership">Leadership Signals</a>
+          <a href="#learnings">Key Learnings</a>
+          <a href="#site-build">Site Build Guidance</a>
+        </nav>
+      </aside>
+
+      <main class="content">
+        <section class="hero" id="overview">
+          <div class="hero-grid">
+            <div>
+              <p class="section-label">Case Study</p>
+              <h2>Building a Simulation Platform for High-Stakes Internal Communications</h2>
+              <p class="subhead">
+                This project began as a lightweight script for testing employee reactions to management
+                messages and evolved into a multi-component product: a weighted simulation engine, a
+                multi-provider LLM layer, a Monte Carlo scenario model, a React dashboard, durable async
+                job orchestration, saved-run retrieval, and automated executive reporting in PDF and PPTX
+                formats.
+              </p>
+              <div class="thesis">
+                The most important lesson from this project was that decision-support systems are not just
+                about modeling the right answer. They are about reliability, recoverability, interpretability,
+                and packaging the output in a form leaders can actually use.
+              </div>
+            </div>
+
+            <div class="meta-panel">
+              <h3>Quick Snapshot</h3>
+              <ul class="meta-list">
+                <li>Independent end-to-end build spanning backend, frontend, AI integration, reporting, and product design.</li>
+                <li>60 weighted personas representing a 450-person IT organization.</li>
+                <li>Supports heuristic runs, LLM-backed runs, and Monte Carlo scenario analysis.</li>
+                <li>Includes executive and board-ready report generation in Markdown, HTML, PDF, and PPTX formats.</li>
+                <li>Built to solve a realistic leadership problem: how a message sounds from the top versus how it lands across the org.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-header">
+            <div class="section-title">
+              <p class="section-label">Project Framing</p>
+              <h3>The Problem I Was Solving</h3>
+              <p>
+                Leadership communications often fail not because the message is empty, but because different
+                audiences infer different intent, fairness, and personal risk from the same text. I wanted to
+                build a tool that could simulate those differences before a message was sent, then turn the
+                output into something that managers and executives could act on.
+              </p>
+            </div>
+          </div>
+
+          <div class="kpi-grid">
+            <div class="kpi">
+              <span>Personas</span>
+              <strong>60</strong>
+              <small>Expanded from an initial 15-archetype prototype into a broader weighted org model.</small>
+            </div>
+            <div class="kpi">
+              <span>Represented Org</span>
+              <strong>450</strong>
+              <small>Weighted across employees, contractors, geography, leaders, and principal architects.</small>
+            </div>
+            <div class="kpi">
+              <span>Delivery Modes</span>
+              <strong>3</strong>
+              <small>Heuristic simulation, LLM-backed simulation, and Monte Carlo scenario analysis.</small>
+            </div>
+            <div class="kpi">
+              <span>Output Surfaces</span>
+              <strong>4</strong>
+              <small>Dashboard, JSON/Markdown runs, PDF/HTML briefs, and editable PowerPoint decks.</small>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="stack">
+          <div class="section-header">
+            <div class="section-title">
+              <p class="section-label">Technology</p>
+              <h3>Stack and Responsibilities</h3>
+              <p>
+                The stack was deliberately lightweight where possible and more specialized only where the
+                problem demanded it. The system relies heavily on plain Python and filesystem-based persistence,
+                with React used for the primary interactive surface and Node introduced only for PowerPoint generation.
+              </p>
+            </div>
+          </div>
+
+          <table class="stack-table">
+            <tr>
+              <th>Layer</th>
+              <td><strong>Python</strong> for simulation logic, orchestration, file output, LLM transport, and report generation.</td>
+            </tr>
+            <tr>
+              <th>Backend</th>
+              <td><strong>Standard library HTTP server plus threads</strong> in <code>dashboard_server.py</code> for APIs, async job handling, static asset serving, saved-run loading, and persistent job status.</td>
+            </tr>
+            <tr>
+              <th>Frontend</th>
+              <td><strong>React 19 + Vite 8 + vanilla CSS</strong> for the dashboard UI, run setup, polling, visual summaries, Monte Carlo explanation, and persona exploration.</td>
+            </tr>
+            <tr>
+              <th>Simulation</th>
+              <td><strong>Weighted persona modeling</strong> in <code>simulate.py</code>, including heuristic scoring, richer reactions, stochastic adjustments, Monte Carlo ranges, and checkpointed outputs.</td>
+            </tr>
+            <tr>
+              <th>AI Layer</th>
+              <td><strong>Groq, DeepSeek, OpenAI, and Ollama</strong> behind a shared transport and schema layer in <code>llm_client.py</code>, including model defaults, retries, API-key readiness checks, and usage/cost accounting.</td>
+            </tr>
+            <tr>
+              <th>Persistence</th>
+              <td><strong>Filesystem-first</strong> architecture: JSON and Markdown run outputs in <code>outputs/</code>, job state and logs in <code>outputs/_jobs</code>, selector JSONs for reports, and local provider config files.</td>
+            </tr>
+            <tr>
+              <th>Reporting</th>
+              <td><strong>Python-generated Markdown and HTML</strong>, PDF rendering through headless Edge/Chrome with fallback generation, and editable slide decks via <strong>PptxGenJS 3.12</strong>.</td>
+            </tr>
+            <tr>
+              <th>Data Model</th>
+              <td><strong>JSON-based personas and messages</strong>, representing 270 employees, 180 contractors, 315 US-based staff, 135 India-based staff, 25 people leaders, and 15 principal architects.</td>
+            </tr>
+          </table>
+        </section>
+
+        <section class="section" id="architecture">
+          <div class="section-header">
+            <div class="section-title">
+              <p class="section-label">Architecture</p>
+              <h3>How the System Works End to End</h3>
+              <p>
+                Architecturally, the project moved from a single script into a layered system with a simulation
+                engine, a provider abstraction, a dashboard backend, a React frontend, and a reporting pipeline.
+                The key design move was treating saved outputs and in-flight jobs as durable product objects rather
+                than temporary implementation details.
+              </p>
+            </div>
+          </div>
+
+          <div class="diagram">
+            <h4>Diagram 1: Product Architecture</h4>
+            <p>This is the primary request flow from authoring a message to producing a saved simulation run.</p>
+            <div class="flow-row">
+              <div class="flow-card">
+                <strong>React Dashboard</strong>
+                <span>Run setup, filters, recent runs, persona explorer, Monte Carlo summaries, and usage panels.</span>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-card">
+                <strong>Python API Server</strong>
+                <span><code>/api/simulate</code>, <code>/api/job</code>, <code>/api/runs</code>, and <code>/api/run</code> endpoints for orchestration and retrieval.</span>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-card">
+                <strong>Background Job Layer</strong>
+                <span>Queued, running, cancelling, interrupted, completed, and failed job states with persisted logs and progress.</span>
+              </div>
+            </div>
+            <div class="flow-row" style="margin-top: 10px;">
+              <div class="flow-card">
+                <strong>Simulation Engine</strong>
+                <span>Weighted persona scoring, richer reactions, stochastic runs, and output checkpointing in <code>simulate.py</code>.</span>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-card">
+                <strong>LLM Transport or Heuristic Mode</strong>
+                <span>Provider abstraction for Groq, DeepSeek, OpenAI, and Ollama, plus schema validation, pricing, and retries.</span>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div class="flow-card">
+                <strong>Saved Artifacts</strong>
+                <span>JSON and Markdown run files, job logs, job state files, report selectors, and generated executive deliverables.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="two-col" style="margin-top: 16px;">
+            <div class="diagram">
+              <h4>Diagram 2: Run Lifecycle and Recovery</h4>
+              <p>This flow became important after long-running jobs started failing around refreshes, sleep, and provider errors.</p>
+              <pre class="ascii-diagram">Draft message
+    |
+    v
+Run requested from dashboard
+    |
+    v
+Job id created on client before request completes
+    |
+    v
+Job persisted on backend in outputs/_jobs
+    |
+    v
+Simulation starts
+    |
+    +--> single run -> final JSON/MD save -> completed
+    |
+    +--> Monte Carlo -> pass 1 save -> pass 2 save -> ... -> final save
+    |
+    +--> interruption / cancel / backend restart
+             |
+             v
+      recover latest checkpoint if available
+             |
+             v
+dashboard shows cancelled / interrupted / failed explicitly</pre>
+            </div>
+
+            <div class="diagram">
+              <h4>Diagram 3: Reporting Pipeline</h4>
+              <p>The reporting layer was intentionally decoupled from the live dashboard so that saved runs could be reused later.</p>
+              <pre class="ascii-diagram">Saved simulation run
+  outputs/run_*.json
+  outputs/run_*.md
+         |
+         v
+Selector file
+  executive_request.json
+  board_request.json
+         |
+         v
+Generator script
+  generate_executive_brief.py
+  generate_board_brief.py
+         |
+         +--> markdown brief
+         +--> html brief
+         +--> pdf renderer
+         +--> pptx renderer (executive path)
+         |
+         v
+Consulting-style deliverables
+  automation_briefs/executive_reports
+  automation_briefs/board_reports</pre>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="decisions">
+          <div class="section-header">
+            <div class="section-title">
+              <p class="section-label">Design Choices</p>
+              <h3>Important Decisions That Shaped the Product</h3>
+              <p>
+                Several design decisions had outsized impact on the usefulness and resilience of the final system.
+                These are worth highlighting in a portfolio because they show judgment, not just implementation volume.
+              </p>
+            </div>
+          </div>
+
+          <div class="three-col">
+            <div class="narrative-block">
+              <h4>Weighted Personas Instead of Flat Personas</h4>
+              <ul class="decision-list">
+                <li>Expanded the model from 15 generic personas to 60 weighted personas.</li>
+                <li>Represented real organizational proportions: employees vs. contractors, US vs. India, leaders vs. ICs, architects vs. others.</li>
+                <li>Allowed summary metrics to represent a simulated org rather than a collection of disconnected characters.</li>
+              </ul>
+            </div>
+
+            <div class="narrative-block">
+              <h4>Keep Heuristic Mode Even After Adding LLMs</h4>
+              <ul class="decision-list">
+                <li>Preserved a low-cost, fast simulation path for shaping drafts quickly.</li>
+                <li>Used LLM mode when realism and richer language mattered more than speed.</li>
+                <li>Created a more practical product because not every run needs hosted inference.</li>
+              </ul>
+            </div>
+
+            <div class="narrative-block">
+              <h4>Treat Saved Outputs as First-Class Product Objects</h4>
+              <ul class="decision-list">
+                <li>Built run listing, retrieval, and reloading into the experience instead of treating outputs as throwaway files.</li>
+                <li>Enabled executive reporting to operate off saved runs, not live state.</li>
+                <li>Made the tool more credible as a decision-support system.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="highlight" style="margin-top: 16px;">
+            <p>
+              The most consequential architectural shift was moving from "one request, one response" thinking to
+              "long-running jobs with durable lifecycle state." Once Monte Carlo, LLM calls, refresh behavior, and
+              background tasks entered the picture, durability and observability became product requirements, not backend extras.
+            </p>
+          </div>
+        </section>
+
+        <section class="section" id="issues">
+          <div class="section-header">
+            <div class="section-title">
+              <p class="section-label">Execution Reality</p>
+              <h3>Major Issues Faced and How They Were Resolved</h3>
+              <p>
+                This is where the project shows the most systems thinking. The interesting work was not only in building
+                features, but in responding to failures, redesigning assumptions, and hardening the product as real-world
+                conditions surfaced.
+              </p>
+            </div>
+          </div>
+
+          <div class="issue-grid">
+            <article class="issue">
+              <h4>1. The System Outgrew the Original Single-Script Mental Model</h4>
+              <div class="issue-grid-columns">
+                <div class="issue-cell"><h5>Symptoms</h5><p>The project started simple, but once LLMs, Monte Carlo runs, dashboards, saved runs, and reporting were added, logic began to span too many concerns.</p></div>
+                <div class="issue-cell"><h5>Root Cause</h5><p>The original architecture assumed short-lived runs and a mostly local script workflow, not a product with interactive state and historical records.</p></div>
+                <div class="issue-cell"><h5>Resolution</h5><p>Separated concerns into the simulation engine, provider layer, dashboard server, run repository, React UI, and reporting generators.</p></div>
+                <div class="issue-cell"><h5>Why It Matters</h5><p>This shows the ability to recognize when a prototype architecture is no longer sufficient and evolve it without losing momentum.</p></div>
+              </div>
+            </article>
+
+            <article class="issue">
+              <h4>2. Provider Configuration Was Too Fragile for Real Reuse</h4>
+              <div class="issue-grid-columns">
+                <div class="issue-cell"><h5>Symptoms</h5><p>Dashboard runs would say provider keys were missing depending on which terminal launched the backend and whether environment variables were set there.</p></div>
+                <div class="issue-cell"><h5>Root Cause</h5><p>Configuration was initially modeled as shell-session state rather than part of the product's durable operating setup.</p></div>
+                <div class="issue-cell"><h5>Resolution</h5><p>Added local config support through provider secrets files, provider readiness indicators in the UI, model hints, and clear precedence rules.</p></div>
+                <div class="issue-cell"><h5>Why It Matters</h5><p>This is a systems-thinking move because it turns "works on my shell" into "works as an operating model."</p></div>
+              </div>
+            </article>
+
+            <article class="issue">
+              <h4>3. Large LLM Runs Surfaced Schema, Rate-Limit, and Reliability Problems</h4>
+              <div class="issue-grid-columns">
+                <div class="issue-cell"><h5>Symptoms</h5><p>Groq hit rate limits, some model responses failed JSON or tool schema validation, and provider-specific quirks caused otherwise valid runs to fail.</p></div>
+                <div class="issue-cell"><h5>Root Cause</h5><p>At larger scale, the system moved from ideal prompt paths into provider-specific operational behavior: TPM ceilings, schema drift, and inconsistent output fidelity.</p></div>
+                <div class="issue-cell"><h5>Resolution</h5><p>Added backoff for 429s, transport retries, persona caps for fast validation, narrower schemas, model guidance, pricing metadata, and lighter default models.</p></div>
+                <div class="issue-cell"><h5>Why It Matters</h5><p>It demonstrates an understanding that AI systems succeed through operational discipline, not prompts alone.</p></div>
+              </div>
+            </article>
+
+            <article class="issue">
+              <h4>4. The Dashboard Initially Lost State on Refresh</h4>
+              <div class="issue-grid-columns">
+                <div class="issue-cell"><h5>Symptoms</h5><p>Refreshes could reset message text, mode, provider, Monte Carlo settings, and active run context. Users returning later could see stale or misleading state.</p></div>
+                <div class="issue-cell"><h5>Root Cause</h5><p>The original frontend treated the dashboard as a page, not a stateful task workspace with authored form state and active background jobs.</p></div>
+                <div class="issue-cell"><h5>Resolution</h5><p>Persisted form state, filter state, viewed-run state, active job ids, and request snapshots. Added job polling and reconnect behavior after refresh.</p></div>
+                <div class="issue-cell"><h5>Why It Matters</h5><p>This shows product empathy: the implementation changed to fit the user's actual workflow, not the developer's happy path.</p></div>
+              </div>
+            </article>
+
+            <article class="issue">
+              <h4>5. Long-Running Jobs Needed Durable Logs, Checkpoints, and Honest Failure States</h4>
+              <div class="issue-grid-columns">
+                <div class="issue-cell"><h5>Symptoms</h5><p>Runs could fail after stepping away, come back as "loaded" without results, or disappear without enough evidence to diagnose what happened.</p></div>
+                <div class="issue-cell"><h5>Root Cause</h5><p>Async jobs originally relied too much on in-memory state and final-save assumptions. There was not enough durable evidence or intermediate persistence.</p></div>
+                <div class="issue-cell"><h5>Resolution</h5><p>Added persisted job records, log files, checkpointed output files after Monte Carlo passes, explicit interrupted states, recovery from latest checkpoint, and UI activity panels.</p></div>
+                <div class="issue-cell"><h5>Why It Matters</h5><p>This is classic systems leadership: design for observability and graceful degradation instead of pretending failures will not happen.</p></div>
+              </div>
+            </article>
+
+            <article class="issue">
+              <h4>6. Statistical Output Was Correct but Not Executive-Friendly</h4>
+              <div class="issue-grid-columns">
+                <div class="issue-cell"><h5>Symptoms</h5><p>Percentile language like p10/p50/p90 was mathematically clear but not intuitive for leaders using the dashboard as a decision-support tool.</p></div>
+                <div class="issue-cell"><h5>Root Cause</h5><p>The system initially optimized for correctness over executive readability.</p></div>
+                <div class="issue-cell"><h5>Resolution</h5><p>Reframed Monte Carlo output into low case, typical case, and high case, added explanatory copy, and turned thresholds into direct business questions.</p></div>
+                <div class="issue-cell"><h5>Why It Matters</h5><p>This shows the ability to translate analytics into decisions, which is often what separates useful tools from clever tools.</p></div>
+              </div>
+            </article>
+
+            <article class="issue">
+              <h4>7. Message Scope and Segment Logic Needed Tight Alignment</h4>
+              <div class="issue-grid-columns">
+                <div class="issue-cell"><h5>Symptoms</h5><p>Some executive summary and watchlist text referenced contractors even when the run was explicitly filtered to employees only.</p></div>
+                <div class="issue-cell"><h5>Root Cause</h5><p>Some summary logic was still reading the broader result shape rather than the filtered result set shown to the user.</p></div>
+                <div class="issue-cell"><h5>Resolution</h5><p>Made segment summaries, watchlists, and narrative generation scope-aware so the executive readout matches the exact filtered population.</p></div>
+                <div class="issue-cell"><h5>Why It Matters</h5><p>It demonstrates attention to trustworthiness. Leadership tools lose credibility quickly if the narrative does not match the data slice being shown.</p></div>
+              </div>
+            </article>
+
+            <article class="issue">
+              <h4>8. Network and Provider Errors Needed Operational Hardening</h4>
+              <div class="issue-grid-columns">
+                <div class="issue-cell"><h5>Symptoms</h5><p>Runs hit connection resets, DNS failures, provider disconnects, and transient transport issues, especially with longer requests and stepped-away sessions.</p></div>
+                <div class="issue-cell"><h5>Root Cause</h5><p>Hosted LLM runs sit on top of real networks, sleep states, VPNs, and provider edges. These errors were not all retried initially.</p></div>
+                <div class="issue-cell"><h5>Resolution</h5><p>Expanded retry logic beyond rate limits to include DNS and connection-reset classes of failure, improved dashboard error translation, and surfaced interruption banners clearly.</p></div>
+                <div class="issue-cell"><h5>Why It Matters</h5><p>This reflects an operator mindset: production-grade behavior requires accounting for network reality, not just application logic.</p></div>
+              </div>
+            </article>
+
+            <article class="issue">
+              <h4>9. The Automation Layer Exposed an Important Integration Boundary</h4>
+              <div class="issue-grid-columns">
+                <div class="issue-cell"><h5>Symptoms</h5><p>Some PDF automation runs appeared in Codex as pending then archived, without generating new files or visible output threads.</p></div>
+                <div class="issue-cell"><h5>Root Cause</h5><p>The automation launcher could fail before a real run thread was created, even though the prompt definition itself was valid.</p></div>
+                <div class="issue-cell"><h5>Resolution</h5><p>Added direct local generator scripts for executive and board briefs and simplified automation prompts to call those scripts deterministically.</p></div>
+                <div class="issue-cell"><h5>Why It Matters</h5><p>This shows a practical bias: when a workflow boundary is unreliable, simplify the contract instead of stacking more cleverness on top of it.</p></div>
+              </div>
+            </article>
+
+            <article class="issue">
+              <h4>10. Repo Hygiene Needed Attention Once the Product Produced Artifacts</h4>
+              <div class="issue-grid-columns">
+                <div class="issue-cell"><h5>Symptoms</h5><p>The first git snapshot risked including outputs, PDFs, PPTX files, logs, caches, and generated artifacts instead of a clean source tree.</p></div>
+                <div class="issue-cell"><h5>Root Cause</h5><p>The project had matured into a system that produces many runtime assets, but ignore rules had not grown with it.</p></div>
+                <div class="issue-cell"><h5>Resolution</h5><p>Expanded ignore rules to exclude outputs, generated reports, caches, local secrets, and temporary review artifacts.</p></div>
+                <div class="issue-cell"><h5>Why It Matters</h5><p>Strong engineering includes stewardship of the development environment and long-term maintainability, not just feature work.</p></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="leadership">
+          <div class="section-header">
+            <div class="section-title">
+              <p class="section-label">Leadership Signals</p>
+              <h3>What This Project Demonstrates Beyond Coding</h3>
+              <p>
+                If this project is used in a portfolio, the strongest story is not simply "I built a dashboard."
+                The stronger story is that I built and iterated on a socio-technical decision-support system with
+                attention to product design, operational resilience, and executive usability.
+              </p>
+            </div>
+          </div>
+
+          <div class="two-col">
+            <div class="narrative-block">
+              <h4>System Thinking</h4>
+              <ul class="signal-list">
+                <li>Modeled the organization as a weighted system rather than a flat average user.</li>
+                <li>Recognized that reliability, cost, state recovery, and reporting are part of the product, not edge features.</li>
+                <li>Designed for retrieval, checkpointing, and auditability instead of just producing outputs.</li>
+                <li>Built a workflow where simulation, interpretation, and executive packaging are part of the same system.</li>
+              </ul>
+            </div>
+
+            <div class="narrative-block">
+              <h4>Leadership Qualities</h4>
+              <ul class="signal-list">
+                <li>Translated ambiguous business problems into a structured product roadmap.</li>
+                <li>Balanced engineering rigor with stakeholder readability and adoption.</li>
+                <li>Handled setbacks by redesigning assumptions rather than patching symptoms.</li>
+                <li>Documented learnings so the work becomes organizational knowledge, not just a one-off project.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="quote" style="margin-top: 16px;">
+            The project demonstrates a pattern I would want to highlight in a portfolio: I can take an ambiguous,
+            cross-functional problem, build the first version quickly, recognize where the original architecture stops
+            being good enough, and then evolve the system into something more resilient, interpretable, and useful.
+          </div>
+        </section>
+
+        <section class="section" id="learnings">
+          <div class="section-header">
+            <div class="section-title">
+              <p class="section-label">Reflection</p>
+              <h3>Key Learnings Worth Calling Out Publicly</h3>
+              <p>
+                This section is especially useful if the eventual portfolio site includes a "What I learned" or
+                "What I would do differently" component. Those reflections often communicate maturity better than
+                feature lists.
+              </p>
+            </div>
+          </div>
+
+          <div class="three-col">
+            <div class="narrative-block">
+              <h4>Reliability Matters as Much as Intelligence</h4>
+              <ul class="learning-list">
+                <li>Good prompts and structured outputs are necessary but not sufficient.</li>
+                <li>Retries, checkpoints, state persistence, and logs are what make AI features dependable in practice.</li>
+              </ul>
+            </div>
+
+            <div class="narrative-block">
+              <h4>Analytics Need Translation</h4>
+              <ul class="learning-list">
+                <li>Mathematically correct output is not automatically decision-ready output.</li>
+                <li>Leaders need framing, thresholds, and scenario narratives, not raw statistical jargon alone.</li>
+              </ul>
+            </div>
+
+            <div class="narrative-block">
+              <h4>Adoption Is a Product Design Problem</h4>
+              <ul class="learning-list">
+                <li>People use tools that match their workflow, not the developer's assumptions.</li>
+                <li>Refresh recovery, saved runs, and report packaging mattered because they supported real behavior.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="footer-note" style="margin-top: 16px;">
+            A clean way to summarize the learning is: <strong>this project taught me how to move from model-centric thinking
+            to system-centric thinking.</strong> The hard part was not just generating reactions; it was building the surrounding
+            product so those reactions could be trusted, revisited, explained, and acted on.
+          </div>
+        </section>
+
+        <section class="section" id="site-build">
+          <div class="section-header">
+            <div class="section-title">
+              <p class="section-label">Portfolio Translation</p>
+              <h3>How to Turn This Into a Strong Portfolio Page</h3>
+              <p>
+                The best public-facing version of this project should not try to reproduce the entire engineering playbook.
+                Instead, it should use the strongest parts of this document as structure, then let screenshots, diagrams,
+                and a few well-written callouts do most of the work.
+              </p>
+            </div>
+          </div>
+
+          <div class="two-col">
+            <div class="narrative-block">
+              <h4>Recommended Site Sections</h4>
+              <ul class="site-list">
+                <li><strong>Hero:</strong> project name, one-sentence problem statement, one short thesis about what makes the project interesting.</li>
+                <li><strong>Snapshot:</strong> stack, scope, personas, outputs, and a concise summary of the final product.</li>
+                <li><strong>Architecture:</strong> one polished diagram and three or four design decisions.</li>
+                <li><strong>Challenges:</strong> a small number of issue-resolution stories that show judgment under real constraints.</li>
+                <li><strong>Learnings:</strong> short reflection on reliability, product design, and leadership thinking.</li>
+                <li><strong>Artifacts:</strong> dashboard screenshots, example report output, and optionally a short GIF of the workflow.</li>
+              </ul>
+            </div>
+
+            <div class="narrative-block">
+              <h4>Recommended Visual Artifacts</h4>
+              <ul class="artifact-list">
+                <li>Dashboard overview with executive summary, Monte Carlo range, and persona explorer.</li>
+                <li>One architecture diagram showing dashboard to API to simulation to outputs.</li>
+                <li>One screenshot of a generated board or executive PDF or PPTX deliverable.</li>
+                <li>A single issue-resolution callout showing how job checkpointing or retry logic improved reliability.</li>
+                <li>Optional: a before-and-after view of the simulator evolving from a script into a full product.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="highlight" style="margin-top: 16px;">
+            <p>
+              For the public version, do not try to say everything. Lead with the business problem, show one strong
+              architecture diagram, highlight two or three real engineering challenges, and end with what the project
+              taught you about building reliable AI-enabled systems.
+            </p>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

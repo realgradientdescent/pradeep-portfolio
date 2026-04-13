@@ -1,0 +1,137 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Engineering Leader. AI Builder. Systems Thinker." } = Astro.props;
+const currentPath = Astro.url.pathname;
+
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/projects", label: "Projects" },
+  { href: "/about", label: "About" },
+  { href: "/ask", label: "Ask Pradeep AI", highlight: true },
+];
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={Astro.url.href} />
+  <title>{title}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body class="min-h-screen flex flex-col">
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 border-b border-border bg-surface-900/80 backdrop-blur-xl">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-2 text-text-primary hover:text-accent-blue transition-colors">
+        <span class="font-mono text-accent-blue text-sm">~/</span>
+        <span class="font-semibold text-lg">pradeep</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <div class="hidden md:flex items-center gap-1">
+        {navLinks.map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
+              link.highlight
+                ? "bg-accent-blue/10 text-accent-blue hover:bg-accent-blue/20 border border-accent-blue/20"
+                : currentPath === link.href
+                  ? "text-text-primary bg-surface-800"
+                  : "text-text-secondary hover:text-text-primary hover:bg-surface-800/60",
+            ]}
+          >
+            {link.highlight && <span class="inline-block w-2 h-2 rounded-full bg-success mr-2 animate-pulse" />}
+            {link.label}
+          </a>
+        ))}
+      </div>
+
+      <!-- Mobile menu button -->
+      <button
+        id="mobile-menu-btn"
+        class="md:hidden p-2 text-text-secondary hover:text-text-primary"
+        aria-label="Toggle menu"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Nav -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-border bg-surface-900/95 backdrop-blur-xl">
+      <div class="px-6 py-4 flex flex-col gap-2">
+        {navLinks.map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              "px-4 py-3 rounded-lg text-sm font-medium transition-colors",
+              link.highlight
+                ? "bg-accent-blue/10 text-accent-blue"
+                : currentPath === link.href
+                  ? "text-text-primary bg-surface-800"
+                  : "text-text-secondary hover:text-text-primary",
+            ]}
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main class="flex-1 pt-16">
+    <slot />
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-border bg-surface-900">
+    <div class="max-w-6xl mx-auto px-6 py-12">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+        <div>
+          <p class="font-mono text-sm text-accent-blue mb-1">~/pradeep</p>
+          <p class="text-text-muted text-sm">Engineering Leader &middot; AI Builder &middot; Systems Thinker</p>
+        </div>
+        <div class="flex items-center gap-6">
+          <a href="https://linkedin.com/in/pradeep" target="_blank" rel="noopener" class="text-text-secondary hover:text-text-primary transition-colors text-sm">
+            LinkedIn
+          </a>
+          <a href="mailto:pradeep@realgradientdescent.tech" class="text-text-secondary hover:text-text-primary transition-colors text-sm">
+            Email
+          </a>
+          <a href="/ask" class="text-accent-blue hover:text-accent-blue-hover transition-colors text-sm font-medium">
+            Ask AI
+          </a>
+        </div>
+      </div>
+      <div class="mt-8 pt-6 border-t border-border">
+        <p class="text-text-muted text-xs text-center">Built by Pradeep &middot; Powered by open-source AI &middot; 2026</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile menu toggle script -->
+  <script>
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    btn?.addEventListener('click', () => {
+      menu?.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

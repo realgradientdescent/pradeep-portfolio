@@ -1,0 +1,320 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import "../../styles/global.css";
+---
+
+<BaseLayout title="Employee Communication Simulator — Pradeep" description="A simulation platform for high-stakes internal communications with weighted personas, Monte Carlo analysis, multi-provider LLM integration, and executive reporting.">
+
+  <article class="py-24">
+    <div class="max-w-3xl mx-auto px-6">
+
+      <!-- Breadcrumb -->
+      <nav class="mb-8">
+        <a href="/projects" class="font-mono text-sm text-text-muted hover:text-accent-blue transition-colors">
+          &larr; back to projects
+        </a>
+      </nav>
+
+      <!-- Header -->
+      <header class="mb-12">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="inline-flex items-center gap-1.5 text-xs font-mono text-success">
+            <span class="w-1.5 h-1.5 rounded-full bg-success" />
+            live
+          </span>
+          <span class="text-xs font-mono text-text-muted">Decision-Support Systems</span>
+        </div>
+
+        <h1 class="text-3xl md:text-4xl font-bold text-text-primary mb-4 leading-tight">
+          Employee Communication Simulator
+        </h1>
+
+        <p class="text-lg text-text-secondary leading-relaxed">
+          A simulation platform for testing how high-stakes leadership messages land across a
+          diverse organization — with weighted persona modeling, Monte Carlo scenario analysis,
+          multi-provider LLM integration, and executive-ready reporting in PDF and PowerPoint.
+        </p>
+
+        <div class="flex flex-wrap gap-2 mt-6">
+          {["Python", "React 19", "Multi-LLM", "Monte Carlo", "Executive Reporting", "Simulation Engine", "Decision Support"].map((tag) => (
+            <span class="px-2.5 py-1 text-xs font-mono rounded-md bg-surface-800 text-text-muted border border-border">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </header>
+
+      <!-- Thesis callout -->
+      <div class="p-5 rounded-xl bg-surface-800/50 border-l-2 border-accent-blue mb-12">
+        <p class="text-text-secondary text-sm leading-relaxed italic">
+          "Decision-support systems are not just about modeling the right answer. They are about
+          reliability, recoverability, interpretability, and packaging the output in a form leaders
+          can actually use."
+        </p>
+      </div>
+
+      <!-- Content -->
+      <div class="space-y-12">
+
+        <!-- Problem -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">01</span>
+            The Problem
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              Leadership communications often fail not because the message is empty, but because
+              different audiences infer different intent, fairness, and personal risk from the
+              same text. A message that sounds reassuring to a senior leader might feel threatening
+              to a mid-level contractor in a different geography.
+            </p>
+            <p>
+              I wanted to build a tool that could simulate those differences before a message was
+              sent, then turn the output into something that managers and executives could act on —
+              not just raw data, but framed analysis with clear scenario ranges.
+            </p>
+          </div>
+        </section>
+
+        <!-- Snapshot -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">02</span>
+            What I Built
+          </h2>
+
+          <!-- KPIs -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+            <div class="p-4 rounded-lg bg-surface-800/50 border border-border text-center">
+              <p class="font-mono text-accent-blue text-2xl font-bold">60</p>
+              <p class="text-text-muted text-xs mt-1">Weighted Personas</p>
+            </div>
+            <div class="p-4 rounded-lg bg-surface-800/50 border border-border text-center">
+              <p class="font-mono text-accent-blue text-2xl font-bold">450</p>
+              <p class="text-text-muted text-xs mt-1">Represented Org</p>
+            </div>
+            <div class="p-4 rounded-lg bg-surface-800/50 border border-border text-center">
+              <p class="font-mono text-accent-blue text-2xl font-bold">3</p>
+              <p class="text-text-muted text-xs mt-1">Simulation Modes</p>
+            </div>
+            <div class="p-4 rounded-lg bg-surface-800/50 border border-border text-center">
+              <p class="font-mono text-accent-blue text-2xl font-bold">4</p>
+              <p class="text-text-muted text-xs mt-1">Output Surfaces</p>
+            </div>
+          </div>
+
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              What started as a lightweight script for testing employee reactions evolved into a
+              multi-component product: a weighted simulation engine, a multi-provider LLM layer,
+              a Monte Carlo scenario model, a React dashboard, durable async job orchestration,
+              saved-run retrieval, and automated executive reporting in PDF and PPTX formats.
+            </p>
+            <p>
+              The system models 60 weighted personas representing a 450-person IT organization —
+              spanning employees vs. contractors, US vs. India, leaders vs. ICs, and principal
+              architects. Three simulation modes (heuristic, LLM-backed, Monte Carlo) give
+              different tradeoffs between speed, cost, and depth.
+            </p>
+          </div>
+        </section>
+
+        <!-- Stack -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">03</span>
+            Architecture & Stack
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              The stack was deliberately lightweight where possible and specialized only where the
+              problem demanded it. The system relies heavily on plain Python with filesystem-based
+              persistence, React for the interactive surface, and a provider abstraction layer
+              across four LLM backends.
+            </p>
+          </div>
+
+          <!-- Architecture flow -->
+          <div class="mt-6 p-5 rounded-xl bg-surface-800/30 border border-border font-mono text-xs text-text-muted leading-relaxed">
+            <p class="text-accent-blue mb-3 text-sm">System Flow</p>
+            <pre class="whitespace-pre-wrap">React Dashboard → Python API Server → Background Job Layer
+    ↓                                         ↓
+Run setup, filters,              Queued → Running → Checkpointed
+persona explorer,                              ↓
+Monte Carlo views                     Simulation Engine
+                                 (weighted scoring, Monte Carlo)
+                                              ↓
+                                 LLM Transport (Groq, DeepSeek,
+                                 OpenAI, Ollama) or Heuristic Mode
+                                              ↓
+                                      Saved Artifacts
+                                 (JSON, MD, PDF, PPTX reports)</pre>
+          </div>
+
+          <!-- Stack table -->
+          <div class="mt-6 space-y-3">
+            {[
+              { layer: "Backend", tech: "Python standard library HTTP server + threads — APIs, async jobs, static serving, run retrieval" },
+              { layer: "Frontend", tech: "React 19 + Vite 8 — run setup, polling, visual summaries, Monte Carlo exploration, persona browser" },
+              { layer: "Simulation", tech: "Weighted persona modeling — heuristic scoring, stochastic adjustments, Monte Carlo ranges, checkpointed outputs" },
+              { layer: "AI Layer", tech: "Groq, DeepSeek, OpenAI, Ollama — shared transport with retries, schema validation, usage/cost accounting" },
+              { layer: "Persistence", tech: "Filesystem-first — JSON/MD run outputs, job state and logs, selector JSONs, local provider config" },
+              { layer: "Reporting", tech: "Python → Markdown/HTML, headless PDF rendering, PptxGenJS for editable slide decks" },
+            ].map((row) => (
+              <div class="flex gap-4 p-3 rounded-lg bg-surface-800/30 border border-border/50">
+                <span class="font-mono text-accent-blue text-xs w-24 flex-shrink-0 pt-0.5">{row.layer}</span>
+                <span class="text-text-secondary text-sm">{row.tech}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <!-- Key Design Decisions -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">04</span>
+            Key Design Decisions
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              <strong class="text-text-primary">Weighted personas over flat personas.</strong> Expanded from 15 generic archetypes to 60 weighted personas representing real organizational proportions. This made summary metrics represent a simulated org rather than disconnected characters — critical for executive trust.
+            </p>
+            <p>
+              <strong class="text-text-primary">Kept heuristic mode alongside LLMs.</strong> Not every run needs hosted inference. Preserving a fast, low-cost simulation path made the tool practical for iterative message drafting, with LLM mode available when depth mattered more than speed.
+            </p>
+            <p>
+              <strong class="text-text-primary">Saved outputs as first-class product objects.</strong> Run listing, retrieval, and reloading were built into the experience — not treated as throwaway files. This enabled executive reporting to operate off saved runs and made the tool credible as a decision-support system.
+            </p>
+            <p>
+              <strong class="text-text-primary">Durable job lifecycle over request-response.</strong> The most consequential shift was moving from "one request, one response" to long-running jobs with persistent state, checkpoints, and explicit failure modes. Once Monte Carlo runs, LLM calls, and background tasks entered the picture, durability became a product requirement.
+            </p>
+          </div>
+        </section>
+
+        <!-- Challenges (selected highlights) -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">05</span>
+            Challenges & Resolutions
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4 mb-6">
+            <p>
+              The project surfaced 10 significant engineering challenges. Here are the ones that
+              best demonstrate systems thinking and product judgment:
+            </p>
+          </div>
+
+          <div class="space-y-4">
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-medium text-text-primary text-sm mb-2">LLM runs exposed operational reality</h3>
+              <p class="text-text-secondary text-sm leading-relaxed">
+                At scale, the system moved from ideal prompt paths into provider-specific behavior:
+                rate limits (Groq 429s), schema drift, inconsistent output fidelity. Resolution: backoff
+                logic, transport retries, persona caps for validation, narrower schemas, and lighter
+                default models. This demonstrates that AI systems succeed through operational discipline,
+                not prompts alone.
+              </p>
+            </div>
+
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-medium text-text-primary text-sm mb-2">Dashboard lost state on refresh</h3>
+              <p class="text-text-secondary text-sm leading-relaxed">
+                The frontend initially treated the dashboard as a page, not a stateful task workspace.
+                Resolution: persisted form state, active job IDs, and request snapshots with reconnect
+                behavior after refresh. This shows product empathy — the implementation changed to fit
+                the user's actual workflow, not the developer's happy path.
+              </p>
+            </div>
+
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-medium text-text-primary text-sm mb-2">Statistical output wasn't executive-friendly</h3>
+              <p class="text-text-secondary text-sm leading-relaxed">
+                Percentile language (p10/p50/p90) was mathematically correct but not intuitive for leaders.
+                Resolution: reframed into "low case / typical case / high case," added explanatory copy,
+                and turned thresholds into direct business questions. This separates useful tools from
+                clever tools.
+              </p>
+            </div>
+
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-medium text-text-primary text-sm mb-2">Long-running jobs needed durable infrastructure</h3>
+              <p class="text-text-secondary text-sm leading-relaxed">
+                Runs could fail after stepping away, return with no results, or disappear without diagnostic
+                evidence. Resolution: persisted job records, log files, checkpointed outputs after Monte Carlo
+                passes, explicit interrupted states, and recovery from latest checkpoint. Classic systems
+                leadership — design for observability and graceful degradation.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Learnings -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">06</span>
+            What I Learned
+          </h2>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 my-6">
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">Reliability matters as much as intelligence</h3>
+              <p class="text-sm text-text-secondary">Good prompts and structured outputs are necessary but not sufficient. Retries, checkpoints, state persistence, and logs are what make AI features dependable.</p>
+            </div>
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">Analytics need translation</h3>
+              <p class="text-sm text-text-secondary">Mathematically correct output isn't automatically decision-ready. Leaders need framing, thresholds, and scenario narratives — not raw statistical jargon.</p>
+            </div>
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">Adoption is a product design problem</h3>
+              <p class="text-sm text-text-secondary">People use tools that match their workflow. Refresh recovery, saved runs, and report packaging mattered because they supported real behavior.</p>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-xl bg-surface-800/50 border-l-2 border-accent-blue">
+            <p class="text-text-primary text-sm font-medium italic">
+              "This project taught me how to move from model-centric thinking to system-centric thinking.
+              The hard part was not generating reactions — it was building the surrounding product so those
+              reactions could be trusted, revisited, explained, and acted on."
+            </p>
+          </div>
+        </section>
+
+        <!-- Why It Matters -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">07</span>
+            Why This Matters
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              This project demonstrates the ability to take an ambiguous, cross-functional problem,
+              build the first version quickly, recognize when the original architecture stops being
+              good enough, and evolve the system into something more resilient, interpretable, and
+              useful — all as a solo end-to-end build spanning backend, frontend, AI integration,
+              simulation design, and executive reporting.
+            </p>
+            <p>
+              It shows systems thinking, product design under real constraints, operational hardening
+              of AI features, and the ability to translate analytics into decisions that leaders can
+              act on.
+            </p>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Navigation -->
+      <div class="mt-16 pt-8 border-t border-border flex justify-between items-center">
+        <a href="/projects/multi-agent-openclaw" class="text-text-secondary hover:text-accent-blue transition-colors text-sm">
+          &larr; Multi-Agent OpenClaw
+        </a>
+        <a href="/ask" class="text-accent-blue hover:text-accent-blue-hover transition-colors text-sm font-medium">
+          Ask about this project &rarr;
+        </a>
+      </div>
+
+    </div>
+  </article>
+
+</BaseLayout>

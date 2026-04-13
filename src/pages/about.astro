@@ -1,0 +1,132 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import "../styles/global.css";
+---
+
+<BaseLayout title="About — Pradeep" description="Engineering leader with a hands-on AI building practice. Currently targeting AI enablement leadership roles.">
+
+  <section class="py-24">
+    <div class="max-w-3xl mx-auto px-6">
+
+      <p class="font-mono text-accent-blue text-sm mb-3">~/about</p>
+      <h1 class="text-4xl font-bold text-text-primary mb-8">About Pradeep</h1>
+
+      <!-- Professional Summary -->
+      <div class="space-y-6 text-text-secondary leading-relaxed mb-16">
+        <p class="text-lg">
+          I'm a Software Engineering Director with a deep interest in how AI changes the way
+          teams build software and the way organizations operate. I don't just follow AI from
+          a strategy deck — I build with it, hands-on.
+        </p>
+        <p>
+          My current work sits at the intersection of engineering leadership and practical AI systems.
+          I've led teams through complex product builds, and on my own time I design multi-agent
+          architectures, experiment with memory and orchestration patterns, and build tools that
+          push my understanding of what's possible with AI right now.
+        </p>
+        <p>
+          I'm looking for my next role in AI enablement leadership — somewhere I can help engineering
+          teams become genuinely more effective with AI, not just bolting it onto existing workflows.
+        </p>
+      </div>
+
+      <!-- Strengths -->
+      <div class="mb-16">
+        <h2 class="text-xl font-semibold text-text-primary mb-6 flex items-center gap-2">
+          <span class="font-mono text-accent-blue text-sm">01</span>
+          Strengths
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {[
+            { title: "AI-to-production translation", desc: "Turning AI capabilities into engineering practices that teams can actually adopt." },
+            { title: "Systems & workflow design", desc: "Thinking in terms of agents, memory, routing, and how systems behave over time." },
+            { title: "Product-minded leadership", desc: "Balancing what's technically interesting with what's worth building for real users." },
+            { title: "Cross-functional communication", desc: "Bridging the gap between technical depth and business understanding." },
+            { title: "Hands-on prototyping", desc: "Building working systems, not just directing. Close to the craft." },
+            { title: "Team development", desc: "Growing engineers who think in systems and ship with confidence." },
+          ].map((s) => (
+            <div class="p-4 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-medium text-text-primary text-sm mb-1">{s.title}</h3>
+              <p class="text-text-secondary text-sm">{s.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Working Style -->
+      <div class="mb-16">
+        <h2 class="text-xl font-semibold text-text-primary mb-6 flex items-center gap-2">
+          <span class="font-mono text-accent-blue text-sm">02</span>
+          How I Work
+        </h2>
+        <div class="space-y-4 text-text-secondary leading-relaxed">
+          <p>
+            I lead by building context and trust, not by prescription. I want to understand the
+            problem deeply before committing to a direction, and I want my teams to have the same
+            understanding. I prefer structured clarity over rigid process — clear ownership, explicit
+            decisions, and room for people to do their best work.
+          </p>
+          <p>
+            I'm opinionated about quality but pragmatic about shipping. I believe the best teams
+            iterate fast with a clear sense of direction, and I try to create that environment
+            whether I'm leading a team or building something solo.
+          </p>
+        </div>
+      </div>
+
+      <!-- What I'm Looking For -->
+      <div class="mb-16">
+        <h2 class="text-xl font-semibold text-text-primary mb-6 flex items-center gap-2">
+          <span class="font-mono text-accent-blue text-sm">03</span>
+          What I'm Looking For
+        </h2>
+        <div class="space-y-4 text-text-secondary leading-relaxed">
+          <p>
+            I'm targeting roles at the intersection of engineering leadership and AI enablement —
+            VP/Director of Engineering with an AI focus, Head of AI Platform, or similar positions
+            where I can shape how engineering teams build with AI at a strategic and tactical level.
+          </p>
+          <p>
+            I'm most excited by organizations that see AI as a capability to be woven into engineering
+            practice, not just a product feature to ship. I want to work somewhere the question is
+            "how do we make our entire engineering org better with AI?" rather than "can we add a
+            chatbot to the product?"
+          </p>
+        </div>
+      </div>
+
+      <!-- Background placeholder -->
+      <div class="mb-16">
+        <h2 class="text-xl font-semibold text-text-primary mb-6 flex items-center gap-2">
+          <span class="font-mono text-accent-blue text-sm">04</span>
+          Background
+        </h2>
+        <div class="p-6 rounded-xl bg-surface-800/30 border border-border/60">
+          <p class="text-text-muted text-sm italic">
+            Detailed career history will be populated from LinkedIn export. Resume available for download below.
+          </p>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="pt-8 border-t border-border flex flex-wrap gap-4">
+        <a
+          href="/ask"
+          class="px-6 py-3 bg-accent-blue hover:bg-accent-blue-hover text-white font-medium rounded-lg transition-colors"
+        >
+          Ask about my background
+        </a>
+        <a
+          href="https://linkedin.com/in/pradeep"
+          target="_blank"
+          rel="noopener"
+          class="px-6 py-3 bg-surface-800 hover:bg-surface-700 text-text-primary font-medium rounded-lg border border-border transition-colors"
+        >
+          LinkedIn
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+</BaseLayout>

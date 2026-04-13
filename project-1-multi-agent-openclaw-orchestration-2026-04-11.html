@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project 1 — Multi-Agent OpenClaw Setup and Orchestration</title>
+  <style>
+    body { margin: 0; padding: 0; background: #f4f7fb; color: #1f2937; font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif; }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 32px 20px 64px; }
+    .card { background: #fff; border-radius: 18px; padding: 40px; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08); }
+    h1, h2, h3 { color: #0f172a; line-height: 1.25; margin: 0 0 14px; }
+    h1 { font-size: 34px; }
+    h2 { font-size: 24px; margin-top: 34px; padding-top: 10px; border-top: 1px solid #e5e7eb; }
+    h3 { font-size: 18px; margin-top: 20px; }
+    p { margin: 0 0 14px; }
+    ul { margin: 0 0 16px 22px; padding: 0; }
+    li { margin: 6px 0; }
+    .eyebrow { display: inline-block; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #2563eb; font-weight: 700; margin-bottom: 10px; }
+    .lede { font-size: 18px; color: #334155; }
+    .callout { background: #eff6ff; border: 1px solid #bfdbfe; padding: 16px 18px; border-radius: 14px; margin: 18px 0; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin: 16px 0 20px; }
+    .box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 16px; }
+    .footer { font-size: 13px; color: #64748b; margin-top: 26px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="eyebrow">Portfolio Project Draft</div>
+      <h1>Project 1: Multi-Agent OpenClaw Setup and Orchestration</h1>
+      <p class="lede">Designing a role-based multi-agent personal operating system in OpenClaw.</p>
+
+      <div class="callout">
+        <strong>One-line summary:</strong> I designed and operationalized a multi-agent assistant system in OpenClaw where specialized agents handled coding, research, communications, and memory curation, while a master orchestrator coordinated work, preserved context, and enforced workflow boundaries.
+      </div>
+
+      <h2>What the project was</h2>
+      <p>This project started from a simple but important problem: a single assistant can do many things, but once work becomes varied, ongoing, and cross-functional, it becomes messy to manage through one undifferentiated agent.</p>
+      <p>So instead of treating the assistant like one general blob, I structured it into a team of specialized agents:</p>
+      <ul>
+        <li><strong>Jeeves</strong> as the orchestrator</li>
+        <li><strong>Ada</strong> for coding and technical work</li>
+        <li><strong>Hermes</strong> for research, operations, and communications</li>
+        <li><strong>Scribe</strong> for summaries, organization, and memory curation</li>
+      </ul>
+      <p>The goal was not just to create personas. It was to create a system where delegation, role boundaries, context recovery, and long-term continuity were all intentional parts of the design.</p>
+
+      <h2>Problem</h2>
+      <p>A monolithic assistant setup creates a few recurring issues:</p>
+      <ul>
+        <li>role confusion, where the same agent tries to do research, coding, messaging, and organization all at once</li>
+        <li>weak continuity, where context gets lost between sessions</li>
+        <li>poor specialization, where every task is handled in the same generic style</li>
+        <li>hard-to-audit work, where it is unclear who did what and why</li>
+        <li>brittle delegation, where cross-agent work can drift or disappear without durable state</li>
+      </ul>
+      <p>In practice, this meant that even when the system was capable, it was not yet behaving like a reliable operating model.</p>
+
+      <h2>What I wanted to achieve</h2>
+      <p>I wanted the system to feel less like chatting with one smart bot and more like a small, well-run staff:</p>
+      <ul>
+        <li>one agent coordinates</li>
+        <li>specialists do focused work</li>
+        <li>important state survives resets and handoffs</li>
+        <li>memory is shared where it should be shared</li>
+        <li>external actions stay bounded and deliberate</li>
+        <li>the user does not have to keep repeating preferences or role assignments</li>
+      </ul>
+
+      <h2>What I built</h2>
+      <p>I turned the setup into a role-based multi-agent architecture with explicit workflow rules.</p>
+
+      <h3>Agent roles</h3>
+      <ul>
+        <li><strong>Jeeves</strong> owns orchestration, synthesis, delegation, and overall system integrity</li>
+        <li><strong>Ada</strong> owns coding, implementation, debugging, and technical operations</li>
+        <li><strong>Hermes</strong> owns research, communications workflows, and operational follow-through</li>
+        <li><strong>Scribe</strong> owns summaries, memory curation, documentation quality, and cleanup</li>
+      </ul>
+      <p>This was not left implicit. The routing policy was made official so the system would treat it as durable operating truth rather than a soft preference.</p>
+
+      <h3>Delegation and ownership model</h3>
+      <ul>
+        <li>Jeeves decides how work is routed</li>
+        <li>specialists execute within bounded roles</li>
+        <li>sensitive, destructive, or external actions remain gated</li>
+        <li>cross-agent work gets durable handoff state instead of relying on conversation alone</li>
+      </ul>
+      <p>This created a clearer division between can do and should do.</p>
+
+      <h3>Shared-state structure</h3>
+      <p>I used the shared workspace as the system’s durable memory layer:</p>
+      <ul>
+        <li>daily logs</li>
+        <li>reminder ledger</li>
+        <li>structured project memory</li>
+        <li>handoff files</li>
+        <li>preference notes</li>
+        <li>project-specific notes</li>
+      </ul>
+      <p>This made the agents less dependent on fragile session memory and more dependent on explicit, recoverable artifacts.</p>
+
+      <h3>Handoff discipline</h3>
+      <p>For non-trivial cross-agent tasks, baton files were introduced so work could survive resets and role changes. That made delegation auditable and reduced the chance of work quietly disappearing between specialists.</p>
+
+      <h2>Technical and system details</h2>
+      <h3>1. Routing policy became explicit</h3>
+      <p>A common failure mode in agent systems is that role definitions exist in theory but not in behavior. To fix that, the routing model was documented and normalized so the system consistently treated research and ops as Hermes work, coding as Ada work, curation as Scribe work, and orchestration as Jeeves work.</p>
+
+      <h3>2. Durable memory replaced vague continuity</h3>
+      <p>Instead of assuming the system would remember, I leaned on file-backed continuity:</p>
+      <ul>
+        <li>reminders written to a canonical ledger</li>
+        <li>project notes stored in recoverable locations</li>
+        <li>policy decisions written into durable memory</li>
+        <li>baton files used for cross-session delegated work</li>
+      </ul>
+      <p>This turned continuity from an illusion into infrastructure.</p>
+
+      <h3>3. Shared vs local artifact boundaries were clarified</h3>
+      <p>One major insight was that shared canonical artifacts should live in the shared workspace, but specialists also need startup-visible pointers or doctrine that makes those resources discoverable from their own context. Without that, good memory can exist and still be practically invisible.</p>
+
+      <h3>4. Bounded autonomy was enforced</h3>
+      <p>Specialists were allowed to analyze, draft, stage, verify, and recommend, but not silently cross external or risky boundaries just because they technically could. That matters a lot in a real assistant system.</p>
+
+      <h2>Challenges</h2>
+      <h3>Challenge 1: Specialists were not reliably retrieving the right policy</h3>
+      <p>Even with memory written down, the specialists sometimes answered from stale role priors or old identity assumptions instead of the current official rules.</p>
+
+      <h3>Challenge 2: Startup doctrine mattered more than expected</h3>
+      <p>The issue was not only memory exists or not. It was whether the right files were visible and loaded early enough for each specialist. Missing local startup doctrine and conflicting role definitions created retrieval drift.</p>
+
+      <h3>Challenge 3: Shared artifacts were not enough by themselves</h3>
+      <p>A canonical file in a shared workspace does not help much if specialists do not have an explicit discovery path to it.</p>
+
+      <h3>Challenge 4: Session state could mask fixes</h3>
+      <p>After repairs, live sessions could still behave as if old rules were in force, which made validation tricky. Fresh-session testing turned out to be necessary after doctrine changes.</p>
+
+      <h2>Learnings</h2>
+      <div class="grid">
+        <div class="box">
+          <h3>1. Systems fail at the seams</h3>
+          <p>The hard part is often not raw capability. It is routing, startup visibility, artifact discoverability, handoff discipline, and persistence across sessions.</p>
+        </div>
+        <div class="box">
+          <h3>2. Memory must be retrievable</h3>
+          <p>A system can have the correct information on disk and still fail if the retrieval path is weak or inconsistent.</p>
+        </div>
+        <div class="box">
+          <h3>3. Role design needs enforcement</h3>
+          <p>Specialist roles are not real until they are encoded in doctrine, discoverable at startup, reinforced by workflow, and tested against real tasks.</p>
+        </div>
+        <div class="box">
+          <h3>4. Durable files beat implied memory</h3>
+          <p>The more I treated reminders, policies, and handoffs as explicit artifacts, the more reliable the whole system became.</p>
+        </div>
+      </div>
+      <p>Good orchestration turned out to be a product decision, not just prompt tuning. It involved deciding who does what, what should persist, what should escalate, what should be recoverable, and what the user should never need to repeat.</p>
+
+      <h2>Why this project matters</h2>
+      <p>This project is important because it shows I was not just using an AI tool casually. I was designing an operating model for AI agents.</p>
+      <p>It demonstrates:</p>
+      <ul>
+        <li>systems thinking</li>
+        <li>workflow design</li>
+        <li>role architecture</li>
+        <li>memory-aware product design</li>
+        <li>practical understanding of agent limitations</li>
+        <li>the ability to improve reliability through structure, not just model choice</li>
+      </ul>
+
+      <h2>What this project says about me</h2>
+      <p>This project suggests that I think beyond single-turn AI interactions, care about reliability rather than novelty, understand that agent systems need governance and memory design, and can turn messy multi-role AI behavior into something more intentional and usable.</p>
+
+      <h2>Good portfolio positioning</h2>
+      <p><strong>Built a role-based multi-agent assistant system in OpenClaw, with explicit orchestration, specialist routing, durable memory, and handoff workflows that made long-running AI work more reliable across sessions.</strong></p>
+
+      <h2>Strong optional closing line</h2>
+      <p><strong>This project taught me that the real challenge in agent systems is rarely just intelligence, it is coordination, continuity, and controlled behavior over time.</strong></p>
+
+      <p class="footer">Prepared for Pradeep, April 11, 2026.</p>
+    </div>
+  </div>
+</body>
+</html>

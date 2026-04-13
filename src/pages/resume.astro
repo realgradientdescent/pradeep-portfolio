@@ -1,0 +1,42 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import "../styles/global.css";
+---
+
+<BaseLayout title="Resume — Pradeep" description="Pradeep's professional resume and career summary.">
+
+  <section class="py-24">
+    <div class="max-w-3xl mx-auto px-6">
+
+      <p class="font-mono text-accent-blue text-sm mb-3">~/resume</p>
+      <h1 class="text-4xl font-bold text-text-primary mb-4">Resume</h1>
+      <p class="text-text-secondary text-lg mb-8">
+        Structured overview of my professional background. For deeper questions, <a href="/ask" class="text-accent-blue hover:text-accent-blue-hover">ask my copilot</a>.
+      </p>
+
+      <!-- Placeholder until LinkedIn data arrives -->
+      <div class="p-8 rounded-xl bg-surface-800/30 border border-border/60 text-center">
+        <p class="text-text-muted mb-4">Resume content will be populated from LinkedIn data export.</p>
+        <p class="text-text-muted text-sm mb-6">Check back soon or reach out directly.</p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a
+            href="https://linkedin.com/in/pradeep"
+            target="_blank"
+            rel="noopener"
+            class="px-6 py-3 bg-surface-800 hover:bg-surface-700 text-text-primary font-medium rounded-lg border border-border transition-colors"
+          >
+            View LinkedIn
+          </a>
+          <a
+            href="mailto:pradeep@realgradientdescent.tech"
+            class="px-6 py-3 bg-accent-blue hover:bg-accent-blue-hover text-white font-medium rounded-lg transition-colors"
+          >
+            Get in touch
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</BaseLayout>

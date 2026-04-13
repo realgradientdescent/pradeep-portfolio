@@ -1,0 +1,29 @@
+services:
+  portfolio:
+    build: .
+    container_name: pradeep-portfolio
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - HOST=0.0.0.0
+      - PORT=4321
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      # HTTP → HTTPS redirect
+      - "traefik.http.routers.portfolio-http.rule=Host(`realgradientdescent.tech`)"
+      - "traefik.http.routers.portfolio-http.entrypoints=web"
+      - "traefik.http.routers.portfolio-http.middlewares=redirect-to-https"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      # HTTPS
+      - "traefik.http.routers.portfolio.rule=Host(`realgradientdescent.tech`)"
+      - "traefik.http.routers.portfolio.entrypoints=websecure"
+      - "traefik.http.routers.portfolio.tls=true"
+      - "traefik.http.routers.portfolio.tls.certresolver=letsencrypt"
+      - "traefik.http.services.portfolio.loadbalancer.server.port=4321"
+
+networks:
+  web:
+    external: true    # Your existing Traefik network
