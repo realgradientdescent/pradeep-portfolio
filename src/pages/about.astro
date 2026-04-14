@@ -9,7 +9,21 @@ import "../styles/global.css";
     <div class="max-w-3xl mx-auto px-6">
 
       <p class="font-mono text-accent-blue text-sm mb-3">~/about</p>
-      <h1 class="text-4xl font-bold text-text-primary mb-8">About Pradeep</h1>
+
+      <div class="flex flex-col sm:flex-row sm:items-center gap-6 mb-10">
+        <img
+          src="/profile-headshot.png"
+          alt="Pradeep Kolakkampadath"
+          class="w-28 h-28 rounded-full object-cover border border-border shadow-lg"
+          width="112"
+          height="112"
+          loading="eager"
+        />
+        <div>
+          <h1 class="text-4xl font-bold text-text-primary mb-1">About Pradeep</h1>
+          <p class="text-text-muted text-sm">Director of Software Engineering · Greater St. Louis</p>
+        </div>
+      </div>
 
       <!-- Professional Summary -->
       <div class="space-y-6 text-text-secondary leading-relaxed mb-16">
@@ -95,16 +109,43 @@ import "../styles/global.css";
         </div>
       </div>
 
-      <!-- Background placeholder -->
+      <!-- Background -->
       <div class="mb-16">
         <h2 class="text-xl font-semibold text-text-primary mb-6 flex items-center gap-2">
           <span class="font-mono text-accent-blue text-sm">04</span>
           Background
         </h2>
-        <div class="p-6 rounded-xl bg-surface-800/30 border border-border/60">
-          <p class="text-text-muted text-sm italic">
-            Detailed career history will be populated from LinkedIn export. Resume available for download below.
+        <div class="space-y-4 text-text-secondary leading-relaxed">
+          <p>
+            I've spent 20+ years in enterprise software delivery, moving from hands-on engineering
+            into program and delivery leadership and now into platform-scale engineering enablement.
+            Today I run an engineering enablement organization at Evernorth Health Services covering
+            stability and resilience engineering, performance testing as an enterprise platform,
+            test engineering and test data platforms, and delivery planning.
           </p>
+          <p>
+            Along the way I've led teams through large healthcare IT programs, modernized mainframe
+            delivery with CI/CD patterns, partnered with security on enterprise remediation posture,
+            and pushed AI from experimentation into governed, repeatable engineering workflows. The
+            through line is turning capabilities into products teams actually use.
+          </p>
+          <p>
+            In parallel I build AI systems hands-on — multi-agent architectures, memory and routing
+            design, durable state, and the operational patterns that make AI useful rather than
+            impressive. The building directly informs the leadership perspective: AI enablement that
+            works on Tuesday morning, not just in a demo.
+          </p>
+        </div>
+        <div class="mt-6">
+          <a
+            href="/resume"
+            class="inline-flex items-center gap-2 text-accent-blue hover:text-accent-blue-hover text-sm font-medium"
+          >
+            Full resume and experience timeline
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
         </div>
       </div>
 
@@ -117,7 +158,7 @@ import "../styles/global.css";
           Ask about my background
         </a>
         <a
-          href="https://linkedin.com/in/pradeep"
+          href="https://www.linkedin.com/in/valsa-kolakkampadath/"
           target="_blank"
           rel="noopener"
           class="px-6 py-3 bg-surface-800 hover:bg-surface-700 text-text-primary font-medium rounded-lg border border-border transition-colors"

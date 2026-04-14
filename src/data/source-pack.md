@@ -138,6 +138,24 @@ Key learnings:
 
 Why it matters: Demonstrates full-stack product building, AI operational hardening, multi-provider integration, and translating analytics into executive decisions. Solo end-to-end build spanning backend, frontend, AI integration, simulation design, and executive reporting.
 
+### Project 3: Durable Memory for AI Agents
+
+One-line: Designed a structured memory and reminder durability layer for an OpenClaw-based multi-agent system so important follow-ups, decisions, and delegated work would survive resets, role handoffs, and time gaps.
+
+Problem: Most AI assistants rely too heavily on transient context — the active window, session history, loose notes, and agent-local scratch files. When a session resets, an agent hands off, or a follow-up happens hours later, the system starts dropping state or acting like nothing is on file. Conversational continuity is not the same thing as durable memory.
+
+What was built: A reliability engineering layer including a canonical reminder ledger, structured separation between daily logs, reminders, project memory, and long-term memory, retrieval-before-action rules, handoff files for delegated tasks, shared workspace discipline to keep agent-local scratch notes from becoming hidden source-of-truth state, lightweight file locking for concurrent writes, and cleanup rules to keep the system recoverable without becoming noisy.
+
+Core design idea: If the system needs to remember something later, it must write it to the right place immediately. Memory is a systems reliability problem, not a vague model capability.
+
+Key learnings:
+- The hard part isn't storage; it's defining operational boundaries between temporary context, durable operational memory, curated long-term memory, agent-local thinking, and shared source-of-truth state.
+- Retrieval must be required, not optional. Agents have to check recoverable memory before acting on tasks that depend on prior state.
+- Cross-agent handoffs need durable artifacts. Conversation alone is not a reliable medium for delegation.
+- A noisy memory system is one people stop trusting, so operational hygiene is part of the design.
+
+Why it matters: Distinct from Project 1 (which is about orchestration and role design) — this project is about persistence and recoverability. Demonstrates reliability-first thinking, systems design under real failure modes, governance and source-of-truth discipline, and the ability to turn messy AI behavior into a structured, dependable operating system.
+
 ---
 
 ## Certifications & Education
@@ -171,7 +189,7 @@ Most candidates at his level either lead teams **or** build hands-on. Pradeep do
 ## Contact
 
 - Website: https://realgradientdescent.tech
-- LinkedIn: (verified profile available on request)
+- LinkedIn: https://www.linkedin.com/in/valsa-kolakkampadath/
 - Email: pradeep@realgradientdescent.tech
 
 ---

@@ -1,0 +1,248 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import "../../styles/global.css";
+---
+
+<BaseLayout title="Durable Memory for AI Agents — Pradeep" description="A reliability engineering case study on making long-running AI systems recoverable, auditable, and less dependent on fragile conversational context.">
+
+  <article class="py-24">
+    <div class="max-w-3xl mx-auto px-6">
+
+      <!-- Breadcrumb -->
+      <nav class="mb-8">
+        <a href="/projects" class="font-mono text-sm text-text-muted hover:text-accent-blue transition-colors">
+          &larr; back to projects
+        </a>
+      </nav>
+
+      <!-- Header -->
+      <header class="mb-12">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="inline-flex items-center gap-1.5 text-xs font-mono text-success">
+            <span class="w-1.5 h-1.5 rounded-full bg-success" />
+            live
+          </span>
+          <span class="text-xs font-mono text-text-muted">AI Reliability</span>
+        </div>
+
+        <h1 class="text-3xl md:text-4xl font-bold text-text-primary mb-4 leading-tight">
+          Durable Memory for AI Agents
+        </h1>
+
+        <p class="text-lg text-text-secondary leading-relaxed">
+          A reliability engineering case study on designing a structured memory and reminder durability
+          layer for a multi-agent AI operating system — so important follow-ups, decisions, and
+          delegated work would survive resets, role handoffs, and time gaps.
+        </p>
+
+        <div class="flex flex-wrap gap-2 mt-6">
+          {["Reliability", "Memory Design", "Agent Systems", "Durable State", "Operational Hygiene", "Recovery"].map((tag) => (
+            <span class="px-2.5 py-1 text-xs font-mono rounded-md bg-surface-800 text-text-muted border border-border">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="space-y-12">
+
+        <!-- Why this project existed -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">01</span>
+            Why This Project Existed
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              The trigger was practical, not theoretical. A reminder was acknowledged in conversation,
+              but it was not persisted strongly enough to survive a reset. In the next session, the
+              system behaved as if the reminder did not exist.
+            </p>
+            <p>
+              That failure made the real problem obvious: conversational continuity is not the same
+              thing as durable memory. So instead of treating memory as a vague model capability, I
+              treated it as a systems reliability problem.
+            </p>
+          </div>
+        </section>
+
+        <!-- The Problem -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">02</span>
+            The Problem
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              Most AI assistants rely too heavily on transient context: the active conversation window,
+              recent session history, loosely structured notes, and agent-local scratch files. That
+              works until the session resets, another agent takes over, or a follow-up happens hours later.
+              Then the system starts dropping state, duplicating work, or confidently acting like nothing
+              is on file.
+            </p>
+          </div>
+        </section>
+
+        <!-- What I Built -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">03</span>
+            What I Built
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <ul class="list-none pl-0 space-y-2">
+              <li class="flex gap-3"><span class="text-accent-blue mt-1">›</span><span>A canonical reminder ledger for durable follow-ups.</span></li>
+              <li class="flex gap-3"><span class="text-accent-blue mt-1">›</span><span>Daily memory receipts so reminders were logged at creation time.</span></li>
+              <li class="flex gap-3"><span class="text-accent-blue mt-1">›</span><span>Structured separation between daily logs, reminders, project memory, and long-term memory.</span></li>
+              <li class="flex gap-3"><span class="text-accent-blue mt-1">›</span><span>Retrieval-before-action rules so agents had to check recoverable memory before acting on context-dependent work.</span></li>
+              <li class="flex gap-3"><span class="text-accent-blue mt-1">›</span><span>Handoff files for delegated tasks that needed to survive session resets or role changes.</span></li>
+              <li class="flex gap-3"><span class="text-accent-blue mt-1">›</span><span>Shared workspace rules to avoid agent-local scratch notes becoming hidden source-of-truth state.</span></li>
+              <li class="flex gap-3"><span class="text-accent-blue mt-1">›</span><span>Lightweight file locking to reduce concurrent-write problems on shared operational files.</span></li>
+              <li class="flex gap-3"><span class="text-accent-blue mt-1">›</span><span>Cleanup discipline so the system stayed recoverable without becoming noisy.</span></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Core Design Idea -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">04</span>
+            Core Design Idea
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p class="text-text-primary font-medium italic border-l-2 border-accent-blue pl-4">
+              If the system needs to remember something later, it must write it to the right place
+              immediately.
+            </p>
+            <p>
+              That sounds simple, but it changes the architecture. Instead of vaguely trusting the
+              model to remember, I defined what gets written, where it lives, when it is retrieved,
+              and which artifact is the source of truth.
+            </p>
+          </div>
+        </section>
+
+        <!-- How This Is Distinct from Project 1 -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">05</span>
+            How This Is Distinct from Project 1
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+                <p class="font-mono text-accent-blue text-xs mb-2">PROJECT 1</p>
+                <p class="text-sm text-text-secondary">Multi-agent orchestration and role design. Who does the work, and how tasks are routed. An architecture problem.</p>
+              </div>
+              <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+                <p class="font-mono text-accent-blue text-xs mb-2">THIS PROJECT</p>
+                <p class="text-sm text-text-secondary">Memory durability and reminder reliability. What must be remembered, where it lives, and how it is recovered. A reliability problem.</p>
+              </div>
+            </div>
+            <p>
+              <strong class="text-text-primary">Short version:</strong> Project 1 is about coordination.
+              This project is about persistence and recoverability.
+            </p>
+          </div>
+        </section>
+
+        <!-- System Details -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">06</span>
+            Technical and System Details
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              <strong class="text-text-primary">Source-of-truth design.</strong> Reminders, daily notes,
+              project memory, and long-term memory each had explicit roles. No artifact was allowed to
+              drift into ambiguity about what it was for.
+            </p>
+            <p>
+              <strong class="text-text-primary">Recovery workflow.</strong> Agents were instructed to
+              retrieve relevant memory before acting on tasks that depended on prior state. Retrieval
+              became a required step, not an optional one.
+            </p>
+            <p>
+              <strong class="text-text-primary">Cross-agent durability.</strong> Baton files preserved
+              delegated work across role and session boundaries, so an agent could pick up a task from
+              a previous specialist without relying on conversation context.
+            </p>
+            <p>
+              <strong class="text-text-primary">Operational hygiene.</strong> Cleanup rules kept reminders
+              and memory artifacts usable over time instead of decaying into noise. A noisy memory
+              system is a memory system people stop trusting.
+            </p>
+            <p>
+              <strong class="text-text-primary">Concurrency awareness.</strong> Shared-file writes were
+              protected with a lightweight locking approach to reduce race conditions when multiple
+              agents touched the same operational files.
+            </p>
+          </div>
+        </section>
+
+        <!-- Why It Matters -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">07</span>
+            Why It Matters
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              AI systems often look competent in a single session but become unreliable over time.
+              This project was about improving the boring, important part: making the system trustworthy
+              on Tuesday morning when context is stale, the active window is gone, and another agent
+              has to pick up where the last one left off.
+            </p>
+            <p>
+              The hard part wasn't storage. It was defining the operational boundaries between temporary
+              context, durable operational memory, curated long-term memory, agent-local thinking, and
+              shared source-of-truth state. That boundary design is what made the system more reliable
+              and easier to debug.
+            </p>
+          </div>
+        </section>
+
+        <!-- What This Project Says -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">08</span>
+            What This Project Says About Me
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">Beyond single-turn AI</h3>
+              <p class="text-sm text-text-secondary">I think past the active conversation window to how agent systems behave across time, sessions, and handoffs.</p>
+            </div>
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">Reliability over novelty</h3>
+              <p class="text-sm text-text-secondary">I care more about making AI systems that work consistently than about making them impressive in a demo.</p>
+            </div>
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">Governance and memory design</h3>
+              <p class="text-sm text-text-secondary">Agent systems need governance, source-of-truth discipline, and memory design — not just good prompts.</p>
+            </div>
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">Messy AI into dependable systems</h3>
+              <p class="text-sm text-text-secondary">I can turn unreliable agent behavior into a structured, dependable operating system.</p>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Navigation -->
+      <div class="mt-16 pt-8 border-t border-border flex justify-between items-center">
+        <a href="/projects" class="text-text-secondary hover:text-accent-blue transition-colors text-sm">
+          &larr; All projects
+        </a>
+        <a href="/ask" class="text-accent-blue hover:text-accent-blue-hover transition-colors text-sm font-medium">
+          Ask about this project &rarr;
+        </a>
+      </div>
+
+    </div>
+  </article>
+
+</BaseLayout>
