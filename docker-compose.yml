@@ -9,7 +9,7 @@ services:
       - HOST=0.0.0.0
       - PORT=4321
     networks:
-      - web
+      - openclaw-1ovr_default
     labels:
       - "traefik.enable=true"
       # HTTP → HTTPS redirect
@@ -25,5 +25,6 @@ services:
       - "traefik.http.services.portfolio.loadbalancer.server.port=4321"
 
 networks:
-  web:
-    external: true    # Your existing Traefik network
+  openclaw-1ovr_default:
+    external: true
+
