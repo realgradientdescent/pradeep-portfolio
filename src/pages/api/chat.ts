@@ -12,7 +12,7 @@ try {
     'utf-8'
   );
 } catch {
-  console.warn('Source pack not found, copilot will have limited context');
+  // Source pack not found — copilot will have limited context
 }
 
 const SYSTEM_PROMPT = `You are Pradeep AI, a professional copilot that helps recruiters and hiring managers understand Pradeep's background, projects, and perspective.
@@ -109,12 +109,8 @@ async function callDeepSeek(
     });
 
     if (!response.ok) {
-      const errText = await response.text().catch(() => 'unknown error');
-      console.error(`DeepSeek API error ${response.status}:`, errText);
-
       // If rate limited, try Groq fallback
       if (response.status === 429 && process.env.GROQ_API_KEY) {
-        console.log('DeepSeek rate limited, trying Groq fallback');
         return callGroqFallback(messages);
       }
 
@@ -128,12 +124,9 @@ async function callDeepSeek(
     }
 
     return transformSSEStream(response.body);
-  } catch (err) {
-    console.error('DeepSeek request failed:', (err as Error).message);
-
+  } catch {
     // Try Groq fallback on network errors
     if (process.env.GROQ_API_KEY) {
-      console.log('DeepSeek failed, trying Groq fallback');
       return callGroqFallback(messages);
     }
 
@@ -170,8 +163,8 @@ async function callGroqFallback(
     if (response.ok && response.body) {
       return transformSSEStream(response.body);
     }
-  } catch (err) {
-    console.error('Groq fallback also failed:', (err as Error).message);
+  } catch {
+    // Groq fallback also failed — fall through to error stream
   }
 
   return errorStream(
@@ -229,13 +222,31 @@ function errorStream(message: string): ReadableStream {
   });
 }
 
-export const POST: APIRoute = async ({ request, clientAddress }) => {
-  // CORS headers for the chat widget
-  const headers = {
+const ALLOWED_ORIGIN = 'https://realgradientdescent.tech';
+
+function corsHeaders(origin?: string | null): Record<string, string> {
+  const allowedOrigin =
+    origin === ALLOWED_ORIGIN ? ALLOWED_ORIGIN : ALLOWED_ORIGIN;
+  return {
     'Content-Type': 'text/plain; charset=utf-8',
     'Cache-Control': 'no-cache',
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': allowedOrigin,
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Max-Age': '86400',
   };
+}
+
+// Handle CORS preflight
+export const OPTIONS: APIRoute = async ({ request }) => {
+  return new Response(null, {
+    status: 204,
+    headers: corsHeaders(request.headers.get('origin')),
+  });
+};
+
+export const POST: APIRoute = async ({ request, clientAddress }) => {
+  const headers = corsHeaders(request.headers.get('origin'));
 
   // Rate limit
   const ip = clientAddress || 'unknown';

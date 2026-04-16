@@ -23,18 +23,22 @@ const SUGGESTED_PROMPTS = [
   ]},
 ];
 
-function MessageBubble({ role, content }) {
+function MessageBubble({ role, content, isError }) {
   return (
     <div className={`flex ${role === 'user' ? 'justify-end' : 'justify-start'} mb-4`}>
       <div
         className={`max-w-[85%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${
           role === 'user'
             ? 'bg-[#3b82f6] text-white rounded-br-md'
-            : 'bg-[#1e293b] text-[#e2e8f0] border border-[#334155] rounded-bl-md'
+            : isError
+              ? 'bg-[#451a1a] text-[#fca5a5] border border-[#7f1d1d] rounded-bl-md'
+              : 'bg-[#1e293b] text-[#e2e8f0] border border-[#334155] rounded-bl-md'
         }`}
       >
         {role === 'assistant' && (
-          <p className="text-[#3b82f6] text-xs font-mono mb-1.5">pradeep-ai</p>
+          <p className={`${isError ? 'text-[#f87171]' : 'text-[#3b82f6]'} text-xs font-mono mb-1.5`}>
+            {isError ? 'connection error' : 'pradeep-ai'}
+          </p>
         )}
         <div className="whitespace-pre-wrap">{content}</div>
       </div>
@@ -105,11 +109,17 @@ export default function ChatWidget({ initialPrompt }) {
           return updated;
         });
       }
-    } catch (err) {
-      // Fallback to local response if API is unavailable (e.g., static hosting / dev)
-      console.log('API unavailable, using local fallback:', err.message);
-      const fallback = generateLocalResponse(text);
-      setMessages(prev => [...prev, { role: 'assistant', content: fallback }]);
+    } catch {
+      setMessages(prev => [
+        ...prev,
+        {
+          role: 'assistant',
+          content:
+            "I'm having trouble connecting right now. Please try again in a moment, " +
+            "or reach out to Pradeep directly at pradeep@realgradientdescent.tech.",
+          isError: true,
+        },
+      ]);
     }
 
     setIsLoading(false);
@@ -193,7 +203,7 @@ export default function ChatWidget({ initialPrompt }) {
           )}
 
           {messages.map((msg, i) => (
-            <MessageBubble key={i} role={msg.role} content={msg.content} />
+            <MessageBubble key={i} role={msg.role} content={msg.content} isError={msg.isError} />
           ))}
 
           {isLoading && (
@@ -241,75 +251,3 @@ export default function ChatWidget({ initialPrompt }) {
   );
 }
 
-// Temporary local response generator - will be replaced with API call to Ollama
-function generateLocalResponse(query) {
-  const q = query.toLowerCase();
-
-  if (q.includes('60-second') || q.includes('summary') || q.includes('who is') || q.includes('tell me about')) {
-    return `Pradeep is a Software Engineering Director who combines engineering leadership with hands-on AI building. He leads teams through complex product builds, and on his own time designs multi-agent architectures, experiments with memory and orchestration patterns, and builds tools that push his understanding of what's practical with AI today.
-
-He's currently targeting AI enablement leadership roles — VP/Director of Engineering with an AI focus, or Head of AI Platform — where he can help engineering teams become genuinely more effective with AI.
-
-What sets him apart is the combination: he has the leadership experience to operate at a strategic level, and the building practice to understand what actually works at the implementation level. He doesn't just talk about AI — he builds with it.`;
-  }
-
-  if (q.includes('role') || q.includes('fit') || q.includes('position') || q.includes('looking for')) {
-    return `Pradeep is strongest for roles at the intersection of engineering leadership and AI enablement:
-
-• VP/Director of Engineering — AI Enablement
-• Head of AI/ML Platform
-• Technical leadership at AI-forward companies
-
-He's best suited for organizations that see AI as a capability to weave into engineering practice, not just a product feature to bolt on. He thrives where the question is "how do we make our entire engineering org better with AI?" rather than "can we add a chatbot?"
-
-His combination of team leadership experience and hands-on AI building practice means he can operate at both the strategy and implementation levels — which is rare in this space.`;
-  }
-
-  if (q.includes('project') || q.includes('built') || q.includes('ship') || q.includes('work')) {
-    return `Pradeep has two flagship projects that show different but complementary strengths:
-
-1. Multi-Agent OpenClaw Orchestration — A role-based multi-agent assistant system with four specialized agents (Jeeves, Ada, Hermes, Scribe), explicit routing policies, durable file-backed memory, and baton-based handoffs. The key insight: "systems fail at the seams." See /projects/multi-agent-openclaw
-
-2. Employee Communication Simulator — A full-stack simulation platform for testing how leadership messages land across a 450-person org. Features 60 weighted personas, Monte Carlo scenario analysis, multi-provider LLM integration (Groq, DeepSeek, OpenAI, Ollama), and executive-ready PDF/PPTX reporting. See /projects/employee-communication-simulator
-
-The first shows agentic systems thinking and memory design. The second shows product judgment, operational hardening of AI features, and the ability to translate analytics into executive decisions. Together they demonstrate that Pradeep builds end-to-end — from agent orchestration to decision-support systems.`;
-  }
-
-  if (q.includes('ai') || q.includes('agent') || q.includes('think')) {
-    return `Pradeep's perspective on AI is grounded and practical. His core belief is that the interesting challenge in AI right now isn't raw intelligence — it's coordination, continuity, and controlled behavior over time.
-
-He gravitates toward agentic systems: multi-agent architectures, memory design, orchestration, and the operational patterns that make AI useful rather than just impressive. He cares less about what a model can do in a demo and more about what it can do on a Tuesday morning when context is stale and the task is ambiguous.
-
-As a leader, he brings this lens to teams: how do we make AI a real capability in our engineering practice, not just a feature we bolt on? How do we build systems that actually improve because AI is part of them?`;
-  }
-
-  if (q.includes('different') || q.includes('stand out') || q.includes('unique') || q.includes('why')) {
-    return `What makes Pradeep distinctive is the combination of layers:
-
-1. He has the leadership experience (Engineering Director) to operate at a strategic level
-2. He has the hands-on building practice to understand what actually works at the implementation level
-3. He thinks in systems — not just individual AI features, but how agents, memory, orchestration, and workflows fit together
-4. He cares about reliability over novelty — his work focuses on making AI systems that work consistently, not just impressively
-
-Most candidates at his level either lead teams OR build hands-on. Pradeep does both, and the building directly informs his leadership perspective on AI enablement.`;
-  }
-
-  if (q.includes('style') || q.includes('lead') || q.includes('manage') || q.includes('team')) {
-    return `Pradeep leads by building context and trust, not by prescription. He wants to understand the problem deeply before committing to a direction, and he wants his teams to have the same understanding.
-
-He prefers structured clarity over rigid process — clear ownership, explicit decisions, and room for people to do their best work. He's opinionated about quality but pragmatic about shipping.
-
-He believes the best teams iterate fast with a clear sense of direction, and he works to create that environment whether leading a team or building something solo.`;
-  }
-
-  return `That's a great question. Based on Pradeep's professional context, I can share that he's an Engineering Director with a deep hands-on AI building practice, focused on multi-agent systems, memory design, and practical AI enablement.
-
-If you'd like more specific information, try asking about:
-• His background and 60-second summary
-• What roles he's strongest for
-• His projects and what he's built
-• How he thinks about AI and agentic systems
-• What makes him different
-
-For anything not covered here, you can reach Pradeep directly at pradeep@realgradientdescent.tech.`;
-}
