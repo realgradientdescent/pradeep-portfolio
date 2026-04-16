@@ -1,0 +1,28 @@
+---
+export const prerender = true;
+
+import ChatWidget from "../components/ChatWidget.jsx";
+import "../styles/global.css";
+
+const url = new URL(Astro.request.url);
+const initialPrompt = url.searchParams.get('q') || '';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ask Pradeep AI — an AI copilot grounded in Pradeep's professional context." />
+  <meta property="og:title" content="Ask Pradeep AI" />
+  <meta property="og:description" content="An AI copilot grounded in Pradeep's professional context. Ask about his background, projects, and perspective on AI." />
+  <meta property="og:type" content="website" />
+  <title>Ask Pradeep AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body class="min-h-screen bg-[#0f172a]">
+  <ChatWidget client:load initialPrompt={initialPrompt} standalone={true} />
+</body>
+</html>

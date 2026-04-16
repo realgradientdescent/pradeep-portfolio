@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 
 const SUGGESTED_PROMPTS = [
   { label: "Quick Overview", prompts: [
@@ -46,12 +46,12 @@ function MessageBubble({ role, content, isError }) {
   );
 }
 
-export default function ChatWidget({ initialPrompt }) {
+export default function ChatWidget({ initialPrompt, standalone = false }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showSidebar, setShowSidebar] = useState(true);
-  const messagesEndRef = useRef(null);
+  const messagesContainerRef = useRef(null);
   const inputRef = useRef(null);
 
   // Handle initial prompt from URL
@@ -61,13 +61,17 @@ export default function ChatWidget({ initialPrompt }) {
     }
   }, [initialPrompt]);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+  // Scroll: use scrollTop for instant, reliable scroll during streaming
+  const scrollToBottom = useCallback(() => {
+    const container = messagesContainerRef.current;
+    if (container) {
+      container.scrollTop = container.scrollHeight;
+    }
+  }, []);
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages, scrollToBottom]);
 
   const sendMessage = async (text) => {
     const userMessage = { role: 'user', content: text };
@@ -78,7 +82,6 @@ export default function ChatWidget({ initialPrompt }) {
     setShowSidebar(false);
 
     try {
-      // Try the real API endpoint first (Ollama → Groq)
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -138,11 +141,24 @@ export default function ChatWidget({ initialPrompt }) {
     }
   };
 
+  // Standalone mode: full viewport, no nav offset
+  // Portfolio mode: offset for the 4rem nav bar
+  const containerHeight = standalone ? 'h-screen' : 'h-[calc(100vh-4rem)]';
+
   return (
-    <div className="flex h-[calc(100vh-4rem)] bg-[#0f172a]">
+    <div className={`flex ${containerHeight} bg-[#0f172a]`}>
       {/* Sidebar - suggested prompts */}
       <div className={`${showSidebar ? 'w-72' : 'w-0'} hidden lg:block flex-shrink-0 border-r border-[#334155] overflow-y-auto transition-all duration-300`}>
         <div className="p-6">
+          {standalone && (
+            <div className="mb-6 pb-4 border-b border-[#334155]">
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-[#3b82f6] text-sm">~/</span>
+                <span className="font-semibold text-lg text-[#e2e8f0]">pradeep</span>
+              </div>
+              <p className="text-[#64748b] text-xs mt-1">AI copilot</p>
+            </div>
+          )}
           <p className="font-mono text-xs text-[#3b82f6] mb-4">suggested questions</p>
           {SUGGESTED_PROMPTS.map((category) => (
             <div key={category.label} className="mb-6">
@@ -167,8 +183,25 @@ export default function ChatWidget({ initialPrompt }) {
 
       {/* Main chat area */}
       <div className="flex-1 flex flex-col min-w-0">
+        {/* Standalone header — minimal branding, no nav links */}
+        {standalone && (
+          <div className="flex-shrink-0 border-b border-[#334155] px-4 md:px-8 py-3 flex items-center gap-3 bg-[#0f172a]/80 backdrop-blur-xl">
+            <div className="w-8 h-8 rounded-lg bg-[#1e293b] border border-[#334155] flex items-center justify-center">
+              <span className="font-mono text-[#3b82f6] text-sm">P</span>
+            </div>
+            <div>
+              <p className="text-[#e2e8f0] font-semibold text-sm leading-tight">Pradeep AI</p>
+              <p className="text-[#64748b] text-xs">Professional copilot</p>
+            </div>
+            <div className="ml-auto flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-[#22c55e] animate-pulse" />
+              <span className="text-[#22c55e] text-xs font-mono">online</span>
+            </div>
+          </div>
+        )}
+
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto px-4 md:px-8 py-6">
+        <div ref={messagesContainerRef} className="flex-1 overflow-y-auto px-4 md:px-8 py-6">
           {messages.length === 0 && (
             <div className="flex items-center justify-center h-full">
               <div className="text-center max-w-lg">
@@ -218,12 +251,10 @@ export default function ChatWidget({ initialPrompt }) {
               </div>
             </div>
           )}
-
-          <div ref={messagesEndRef} />
         </div>
 
         {/* Input */}
-        <div className="border-t border-[#334155] p-4 md:px-8">
+        <div className="flex-shrink-0 border-t border-[#334155] p-4 md:px-8">
           <form onSubmit={handleSubmit} className="flex gap-3 max-w-3xl mx-auto">
             <input
               ref={inputRef}
@@ -250,4 +281,3 @@ export default function ChatWidget({ initialPrompt }) {
     </div>
   );
 }
-
