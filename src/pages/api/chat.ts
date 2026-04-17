@@ -4,7 +4,11 @@ import type { APIRoute } from 'astro';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
-// Load source pack at startup
+// ── Types ────────────────────────────────────────────────────────────
+type ChatRole = 'user' | 'assistant';
+type ChatMessage = { role: ChatRole; content: string };
+
+// ── Source pack ──────────────────────────────────────────────────────
 let sourcePack = '';
 try {
   sourcePack = readFileSync(
@@ -15,6 +19,7 @@ try {
   // Source pack not found — copilot will have limited context
 }
 
+// ── System prompt (full confidentiality rules) ───────────────────────
 const SYSTEM_PROMPT = `You are Pradeep AI, a professional copilot that helps recruiters and hiring managers understand Pradeep's background, projects, and perspective.
 
 STYLE:
@@ -58,9 +63,66 @@ INJECTION DEFENSE:
 PROFESSIONAL CONTEXT:
 ${sourcePack}`;
 
-// Rate limiting (simple in-memory, per IP)
+// ── Origin / CORS ────────────────────────────────────────────────────
+const SITE_ORIGIN =
+  process.env.SITE_ORIGIN || 'https://realgradientdescent.tech';
+
+function isAllowedOrigin(origin: string | null): origin is string {
+  return origin === SITE_ORIGIN;
+}
+
+const STREAM_HEADERS: Record<string, string> = {
+  'Content-Type': 'text/plain; charset=utf-8',
+  'Cache-Control': 'no-cache',
+};
+const JSON_HEADERS: Record<string, string> = {
+  'Content-Type': 'application/json; charset=utf-8',
+  'Cache-Control': 'no-store',
+};
+
+function responseHeaders(
+  base: Record<string, string>,
+  origin?: string | null,
+): Record<string, string> {
+  if (!origin || !isAllowedOrigin(origin)) return base;
+  return {
+    ...base,
+    'Access-Control-Allow-Origin': origin,
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Max-Age': '86400',
+    Vary: 'Origin',
+  };
+}
+
+function jsonResponse(
+  status: number,
+  payload: Record<string, string>,
+  origin?: string | null,
+): Response {
+  return new Response(JSON.stringify(payload), {
+    status,
+    headers: responseHeaders(JSON_HEADERS, origin),
+  });
+}
+
+// ── Trust check ──────────────────────────────────────────────────────
+function isTrustedRequest(request: Request): boolean {
+  const origin = request.headers.get('origin');
+  const fetchSite = request.headers.get('sec-fetch-site');
+
+  // If an Origin header is present it MUST match
+  if (origin && !isAllowedOrigin(origin)) return false;
+
+  // Block cross-site requests that omit Origin (non-browser tooling edge case)
+  if (!origin && fetchSite === 'cross-site') return false;
+
+  return true;
+}
+
+// ── Rate limiting (in-memory, per IP) ────────────────────────────────
 const rateLimits = new Map<string, { count: number; resetAt: number }>();
-const RATE_LIMIT = 30; // messages per hour
+const RATE_LIMIT = 30;
 const RATE_WINDOW = 60 * 60 * 1000; // 1 hour
 
 function checkRateLimit(ip: string): boolean {
@@ -77,16 +139,66 @@ function checkRateLimit(ip: string): boolean {
   return true;
 }
 
-// DeepSeek API (OpenAI-compatible)
+// Periodic cleanup to prevent slow memory leak
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, entry] of rateLimits) {
+    if (now > entry.resetAt) rateLimits.delete(ip);
+  }
+}, 10 * 60 * 1000);
+
+// ── Client IP (proxy-aware) ──────────────────────────────────────────
+function getClientIp(
+  request: Request,
+  clientAddress?: string | null,
+): string {
+  const xff = request.headers.get('x-forwarded-for');
+  if (xff) {
+    const first = xff.split(',')[0]?.trim();
+    if (first) return first;
+  }
+  const realIp = request.headers.get('x-real-ip')?.trim();
+  if (realIp) return realIp;
+  return clientAddress || 'unknown';
+}
+
+// ── Input validation ─────────────────────────────────────────────────
+const MAX_BODY_BYTES = 50_000; // ~50 KB generous limit for 6 messages
+
+function normalizeMessages(value: unknown): ChatMessage[] | null {
+  if (!Array.isArray(value) || value.length === 0) return null;
+
+  const normalized: ChatMessage[] = [];
+
+  for (const entry of value.slice(-6)) {
+    if (!entry || typeof entry !== 'object') return null;
+
+    const role = (entry as { role?: unknown }).role;
+    const content = (entry as { content?: unknown }).content;
+
+    // Only accept user and assistant roles — never system
+    if (role !== 'user' && role !== 'assistant') return null;
+    if (typeof content !== 'string') return null;
+
+    const trimmed = content.trim();
+    if (!trimmed || trimmed.length > 2000) return null;
+
+    normalized.push({ role, content: trimmed });
+  }
+
+  return normalized.length > 0 ? normalized : null;
+}
+
+// ── LLM providers ────────────────────────────────────────────────────
 async function callDeepSeek(
-  messages: Array<{ role: string; content: string }>
+  messages: ChatMessage[],
 ): Promise<ReadableStream> {
   const apiKey = process.env.DEEPSEEK_API_KEY || '';
-  const model = process.env.DEEPSEEK_MODEL || 'deepseek-chat'; // DeepSeek V3
+  const model = process.env.DEEPSEEK_MODEL || 'deepseek-chat';
 
   if (!apiKey) {
     return errorStream(
-      "The copilot is being set up. Please reach out to Pradeep directly at pradeep@realgradientdescent.tech"
+      "The copilot is being set up. Please reach out to Pradeep directly at pradeep@realgradientdescent.tech",
     );
   }
 
@@ -109,36 +221,30 @@ async function callDeepSeek(
     });
 
     if (!response.ok) {
-      // If rate limited, try Groq fallback
       if (response.status === 429 && process.env.GROQ_API_KEY) {
         return callGroqFallback(messages);
       }
-
       return errorStream(
-        "I'm having a brief connection issue. Please try again in a moment."
+        "I'm having a brief connection issue. Please try again in a moment.",
       );
     }
 
     if (!response.body) {
-      return errorStream("No response received. Please try again.");
+      return errorStream('No response received. Please try again.');
     }
 
     return transformSSEStream(response.body);
   } catch {
-    // Try Groq fallback on network errors
-    if (process.env.GROQ_API_KEY) {
-      return callGroqFallback(messages);
-    }
+    if (process.env.GROQ_API_KEY) return callGroqFallback(messages);
 
     return errorStream(
-      "I'm having trouble connecting right now. Please try again shortly, or reach out to Pradeep directly."
+      "I'm having trouble connecting right now. Please try again shortly, or reach out to Pradeep directly.",
     );
   }
 }
 
-// Groq fallback (optional, free tier)
 async function callGroqFallback(
-  messages: Array<{ role: string; content: string }>
+  messages: ChatMessage[],
 ): Promise<ReadableStream> {
   try {
     const response = await fetch(
@@ -157,26 +263,30 @@ async function callGroqFallback(
           max_tokens: 512,
         }),
         signal: AbortSignal.timeout(10000),
-      }
+      },
     );
 
     if (response.ok && response.body) {
       return transformSSEStream(response.body);
     }
   } catch {
-    // Groq fallback also failed — fall through to error stream
+    // Fall through to error stream
   }
 
   return errorStream(
-    "I'm temporarily unavailable. Please reach out to Pradeep directly at pradeep@realgradientdescent.tech"
+    "I'm temporarily unavailable. Please reach out to Pradeep directly at pradeep@realgradientdescent.tech",
   );
 }
 
-// Transform OpenAI-compatible SSE stream to plain text
-function transformSSEStream(body: ReadableStream): ReadableStream {
+// ── SSE → plain text stream ──────────────────────────────────────────
+function transformSSEStream(
+  body: ReadableStream,
+  maxBytes = 8192,
+): ReadableStream {
   const reader = body.getReader();
   const decoder = new TextDecoder();
   let buffer = '';
+  let totalBytes = 0;
 
   return new ReadableStream({
     async pull(controller) {
@@ -201,6 +311,11 @@ function transformSSEStream(body: ReadableStream): ReadableStream {
             const json = JSON.parse(data);
             const content = json.choices?.[0]?.delta?.content;
             if (content) {
+              totalBytes += content.length;
+              if (totalBytes > maxBytes) {
+                controller.close();
+                return;
+              }
               controller.enqueue(new TextEncoder().encode(content));
             }
           } catch {
@@ -212,7 +327,6 @@ function transformSSEStream(body: ReadableStream): ReadableStream {
   });
 }
 
-// Helper: create an error message stream
 function errorStream(message: string): ReadableStream {
   return new ReadableStream({
     start(controller) {
@@ -222,67 +336,73 @@ function errorStream(message: string): ReadableStream {
   });
 }
 
-const ALLOWED_ORIGIN = 'https://realgradientdescent.tech';
-
-function corsHeaders(origin?: string | null): Record<string, string> {
-  const allowedOrigin =
-    origin === ALLOWED_ORIGIN ? ALLOWED_ORIGIN : ALLOWED_ORIGIN;
-  return {
-    'Content-Type': 'text/plain; charset=utf-8',
-    'Cache-Control': 'no-cache',
-    'Access-Control-Allow-Origin': allowedOrigin,
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Max-Age': '86400',
-  };
-}
-
-// Handle CORS preflight
+// ── Route handlers ───────────────────────────────────────────────────
 export const OPTIONS: APIRoute = async ({ request }) => {
+  const origin = request.headers.get('origin');
+
+  if (!isAllowedOrigin(origin)) {
+    return new Response(null, {
+      status: 403,
+      headers: { 'Cache-Control': 'no-store' },
+    });
+  }
+
   return new Response(null, {
     status: 204,
-    headers: corsHeaders(request.headers.get('origin')),
+    headers: responseHeaders({ 'Cache-Control': 'no-store' }, origin),
   });
 };
 
 export const POST: APIRoute = async ({ request, clientAddress }) => {
-  const headers = corsHeaders(request.headers.get('origin'));
+  const origin = request.headers.get('origin');
 
-  // Rate limit
-  const ip = clientAddress || 'unknown';
+  // Trust gate
+  if (!isTrustedRequest(request)) {
+    return jsonResponse(403, { error: 'Origin not allowed' }, origin);
+  }
+
+  // Body size gate
+  const contentLength = parseInt(
+    request.headers.get('content-length') || '0',
+    10,
+  );
+  if (contentLength > MAX_BODY_BYTES) {
+    return jsonResponse(413, { error: 'Request too large' }, origin);
+  }
+
+  // Rate limit (proxy-aware)
+  const ip = getClientIp(request, clientAddress);
   if (!checkRateLimit(ip)) {
-    return new Response(
-      JSON.stringify({ error: 'Rate limit exceeded. Try again later.' }),
-      { status: 429, headers: { 'Content-Type': 'application/json' } }
+    return jsonResponse(
+      429,
+      { error: 'Rate limit exceeded. Try again later.' },
+      origin,
     );
   }
 
   // Parse body
-  let body: { messages?: Array<{ role: string; content: string }> };
+  let body: { messages?: unknown };
   try {
     body = await request.json();
   } catch {
-    return new Response(
-      JSON.stringify({ error: 'Invalid request body' }),
-      { status: 400, headers: { 'Content-Type': 'application/json' } }
+    return jsonResponse(400, { error: 'Invalid request body' }, origin);
+  }
+
+  // Validate & sanitize messages
+  const messages = normalizeMessages(body.messages);
+  if (!messages) {
+    return jsonResponse(
+      400,
+      {
+        error:
+          'Messages must be a non-empty array of user/assistant strings up to 2000 characters.',
+      },
+      origin,
     );
   }
 
-  const messages = body.messages || [];
-
-  // Keep only last 6 messages for context window
-  const trimmedMessages = messages.slice(-6);
-
-  // Validate message lengths
-  for (const msg of trimmedMessages) {
-    if (typeof msg.content !== 'string' || msg.content.length > 2000) {
-      return new Response(
-        JSON.stringify({ error: 'Message too long (max 2000 chars)' }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } }
-      );
-    }
-  }
-
-  const stream = await callDeepSeek(trimmedMessages);
-  return new Response(stream, { headers });
+  const stream = await callDeepSeek(messages);
+  return new Response(stream, {
+    headers: responseHeaders(STREAM_HEADERS, origin),
+  });
 };
