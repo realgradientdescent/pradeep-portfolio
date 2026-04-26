@@ -109,6 +109,64 @@ import "../../styles/global.css";
               <li class="flex gap-3"><span class="text-accent-blue mt-1">›</span><span>Lightweight file locking to reduce concurrent-write problems on shared operational files.</span></li>
               <li class="flex gap-3"><span class="text-accent-blue mt-1">›</span><span>Cleanup discipline so the system stayed recoverable without becoming noisy.</span></li>
             </ul>
+
+          <!-- Architecture diagram -->
+          <div class="mt-8 rounded-xl overflow-hidden border border-border">
+            <svg viewBox="0 0 700 368" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Durable memory architecture: agents write immediately to a structured memory layer and retrieve before acting, enabling recovery across sessions and role handoffs" style="width:100%;height:auto;display:block;">
+              <defs>
+                <marker id="dma-arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                  <polygon points="0 0, 8 3, 0 6" fill="#475569"/>
+                </marker>
+                <marker id="dma-arr-blue" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                  <polygon points="0 0, 8 3, 0 6" fill="#3b82f6"/>
+                </marker>
+              </defs>
+              <rect width="700" height="368" fill="#1e293b"/>
+              <text x="22" y="26" font-family="JetBrains Mono, monospace" font-size="11" fill="#3b82f6">Memory Layer Design</text>
+              <!-- Ephemeral layer (top, faded) -->
+              <rect x="22" y="36" width="656" height="48" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1" stroke-dasharray="4,3" opacity="0.7"/>
+              <text x="350" y="55" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#475569">EPHEMERAL — lost on reset</text>
+              <text x="350" y="72" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#475569">Conversation window · session history · agent-local scratch · implicit model memory</text>
+              <!-- Arrow: ephemeral "fails" label, bypassed by write-immediately -->
+              <!-- Write immediately arrow + label (left side) -->
+              <text x="155" y="101" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#3b82f6" font-style="italic">write immediately ↓</text>
+              <line x1="155" y1="84" x2="155" y2="108" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#dma-arr-blue)"/>
+              <!-- Retrieve before acting label (right side) -->
+              <text x="545" y="101" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#3b82f6" font-style="italic">retrieve before acting ↑</text>
+              <line x1="545" y1="108" x2="545" y2="84" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#dma-arr-blue)"/>
+              <!-- Durable Memory Layer -->
+              <rect x="22" y="112" width="656" height="170" rx="8" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"/>
+              <text x="350" y="131" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#3b82f6" font-weight="600">DURABLE MEMORY LAYER</text>
+              <text x="350" y="146" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#64748b">source-of-truth · auditable · survives resets · cross-agent accessible</text>
+              <!-- Row 1: 4 artifact boxes -->
+              <rect x="36" y="156" width="148" height="54" rx="5" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+              <text x="110" y="176" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#3b82f6">Reminder Ledger</text>
+              <text x="110" y="192" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#64748b">follow-ups written</text>
+              <text x="110" y="204" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#64748b">at creation time</text>
+              <rect x="196" y="156" width="148" height="54" rx="5" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+              <text x="270" y="176" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#3b82f6">Daily Receipts</text>
+              <text x="270" y="192" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#64748b">logged at write time,</text>
+              <text x="270" y="204" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#64748b">not recalled later</text>
+              <rect x="356" y="156" width="148" height="54" rx="5" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+              <text x="430" y="176" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#3b82f6">Project Memory</text>
+              <text x="430" y="192" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#64748b">curated context per</text>
+              <text x="430" y="204" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#64748b">active workstream</text>
+              <rect x="516" y="156" width="148" height="54" rx="5" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+              <text x="590" y="176" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#3b82f6">Long-term Memory</text>
+              <text x="590" y="192" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#64748b">Scribe-curated,</text>
+              <text x="590" y="204" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#64748b">cleaned up over time</text>
+              <!-- Row 2: Baton Files (full width) -->
+              <rect x="36" y="222" width="628" height="48" rx="5" fill="#172554" stroke="#3b82f6" stroke-width="1" stroke-opacity="0.5"/>
+              <text x="350" y="242" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#3b82f6">Baton Files</text>
+              <text x="350" y="258" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#64748b">delegated tasks that must survive session resets and role handoffs · file-locked on write</text>
+              <!-- Arrow down: memory → recovery -->
+              <line x1="350" y1="282" x2="350" y2="305" stroke="#475569" stroke-width="1.5" marker-end="url(#dma-arr)"/>
+              <!-- Recovery / next session box -->
+              <rect x="140" y="308" width="420" height="46" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+              <text x="350" y="328" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#94a3b8">Any Agent · Any Session</text>
+              <text x="350" y="344" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#64748b">picks up reliably — even after resets, role changes, or time gaps</text>
+            </svg>
+          </div>
           </div>
         </section>
 
@@ -251,13 +309,4 @@ import "../../styles/global.css";
         </a>
       </div>
 
-      <div class="mt-6 text-center">
-        <a href="/ask" class="inline-block text-text-muted hover:text-accent-blue transition-colors text-sm">
-          Ask Pradeep AI about this project
-        </a>
-      </div>
-
-    </div>
-  </article>
-
-</BaseLayout>
+    

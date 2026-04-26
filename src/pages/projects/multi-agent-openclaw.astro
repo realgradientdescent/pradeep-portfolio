@@ -108,6 +108,69 @@ import "../../styles/global.css";
               via baton files instead of relying on conversation alone.
             </p>
           </div>
+
+          <!-- Architecture diagram -->
+          <div class="mt-8 rounded-xl overflow-hidden border border-border">
+            <svg viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Multi-agent architecture: Jeeves orchestrates Ada, Hermes, and Scribe specialists over a shared file-backed memory layer" style="width:100%;height:auto;display:block;">
+              <defs>
+                <marker id="mao-arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                  <polygon points="0 0, 8 3, 0 6" fill="#475569"/>
+                </marker>
+                <marker id="mao-arr-d" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                  <polygon points="0 0, 8 3, 0 6" fill="#334155"/>
+                </marker>
+              </defs>
+              <rect width="700" height="400" fill="#1e293b"/>
+              <text x="22" y="26" font-family="JetBrains Mono, monospace" font-size="11" fill="#3b82f6">Architecture Overview</text>
+              <!-- User Request -->
+              <rect x="255" y="40" width="190" height="36" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+              <text x="350" y="62" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#94a3b8">User Request</text>
+              <!-- Arrow down to Jeeves -->
+              <line x1="350" y1="76" x2="350" y2="96" stroke="#475569" stroke-width="1.5" marker-end="url(#mao-arr)"/>
+              <!-- Jeeves (orchestrator) -->
+              <rect x="110" y="100" width="480" height="52" rx="8" fill="#172554" stroke="#3b82f6" stroke-width="1.5"/>
+              <text x="350" y="122" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#3b82f6" font-weight="600">JEEVES — Orchestrator</text>
+              <text x="350" y="141" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10.5" fill="#64748b">routes tasks · synthesizes outputs · gates sensitive actions · owns system integrity</text>
+              <!-- Routing arrows to specialists -->
+              <line x1="220" y1="152" x2="168" y2="192" stroke="#475569" stroke-width="1.5" marker-end="url(#mao-arr)"/>
+              <line x1="350" y1="152" x2="350" y2="192" stroke="#475569" stroke-width="1.5" marker-end="url(#mao-arr)"/>
+              <line x1="480" y1="152" x2="532" y2="192" stroke="#475569" stroke-width="1.5" marker-end="url(#mao-arr)"/>
+              <!-- Ada -->
+              <rect x="50" y="192" width="188" height="58" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+              <text x="144" y="214" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#3b82f6">Ada</text>
+              <text x="144" y="231" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#64748b">Coding · debugging</text>
+              <text x="144" y="244" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#64748b">technical operations</text>
+              <!-- Hermes -->
+              <rect x="256" y="192" width="188" height="58" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+              <text x="350" y="214" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#3b82f6">Hermes</text>
+              <text x="350" y="231" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#64748b">Research · comms</text>
+              <text x="350" y="244" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#64748b">operational follow-through</text>
+              <!-- Scribe -->
+              <rect x="462" y="192" width="188" height="58" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+              <text x="556" y="214" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#3b82f6">Scribe</text>
+              <text x="556" y="231" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#64748b">Memory curation</text>
+              <text x="556" y="244" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#64748b">docs · summaries</text>
+              <!-- Dashed arrows to memory layer -->
+              <line x1="144" y1="250" x2="144" y2="288" stroke="#334155" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#mao-arr-d)"/>
+              <line x1="350" y1="250" x2="350" y2="288" stroke="#334155" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#mao-arr-d)"/>
+              <line x1="556" y1="250" x2="556" y2="288" stroke="#334155" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#mao-arr-d)"/>
+              <!-- Shared memory layer -->
+              <rect x="22" y="290" width="656" height="90" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1" stroke-dasharray="5,3"/>
+              <text x="350" y="308" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#475569">FILE-BACKED SHARED MEMORY</text>
+              <rect x="36" y="314" width="148" height="52" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+              <text x="110" y="334" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#94a3b8">Reminder Ledger</text>
+              <text x="110" y="349" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#475569">follow-ups · timers</text>
+              <rect x="196" y="314" width="148" height="52" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+              <text x="270" y="334" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#94a3b8">Project Notes</text>
+              <text x="270" y="349" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#475569">curated context</text>
+              <rect x="356" y="314" width="148" height="52" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+              <text x="430" y="334" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#94a3b8">Baton Files</text>
+              <text x="430" y="349" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#475569">cross-agent handoffs</text>
+              <rect x="516" y="314" width="148" height="52" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+              <text x="590" y="334" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#94a3b8">Policy Docs</text>
+              <text x="590" y="349" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#475569">routing · boundaries</text>
+            </svg>
+          </div>
         </section>
 
         <!-- Implementation -->
@@ -210,12 +273,4 @@ import "../../styles/global.css";
       </div>
 
       <div class="mt-6 text-center">
-        <a href="/ask" class="inline-block text-text-muted hover:text-accent-blue transition-colors text-sm">
-          Ask Pradeep AI about this project
-        </a>
-      </div>
-
-    </div>
-  </article>
-
-</BaseLayout>
+        
