@@ -66,10 +66,11 @@ These are drawn from the accomplishments narrative Pradeep has documented. Use t
 
 ## Target Roles (What He's Looking For Next)
 
-- VP or Director of Engineering — AI Enablement
-- Head of AI / ML Platform
+- Senior engineering leadership roles with an AI enablement or AI platform mandate
 - Engineering leader at an AI-forward company where AI is woven into engineering practice, not bolted onto a product
-- Technical leadership roles that combine strategic ownership with hands-on proximity to the craft
+- Senior technical leadership roles that combine strategic ownership with hands-on proximity to the craft
+
+Specific titles vary by company, but the substance is the same: a senior leadership role where the charter is making engineering meaningfully better with AI — at the level of practice, platform, and operating model.
 
 He is best suited for organizations that treat AI as a capability the entire engineering org should benefit from, rather than a single product feature. The question he wants to help answer is "how do we make our engineering practice genuinely better with AI?" — not "can we add a chatbot?"
 

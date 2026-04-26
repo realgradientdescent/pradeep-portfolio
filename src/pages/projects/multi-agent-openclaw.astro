@@ -44,6 +44,14 @@ import "../../styles/global.css";
         </div>
       </header>
 
+      <!-- Thesis callout -->
+      <div class="p-5 rounded-xl bg-surface-800/50 border-l-2 border-accent-blue mb-12">
+        <p class="text-text-secondary text-sm leading-relaxed italic">
+          "The real challenge in agent systems is rarely just intelligence — it's coordination,
+          continuity, and controlled behavior over time."
+        </p>
+      </div>
+
       <!-- Content -->
       <div class="space-y-12">
 
@@ -106,7 +114,7 @@ import "../../styles/global.css";
         <section>
           <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
             <span class="font-mono text-accent-blue text-sm">03</span>
-            Key Implementation Decisions
+            Key Design Decisions
           </h2>
           <div class="text-text-secondary leading-relaxed space-y-4">
             <p>
@@ -181,9 +189,10 @@ import "../../styles/global.css";
               memory-aware product design, and practical understanding of agent limitations.
               It's not about using AI casually — it's about designing an operating model for AI agents.
             </p>
-            <p class="text-text-primary font-medium italic border-l-2 border-accent-blue pl-4">
-              "The real challenge in agent systems is rarely just intelligence — it's coordination,
-              continuity, and controlled behavior over time."
+            <p>
+              The patterns here — explicit routing, durable handoffs, bounded autonomy, and
+              file-backed memory — generalize beyond a personal assistant. They are the operating
+              fundamentals any team needs once AI agents start doing real, ongoing work alongside humans.
             </p>
           </div>
         </section>
@@ -195,8 +204,14 @@ import "../../styles/global.css";
         <a href="/projects" class="text-text-secondary hover:text-accent-blue transition-colors text-sm">
           &larr; All projects
         </a>
-        <a href="/ask" class="text-accent-blue hover:text-accent-blue-hover transition-colors text-sm font-medium">
-          Ask about this project &rarr;
+        <a href="/projects/employee-communication-simulator" class="text-accent-blue hover:text-accent-blue-hover transition-colors text-sm font-medium">
+          Employee Communication Simulator &rarr;
+        </a>
+      </div>
+
+      <div class="mt-6 text-center">
+        <a href="/ask" class="inline-block text-text-muted hover:text-accent-blue transition-colors text-sm">
+          Ask Pradeep AI about this project
         </a>
       </div>
 

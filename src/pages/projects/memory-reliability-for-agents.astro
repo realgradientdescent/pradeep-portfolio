@@ -44,6 +44,14 @@ import "../../styles/global.css";
         </div>
       </header>
 
+      <!-- Thesis callout -->
+      <div class="p-5 rounded-xl bg-surface-800/50 border-l-2 border-accent-blue mb-12">
+        <p class="text-text-secondary text-sm leading-relaxed italic">
+          "If the system needs to remember something later, it must write it to the right place
+          immediately. Conversational continuity is not the same thing as durable memory."
+        </p>
+      </div>
+
       <!-- Content -->
       <div class="space-y-12">
 
@@ -111,14 +119,15 @@ import "../../styles/global.css";
             Core Design Idea
           </h2>
           <div class="text-text-secondary leading-relaxed space-y-4">
-            <p class="text-text-primary font-medium italic border-l-2 border-accent-blue pl-4">
-              If the system needs to remember something later, it must write it to the right place
-              immediately.
+            <p>
+              The principle in the thesis above sounds simple, but it changes the architecture.
+              Instead of vaguely trusting the model to remember, I defined four things explicitly:
+              what gets written, where it lives, when it is retrieved, and which artifact is the
+              source of truth.
             </p>
             <p>
-              That sounds simple, but it changes the architecture. Instead of vaguely trusting the
-              model to remember, I defined what gets written, where it lives, when it is retrieved,
-              and which artifact is the source of truth.
+              Once those four are pinned down, memory stops being a model property and becomes a
+              system property — and that's the property you can debug, audit, and improve.
             </p>
           </div>
         </section>
@@ -204,28 +213,28 @@ import "../../styles/global.css";
           </div>
         </section>
 
-        <!-- What This Project Says -->
+        <!-- What I Learned -->
         <section>
           <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
             <span class="font-mono text-accent-blue text-sm">08</span>
-            What This Project Says About Me
+            What I Learned
           </h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
-              <h3 class="font-semibold text-text-primary mb-2 text-sm">Beyond single-turn AI</h3>
-              <p class="text-sm text-text-secondary">I think past the active conversation window to how agent systems behave across time, sessions, and handoffs.</p>
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">Think past the active window</h3>
+              <p class="text-sm text-text-secondary">Reliable agent design starts with how the system behaves across time, sessions, and handoffs — not just within a single turn.</p>
             </div>
             <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
               <h3 class="font-semibold text-text-primary mb-2 text-sm">Reliability over novelty</h3>
-              <p class="text-sm text-text-secondary">I care more about making AI systems that work consistently than about making them impressive in a demo.</p>
+              <p class="text-sm text-text-secondary">AI systems that work consistently on Tuesday morning matter more than systems that look impressive in a demo.</p>
             </div>
             <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
-              <h3 class="font-semibold text-text-primary mb-2 text-sm">Governance and memory design</h3>
-              <p class="text-sm text-text-secondary">Agent systems need governance, source-of-truth discipline, and memory design — not just good prompts.</p>
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">Governance is part of memory</h3>
+              <p class="text-sm text-text-secondary">Agent systems need source-of-truth discipline and memory boundaries — not just better prompts.</p>
             </div>
             <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
-              <h3 class="font-semibold text-text-primary mb-2 text-sm">Messy AI into dependable systems</h3>
-              <p class="text-sm text-text-secondary">I can turn unreliable agent behavior into a structured, dependable operating system.</p>
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">Structure beats hope</h3>
+              <p class="text-sm text-text-secondary">Treating reminders, handoffs, and policies as explicit artifacts is how unreliable AI behavior turns into a dependable operating system.</p>
             </div>
           </div>
         </section>
@@ -234,11 +243,17 @@ import "../../styles/global.css";
 
       <!-- Navigation -->
       <div class="mt-16 pt-8 border-t border-border flex justify-between items-center">
-        <a href="/projects" class="text-text-secondary hover:text-accent-blue transition-colors text-sm">
-          &larr; All projects
+        <a href="/projects/employee-communication-simulator" class="text-text-secondary hover:text-accent-blue transition-colors text-sm">
+          &larr; Employee Communication Simulator
         </a>
-        <a href="/ask" class="text-accent-blue hover:text-accent-blue-hover transition-colors text-sm font-medium">
-          Ask about this project &rarr;
+        <a href="/projects" class="text-accent-blue hover:text-accent-blue-hover transition-colors text-sm font-medium">
+          All projects &rarr;
+        </a>
+      </div>
+
+      <div class="mt-6 text-center">
+        <a href="/ask" class="inline-block text-text-muted hover:text-accent-blue transition-colors text-sm">
+          Ask Pradeep AI about this project
         </a>
       </div>
 
