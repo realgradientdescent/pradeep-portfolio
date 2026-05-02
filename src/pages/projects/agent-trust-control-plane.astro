@@ -1,0 +1,302 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import "../../styles/global.css";
+---
+
+<BaseLayout title="Agent Trust Control Plane — Pradeep" description="A local governance layer for AI agents that classifies proposed actions, enforces approval workflows, and maintains audit trails.">
+
+  <article class="py-24">
+    <div class="max-w-3xl mx-auto px-6">
+
+      <!-- Breadcrumb -->
+      <nav class="mb-8">
+        <a href="/projects" class="font-mono text-sm text-text-muted hover:text-accent-blue transition-colors">
+          &larr; back to projects
+        </a>
+      </nav>
+
+      <!-- Header -->
+      <header class="mb-12">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="inline-flex items-center gap-1.5 text-xs font-mono text-success">
+            <span class="w-1.5 h-1.5 rounded-full bg-success" />
+            live
+          </span>
+          <span class="text-xs font-mono text-text-muted">Agent Governance</span>
+        </div>
+
+        <h1 class="text-3xl md:text-4xl font-bold text-text-primary mb-4 leading-tight">
+          Agent Trust Control Plane
+        </h1>
+
+        <p class="text-lg text-text-secondary leading-relaxed">
+          A file-backed governance layer for AI agents that classifies proposed actions as
+          <code class="text-accent-blue">allow</code>, <code class="text-accent-blue">approval_required</code>,
+          <code class="text-accent-blue">clarification_required</code>, or <code class="text-accent-blue">blocked</code>
+          — enforcing human oversight where it matters without slowing down safe work.
+        </p>
+
+        <div class="flex flex-wrap gap-2 mt-6">
+          {["Python", "Policy Engine", "Risk Classification", "Audit Logging", "CLI", "Agent Safety"].map((tag) => (
+            <span class="px-2.5 py-1 text-xs font-mono rounded-md bg-surface-800 text-text-muted border border-border">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </header>
+
+      <!-- Thesis callout -->
+      <div class="p-5 rounded-xl bg-surface-800/50 border-l-2 border-accent-blue mb-12">
+        <p class="text-text-secondary text-sm leading-relaxed italic">
+          "Tool-using agents can send messages, edit files, delete data, push code, and spend money.
+          The question isn't whether they should act — it's whether anyone is checking before they do."
+        </p>
+      </div>
+
+      <!-- Content -->
+      <div class="space-y-12">
+
+        <!-- Problem -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">01</span>
+            The Problem
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              As AI agents gain tool access — file systems, APIs, cloud resources, communication
+              channels — they can execute high-stakes actions without meaningful human review. Most
+              agent frameworks treat safety as a prompt concern: "be careful" baked into system messages
+              that agents can interpret loosely or ignore under accumulated context pressure.
+            </p>
+            <p>
+              The failure mode isn't a rogue agent acting maliciously. It's an ambiguous destructive
+              request that escalates unchecked because no structural gate exists between "the agent
+              thinks this is fine" and "the action is irreversible." Without a governance layer,
+              the only safeguard is the model's own judgment — which is exactly what governance
+              should not depend on.
+            </p>
+          </div>
+        </section>
+
+        <!-- What I Built -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">02</span>
+            What I Built
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              A local, deterministic control plane that sits between agent intent and action execution.
+              Every proposed action is evaluated against a YAML policy registry, classified by risk,
+              and either approved, gated for human review, routed for clarification, or blocked outright.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
+              <div class="p-4 rounded-lg bg-surface-800/50 border border-border">
+                <p class="font-mono text-accent-blue text-sm mb-1">Policy Registry</p>
+                <p class="text-sm text-text-secondary">YAML-based rules defining what agents can do, what needs approval, and what's blocked</p>
+              </div>
+              <div class="p-4 rounded-lg bg-surface-800/50 border border-border">
+                <p class="font-mono text-accent-blue text-sm mb-1">Risk Engine</p>
+                <p class="text-sm text-text-secondary">Deterministic classification matching actions against policy rules and budget constraints</p>
+              </div>
+              <div class="p-4 rounded-lg bg-surface-800/50 border border-border">
+                <p class="font-mono text-accent-blue text-sm mb-1">Audit Trail</p>
+                <p class="text-sm text-text-secondary">JSONL logging of every decision with rationale, matched rules, and approval IDs</p>
+              </div>
+              <div class="p-4 rounded-lg bg-surface-800/50 border border-border">
+                <p class="font-mono text-accent-blue text-sm mb-1">Approval Inbox</p>
+                <p class="text-sm text-text-secondary">Markdown-rendered queue of pending human decisions with context and one-click resolution</p>
+              </div>
+            </div>
+
+            <p>
+              The CLI accepts structured proposals — agent name, action type, target, tool, destructiveness
+              flag, and stated intent — and returns a decision with full rationale. A static HTML dashboard
+              provides oversight visibility across all decisions and pending approvals.
+            </p>
+          </div>
+
+          <!-- Architecture diagram -->
+          <div class="mt-8 rounded-xl overflow-hidden border border-border">
+            <svg viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Trust control plane architecture: agent proposals flow through policy evaluation, risk classification, and decision gates" style="width:100%;height:auto;display:block;">
+              <defs>
+                <marker id="tcp-arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                  <polygon points="0 0, 8 3, 0 6" fill="#475569"/>
+                </marker>
+              </defs>
+              <rect width="700" height="380" fill="#1e293b"/>
+              <text x="22" y="26" font-family="JetBrains Mono, monospace" font-size="11" fill="#3b82f6">Trust Control Plane — Decision Flow</text>
+
+              <!-- Agent Proposal -->
+              <rect x="255" y="44" width="190" height="36" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+              <text x="350" y="66" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#94a3b8">Agent Proposal (CLI)</text>
+              <line x1="350" y1="80" x2="350" y2="104" stroke="#475569" stroke-width="1.5" marker-end="url(#tcp-arr)"/>
+
+              <!-- Policy Evaluation -->
+              <rect x="140" y="108" width="420" height="48" rx="8" fill="#172554" stroke="#3b82f6" stroke-width="1.5"/>
+              <text x="350" y="128" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#3b82f6" font-weight="600">Policy Evaluation &amp; Risk Classification</text>
+              <text x="350" y="146" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10.5" fill="#64748b">YAML rules · budget checks · destructiveness analysis · intent matching</text>
+
+              <!-- Four decision branches -->
+              <line x1="210" y1="156" x2="108" y2="196" stroke="#475569" stroke-width="1.5" marker-end="url(#tcp-arr)"/>
+              <line x1="290" y1="156" x2="268" y2="196" stroke="#475569" stroke-width="1.5" marker-end="url(#tcp-arr)"/>
+              <line x1="410" y1="156" x2="432" y2="196" stroke="#475569" stroke-width="1.5" marker-end="url(#tcp-arr)"/>
+              <line x1="490" y1="156" x2="592" y2="196" stroke="#475569" stroke-width="1.5" marker-end="url(#tcp-arr)"/>
+
+              <!-- Allow -->
+              <rect x="30" y="200" width="156" height="48" rx="6" fill="#0f172a" stroke="#22c55e" stroke-width="1.5"/>
+              <text x="108" y="220" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#22c55e">allow</text>
+              <text x="108" y="237" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#64748b">execute immediately</text>
+
+              <!-- Approval Required -->
+              <rect x="196" y="200" width="156" height="48" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1.5"/>
+              <text x="274" y="220" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#f59e0b">approval_required</text>
+              <text x="274" y="237" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#64748b">human gate</text>
+
+              <!-- Clarification -->
+              <rect x="362" y="200" width="156" height="48" rx="6" fill="#0f172a" stroke="#a78bfa" stroke-width="1.5"/>
+              <text x="440" y="220" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#a78bfa">clarification</text>
+              <text x="440" y="237" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#64748b">ambiguous intent</text>
+
+              <!-- Blocked -->
+              <rect x="528" y="200" width="142" height="48" rx="6" fill="#0f172a" stroke="#ef4444" stroke-width="1.5"/>
+              <text x="599" y="220" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#ef4444">blocked</text>
+              <text x="599" y="237" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#64748b">prohibited</text>
+
+              <!-- Audit layer -->
+              <rect x="30" y="280" width="640" height="80" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1" stroke-dasharray="5,3"/>
+              <text x="350" y="298" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#475569">AUDIT &amp; OVERSIGHT</text>
+              <rect x="44" y="308" width="148" height="40" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+              <text x="118" y="332" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#94a3b8">JSONL Audit Log</text>
+              <rect x="204" y="308" width="148" height="40" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+              <text x="278" y="332" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#94a3b8">Approval Inbox</text>
+              <rect x="364" y="308" width="148" height="40" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+              <text x="438" y="332" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#94a3b8">HTML Dashboard</text>
+              <rect x="524" y="308" width="134" height="40" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+              <text x="591" y="332" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#94a3b8">Budget Tracker</text>
+            </svg>
+          </div>
+        </section>
+
+        <!-- Key Design Decisions -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">03</span>
+            Key Design Decisions
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              <strong class="text-text-primary">Deterministic over probabilistic.</strong>
+              The risk engine uses rule-matching against explicit policies, not model-based judgment.
+              Safety classification should not depend on the same type of reasoning it's meant to
+              govern. A YAML policy that says "external sends require approval" always fires — it
+              doesn't get overridden by a persuasive prompt.
+            </p>
+            <p>
+              <strong class="text-text-primary">Clarification as a first-class decision.</strong>
+              Most governance systems have binary gates: allow or block. But real agent failures often
+              start with ambiguity — a request that could be safe or destructive depending on intent
+              the agent hasn't confirmed. Adding <code class="text-accent-blue">clarification_required</code> as
+              a distinct decision type catches the class of errors where agents escalate ambiguous
+              requests into irreversible actions.
+            </p>
+            <p>
+              <strong class="text-text-primary">Local and file-backed.</strong>
+              No cloud dependency, no database. Policies are YAML files, audit trails are JSONL,
+              the inbox is Markdown, and the dashboard is static HTML. Everything is inspectable,
+              version-controllable, and works offline. This makes the control plane easy to audit
+              and impossible to silently bypass.
+            </p>
+          </div>
+        </section>
+
+        <!-- Challenges -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">04</span>
+            Challenges
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              Policy granularity was a constant tradeoff. Too coarse and everything gets flagged,
+              creating approval fatigue that defeats the purpose. Too fine and the policy file
+              becomes unwieldy and brittle. The right balance came from starting with broad rules
+              and adding specificity only where real false positives or false negatives showed up.
+            </p>
+            <p>
+              The clarification workflow needed careful design. When the control plane asks for
+              clarification, the agent needs a structured way to re-submit with more context —
+              not just retry the same proposal. This meant designing the CLI interaction as a
+              conversation, not a single pass.
+            </p>
+          </div>
+        </section>
+
+        <!-- What I Learned -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">05</span>
+            What I Learned
+          </h2>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">Safety needs structure, not just instructions</h3>
+              <p class="text-sm text-text-secondary">Telling an agent to "be careful" is not a governance model. Deterministic policy enforcement is.</p>
+            </div>
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">Ambiguity is the real risk</h3>
+              <p class="text-sm text-text-secondary">Most dangerous agent actions aren't obviously wrong — they're ambiguous requests that escalate without clarification.</p>
+            </div>
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">Audit trails change behavior</h3>
+              <p class="text-sm text-text-secondary">When every decision is logged with rationale and matched rules, the system becomes self-documenting and easy to debug.</p>
+            </div>
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">Simple formats win</h3>
+              <p class="text-sm text-text-secondary">YAML policies, JSONL logs, Markdown inbox. No database, no cloud. Inspectable, portable, version-controllable.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Why This Matters -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">06</span>
+            Why This Matters
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              As AI agents move from demos to production — executing real actions on real systems —
+              governance becomes a hard requirement, not a nice-to-have. This project demonstrates
+              how to build that governance layer: deterministic policy enforcement, human approval
+              gates, clarification workflows for ambiguous cases, and full audit trails.
+            </p>
+            <p>
+              The patterns here — structured policy registries, risk classification, approval
+              workflows, and file-backed audit infrastructure — are the building blocks any
+              organization needs once agents start taking actions that matter. It's the difference
+              between trusting an agent because you hope it's safe and trusting it because you
+              can prove it.
+            </p>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Navigation -->
+      <div class="mt-16 pt-8 border-t border-border flex justify-between items-center">
+        <a href="/projects/browser-workflow-qa-agent" class="text-text-secondary hover:text-accent-blue transition-colors text-sm">
+          &larr; Browser Workflow QA Agent
+        </a>
+        <a href="/projects/opscore-dashboard" class="text-accent-blue hover:text-accent-blue-hover transition-colors text-sm font-medium">
+          OpsCore Dashboard &rarr;
+        </a>
+      </div>
+
+    </div>
+  </article>
+
+</BaseLayout>

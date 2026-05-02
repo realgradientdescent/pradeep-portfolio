@@ -1,0 +1,359 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import "../../styles/global.css";
+---
+
+<BaseLayout title="OpsCore Dashboard — Pradeep" description="A real-time operational dashboard for monitoring containerized AI services on a VPS, with a Next.js frontend and Python metrics agent.">
+
+  <article class="py-24">
+    <div class="max-w-3xl mx-auto px-6">
+
+      <!-- Breadcrumb -->
+      <nav class="mb-8">
+        <a href="/projects" class="font-mono text-sm text-text-muted hover:text-accent-blue transition-colors">
+          &larr; back to projects
+        </a>
+      </nav>
+
+      <!-- Header -->
+      <header class="mb-12">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="inline-flex items-center gap-1.5 text-xs font-mono text-success">
+            <span class="w-1.5 h-1.5 rounded-full bg-success" />
+            live
+          </span>
+          <span class="text-xs font-mono text-text-muted">Infrastructure & Observability</span>
+        </div>
+
+        <h1 class="text-3xl md:text-4xl font-bold text-text-primary mb-4 leading-tight">
+          OpsCore Dashboard
+        </h1>
+
+        <p class="text-lg text-text-secondary leading-relaxed">
+          A real-time operational dashboard that provides centralized visibility into multiple
+          containerized AI services running on a VPS — with a Python metrics agent on the server
+          and a Next.js frontend deployed to Vercel for remote monitoring.
+        </p>
+
+        <div class="flex flex-wrap gap-2 mt-6">
+          {["Next.js", "TypeScript", "Python", "Docker", "Traefik", "Vercel", "Real-Time Metrics"].map((tag) => (
+            <span class="px-2.5 py-1 text-xs font-mono rounded-md bg-surface-800 text-text-muted border border-border">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </header>
+
+      <!-- Thesis callout -->
+      <div class="p-5 rounded-xl bg-surface-800/50 border-l-2 border-accent-blue mb-12">
+        <p class="text-text-secondary text-sm leading-relaxed italic">
+          "If you're running AI agents in production, you need to see what they're doing — not just
+          whether they responded, but whether the infrastructure underneath them is healthy."
+        </p>
+      </div>
+
+      <!-- Content -->
+      <div class="space-y-12">
+
+        <!-- Problem -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">01</span>
+            The Problem
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              I was running multiple containerized services on a VPS — OpenClaw (multi-agent
+              orchestration), Hermes (communications agent), and the portfolio site itself — all
+              behind a Traefik reverse proxy. Each service had its own health characteristics, resource
+              consumption patterns, and failure modes.
+            </p>
+            <p>
+              Without centralized monitoring, diagnosing issues meant SSH-ing into the box and
+              running ad-hoc Docker commands. There was no single view of system health, no
+              historical metrics, and no way to check status from a phone or browser without
+              terminal access.
+            </p>
+          </div>
+        </section>
+
+        <!-- What I Built -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">02</span>
+            What I Built
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              A two-tier monitoring system: a lightweight Python agent running on the VPS that
+              exposes system and container metrics via an API-key-secured endpoint, and a Next.js
+              dashboard hosted on Vercel that pulls and visualizes those metrics in real time.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
+              <div class="p-4 rounded-lg bg-surface-800/50 border border-border">
+                <p class="font-mono text-accent-blue text-sm mb-1">VPS Agent</p>
+                <p class="text-sm text-text-secondary">Python service on port 8765 exposing CPU, memory, disk stats and container health checks</p>
+              </div>
+              <div class="p-4 rounded-lg bg-surface-800/50 border border-border">
+                <p class="font-mono text-accent-blue text-sm mb-1">Next.js Dashboard</p>
+                <p class="text-sm text-text-secondary">TypeScript frontend with charts, status cards, and real-time data polling from the VPS agent</p>
+              </div>
+              <div class="p-4 rounded-lg bg-surface-800/50 border border-border">
+                <p class="font-mono text-accent-blue text-sm mb-1">Traefik Integration</p>
+                <p class="text-sm text-text-secondary">Reverse proxy routing for multi-service architecture on a single VPS</p>
+              </div>
+              <div class="p-4 rounded-lg bg-surface-800/50 border border-border">
+                <p class="font-mono text-accent-blue text-sm mb-1">Service Monitoring</p>
+                <p class="text-sm text-text-secondary">Reads state from OpenClaw, Hermes, and Portfolio containers for unified health visibility</p>
+              </div>
+            </div>
+
+            <p>
+              The agent reads state directories from each managed service and aggregates system-level
+              metrics (CPU, memory, disk) alongside per-container health. The dashboard provides
+              card-based status views and charts for trend analysis, all secured by API-key
+              authentication.
+            </p>
+          </div>
+
+          <!-- Architecture diagram -->
+          <div class="mt-8 rounded-xl overflow-hidden border border-border">
+            <svg viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="OpsCore architecture: VPS agent collects metrics from containers, Next.js dashboard on Vercel visualizes them" style="width:100%;height:auto;display:block;">
+              <defs>
+                <marker id="ops-arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                  <polygon points="0 0, 8 3, 0 6" fill="#475569"/>
+                </marker>
+              </defs>
+              <rect width="700" height="380" fill="#1e293b"/>
+              <text x="22" y="26" font-family="JetBrains Mono, monospace" font-size="11" fill="#3b82f6">OpsCore — System Architecture</text>
+
+              <!-- Vercel / Dashboard side -->
+              <rect x="30" y="44" width="260" height="160" rx="8" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"/>
+              <text x="160" y="66" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#3b82f6" font-weight="600">Vercel (Cloud)</text>
+              <rect x="50" y="80" width="220" height="40" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+              <text x="160" y="104" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10.5" fill="#94a3b8">Next.js Dashboard (TypeScript)</text>
+              <rect x="50" y="130" width="100" height="34" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+              <text x="100" y="151" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#94a3b8">Charts</text>
+              <rect x="160" y="130" width="110" height="34" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+              <text x="215" y="151" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#94a3b8">Status Cards</text>
+              <text x="160" y="190" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#475569">real-time polling · API-key auth</text>
+
+              <!-- Arrow between dashboard and VPS -->
+              <line x1="290" y1="124" x2="400" y2="124" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#ops-arr)"/>
+              <text x="345" y="116" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="#3b82f6">HTTPS</text>
+
+              <!-- VPS side -->
+              <rect x="400" y="44" width="270" height="316" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+              <text x="535" y="66" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#3b82f6" font-weight="600">VPS (Ubuntu 24.04)</text>
+
+              <!-- Traefik -->
+              <rect x="420" y="80" width="230" height="34" rx="4" fill="#172554" stroke="#3b82f6" stroke-width="1"/>
+              <text x="535" y="101" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10.5" fill="#94a3b8">Traefik Reverse Proxy</text>
+
+              <!-- OpsCore Agent -->
+              <rect x="420" y="126" width="230" height="42" rx="4" fill="#1e293b" stroke="#22c55e" stroke-width="1"/>
+              <text x="535" y="145" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#22c55e">OpsCore Agent :8765</text>
+              <text x="535" y="160" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#64748b">Python · metrics · health checks</text>
+
+              <!-- Containers -->
+              <text x="535" y="192" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#475569">MANAGED CONTAINERS</text>
+              <rect x="420" y="200" width="110" height="48" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+              <text x="475" y="220" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#94a3b8">OpenClaw</text>
+              <text x="475" y="237" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#475569">multi-agent</text>
+              <rect x="540" y="200" width="110" height="48" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+              <text x="595" y="220" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#94a3b8">Hermes</text>
+              <text x="595" y="237" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#475569">comms agent</text>
+              <rect x="420" y="258" width="110" height="48" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+              <text x="475" y="278" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#94a3b8">Portfolio</text>
+              <text x="475" y="295" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#475569">Astro site</text>
+              <rect x="540" y="258" width="110" height="48" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+              <text x="595" y="278" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#94a3b8">System</text>
+              <text x="595" y="295" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#475569">CPU · mem · disk</text>
+
+              <!-- Dashed lines from agent to containers -->
+              <line x1="475" y1="168" x2="475" y2="200" stroke="#334155" stroke-width="1" stroke-dasharray="3,3"/>
+              <line x1="595" y1="168" x2="595" y2="200" stroke="#334155" stroke-width="1" stroke-dasharray="3,3"/>
+
+              <!-- Browser on left -->
+              <rect x="50" y="240" width="220" height="36" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+              <text x="160" y="262" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#94a3b8">Browser / Mobile — any device</text>
+              <line x1="160" y1="240" x2="160" y2="210" stroke="#475569" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#ops-arr)"/>
+            </svg>
+          </div>
+        </section>
+
+        <!-- Dashboard Screenshots -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">03</span>
+            Dashboard in Action
+          </h2>
+          <p class="text-text-secondary leading-relaxed mb-6">
+            The live Vercel deployment provides four views — system overview, agent telemetry,
+            container health, and cost tracking — all pulling real-time data from the VPS agent.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="rounded-xl overflow-hidden border border-border">
+              <div class="px-4 py-2 bg-surface-900 border-b border-border">
+                <span class="font-mono text-xs text-text-muted">Overview</span>
+              </div>
+              <img
+                src="https://raw.githubusercontent.com/realgradientdescent/opscore-dashboard/main/evidence/screenshots/vercel/overview-live.png"
+                alt="OpsCore dashboard overview — system-level CPU, memory and disk metrics"
+                class="w-full block"
+                loading="lazy"
+              />
+            </div>
+            <div class="rounded-xl overflow-hidden border border-border">
+              <div class="px-4 py-2 bg-surface-900 border-b border-border">
+                <span class="font-mono text-xs text-text-muted">Agents</span>
+              </div>
+              <img
+                src="https://raw.githubusercontent.com/realgradientdescent/opscore-dashboard/main/evidence/screenshots/vercel/agents-live.png"
+                alt="OpsCore dashboard agents view — live agent telemetry and status"
+                class="w-full block"
+                loading="lazy"
+              />
+            </div>
+            <div class="rounded-xl overflow-hidden border border-border">
+              <div class="px-4 py-2 bg-surface-900 border-b border-border">
+                <span class="font-mono text-xs text-text-muted">Containers</span>
+              </div>
+              <img
+                src="https://raw.githubusercontent.com/realgradientdescent/opscore-dashboard/main/evidence/screenshots/vercel/containers-live.png"
+                alt="OpsCore dashboard containers view — per-container health status"
+                class="w-full block"
+                loading="lazy"
+              />
+            </div>
+            <div class="rounded-xl overflow-hidden border border-border">
+              <div class="px-4 py-2 bg-surface-900 border-b border-border">
+                <span class="font-mono text-xs text-text-muted">Costs</span>
+              </div>
+              <img
+                src="https://raw.githubusercontent.com/realgradientdescent/opscore-dashboard/main/evidence/screenshots/vercel/costs-live.png"
+                alt="OpsCore dashboard costs view — resource cost tracking across services"
+                class="w-full block"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </section>
+
+        <!-- Key Design Decisions -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">04</span>
+            Key Design Decisions
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              <strong class="text-text-primary">Split architecture: agent on VPS, dashboard on Vercel.</strong>
+              The metrics agent runs where the containers live and exposes a minimal secured API.
+              The dashboard runs on Vercel for zero-maintenance hosting and global access. This
+              separation means the monitoring frontend never competes for VPS resources with the
+              services it's watching.
+            </p>
+            <p>
+              <strong class="text-text-primary">API-key authentication over complex auth.</strong>
+              The agent endpoint is secured with an X-API-Key header rather than OAuth or session-based
+              auth. For a single-operator monitoring tool, this is the right tradeoff: simple to
+              implement, easy to rotate, and sufficient for the threat model.
+            </p>
+            <p>
+              <strong class="text-text-primary">Read from state directories, not container internals.</strong>
+              Rather than instrumenting each service, the agent reads from mounted state directories
+              that services already write to. This means monitoring doesn't require changes to
+              monitored services — it observes their existing file-based state.
+            </p>
+          </div>
+        </section>
+
+        <!-- Challenges -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">05</span>
+            Challenges
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              Getting Traefik routing right for multiple services plus a metrics endpoint on the
+              same VPS required careful label configuration. The OpsCore agent needed to be exposed
+              directly on its port rather than through Traefik's routing, since it serves a different
+              access pattern than the web-facing services.
+            </p>
+            <p>
+              Real-time polling from a Vercel-hosted frontend to a VPS agent introduced CORS and
+              latency considerations. The polling interval needed to balance freshness against
+              unnecessary load on a box already running production services.
+            </p>
+          </div>
+        </section>
+
+        <!-- What I Learned -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">06</span>
+            What I Learned
+          </h2>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">Monitoring earns its cost fast</h3>
+              <p class="text-sm text-text-secondary">The first time you catch a disk-full condition from your phone instead of discovering it when a deploy fails, the dashboard pays for itself.</p>
+            </div>
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">Keep the agent minimal</h3>
+              <p class="text-sm text-text-secondary">A monitoring agent that consumes significant resources on the box it's monitoring defeats its own purpose. Read files, serve JSON, nothing more.</p>
+            </div>
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">Separation of concerns scales</h3>
+              <p class="text-sm text-text-secondary">Compute where the data is, present where the user is. This pattern works for monitoring and generalizes to most observability architectures.</p>
+            </div>
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">File-based state is observable</h3>
+              <p class="text-sm text-text-secondary">Services that write state to files are inherently easier to monitor than services that only keep state in memory or databases.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Why This Matters -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">07</span>
+            Why This Matters
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              This project demonstrates full-stack infrastructure thinking: designing a monitoring
+              system that covers the Python agent, TypeScript dashboard, Docker containerization,
+              Traefik routing, and Vercel deployment — all as a single coherent system rather than
+              isolated pieces.
+            </p>
+            <p>
+              It shows the operational side of running AI services in production. Building agents
+              is one thing; keeping them running, visible, and debuggable is another. OpsCore is
+              the answer to "how do you know your agents are healthy?" — with real metrics, not
+              just hope.
+            </p>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Navigation -->
+      <div class="mt-16 pt-8 border-t border-border flex justify-between items-center">
+        <a href="/projects/agent-trust-control-plane" class="text-text-secondary hover:text-accent-blue transition-colors text-sm">
+          &larr; Agent Trust Control Plane
+        </a>
+        <a href="/projects/memory-reliability-for-agents" class="text-accent-blue hover:text-accent-blue-hover transition-colors text-sm font-medium">
+          Durable Memory for AI Agents &rarr;
+        </a>
+      </div>
+
+    </div>
+  </article>
+
+</BaseLayout>

@@ -106,6 +106,8 @@ As a leader, he brings this lens to teams: how do we make AI a real capability i
 
 ## Featured Projects
 
+Pradeep has built seven projects spanning agentic platforms, applied AI systems, governance, infrastructure, and reliability engineering. They are described below. When asked about projects, highlight the most relevant ones based on the question, and always mention they are available with full write-ups on the portfolio website.
+
 ### Project 1: Multi-Agent OpenClaw Orchestration
 
 One-line: Designed a role-based multi-agent assistant system with explicit orchestration, specialist routing, durable memory, and handoff workflows.
@@ -156,6 +158,83 @@ Key learnings:
 - A noisy memory system is one people stop trusting, so operational hygiene is part of the design.
 
 Why it matters: Distinct from Project 1 (which is about orchestration and role design) — this project is about persistence and recoverability. Demonstrates reliability-first thinking, systems design under real failure modes, governance and source-of-truth discipline, and the ability to turn messy AI behavior into a structured, dependable operating system.
+
+### Project 4: Jarvis — Hermes AI Operating System
+
+One-line: A persistent, always-on AI operating system built on the Hermes Agent framework, combining layered memory, a 125-skill procedural library, a git-backed Obsidian knowledge vault, and cron-driven autonomous workflows accessible via Telegram.
+
+How it differs from Project 1 (OpenClaw): OpenClaw solves the coordination problem — how a team of specialized agents route tasks and hand off work. Jarvis solves the persistence problem — how a single agent accumulates knowledge, builds reusable procedures, and operates autonomously over weeks and months without losing context. Two different design philosophies for two different failure modes.
+
+What was built: A personal AI operating system running on a VPS with a Telegram interface, powered by Hermes Agent v0.12.0 with GPT as the primary model and fallback routing through DeepSeek and Claude via OpenRouter. The system has a two-file memory architecture (USER.md for personal preferences, MEMORY.md for system facts — compact, high-signal state, not a dump), a skills library of 125 reusable procedure files across 28 categories, an Obsidian knowledge vault of 590 markdown files synced daily to GitHub, cron-scheduled jobs (daily AI idea briefs, weekly backlog synthesis, vault synchronization), and Google Workspace integration for report delivery via Gmail, Docs, and Calendar. The system retains 180+ stored conversations for historical recall.
+
+Key design decisions:
+- Memory as compact high-value state, not ambient storage — what gets left out is as important as what gets kept in.
+- Skills as procedural memory — the agent improves by accumulating playbooks, not just better prompts.
+- Obsidian as the knowledge surface — work products route to durable storage, not chat history.
+- Cron as an autonomy layer — scheduled jobs run without being asked, shifting the system from reactive assistant to proactive operator.
+
+Key learnings:
+- Compounding beats capability: an agent that accumulates knowledge over months outperforms a more capable agent that starts fresh every session.
+- Memory discipline is harder than memory capacity — keeping it small and high-signal requires active curation.
+- Scheduled autonomy changes the relationship with the system: it stops being a tool and becomes infrastructure.
+- Honest documentation matters: the gbrain/QMD integration is documented but not yet live in the deployed container. This is stated honestly.
+
+Why it matters: Demonstrates operational maturity in agentic system design — layered memory architecture, procedural skill accumulation, autonomous scheduling, and knowledge management infrastructure. Shows the ability to design AI systems that compound value over time, not just perform well in demos.
+
+### Project 5: Agent Trust Control Plane
+
+One-line: A local, file-backed governance layer for AI agents that classifies proposed actions as allow, approval_required, clarification_required, or blocked — with deterministic YAML policies, human approval gates, and JSONL audit trails.
+
+Problem: Tool-using agents can send messages, edit files, delete data, push code, and spend money. Without structural governance, the only safeguard is the model's own judgment — which is exactly what governance should not depend on.
+
+What was built: A control plane that sits between agent intent and action execution. Every proposed action is evaluated against a YAML policy registry, classified by risk, and routed to one of four outcomes. Core components: a YAML-based policy registry for authorization rules, a deterministic risk classification engine (rule-matching, not model-based), human approval gates with JSONL audit logging of every decision, a Markdown approval inbox for pending decisions, and a static HTML dashboard for oversight visibility. The CLI accepts structured proposals (agent name, action type, target, destructiveness flag, stated intent) and returns a decision with full rationale. Everything is local, file-backed, inspectable, and version-controllable — no cloud dependency, no database.
+
+Key design decisions:
+- Deterministic over probabilistic: safety classification uses rule-matching, not model reasoning. A policy that says "external sends require approval" always fires.
+- Clarification as a first-class outcome: adds the class of failures where ambiguous requests escalate into irreversible actions without confirmed intent.
+- Local and file-backed: YAML policies, JSONL audit trail, Markdown inbox, static HTML dashboard — fully inspectable and impossible to silently bypass.
+
+Key learnings:
+- Safety needs structure, not just instructions. Governance cannot depend on the system it is meant to govern.
+- Ambiguity is the real risk: most dangerous agent actions aren't obviously wrong, they're ambiguous requests that escalate without clarification.
+- Audit trails change accountability: when every decision is logged with rationale and matched rules, the system becomes self-documenting.
+
+Why it matters: Demonstrates how to build governance infrastructure for agentic systems — deterministic policy enforcement, human approval workflows, and full audit trails. Directly relevant to enterprise AI deployment, compliance, and safe autonomy at scale.
+
+### Project 6: OpsCore Dashboard
+
+One-line: A real-time operational dashboard for monitoring containerized AI services on a VPS — with a Python metrics agent on the server and a Next.js frontend on Vercel for remote visibility.
+
+Problem: Running multiple containerized AI services (OpenClaw, Hermes, the portfolio site) behind a Traefik reverse proxy with no centralized monitoring meant diagnosing issues required SSH access and ad-hoc Docker commands. No single health view, no historical metrics, no way to check status from a phone.
+
+What was built: A two-tier monitoring system. A lightweight Python agent on the VPS (port 8765, API-key secured) exposes CPU, memory, disk statistics and per-container health data by reading from mounted state directories. A Next.js/TypeScript dashboard hosted on Vercel polls that agent for real-time data and renders it through four views: system overview, agent telemetry, container health status, and cost tracking. Live screenshots of all four views are documented in the repository.
+
+Key design decisions:
+- Separated compute (where the data lives) from presentation (where the user is) — a pattern that scales to any observability architecture.
+- API-key authentication over complex auth: simple, rotatable, sufficient for the threat model.
+- Read from state directories rather than instrumenting services — monitoring doesn't require changes to the services being monitored.
+
+Why it matters: Demonstrates full-stack infrastructure thinking — Python agent, TypeScript frontend, Docker containerization, Traefik routing, and Vercel deployment as one coherent system. Shows the operational discipline behind running AI services in production.
+
+### Project 7: Browser Workflow QA Agent
+
+One-line: An AI agent that performs structured quality assurance on live websites — triggered by a single natural-language Telegram message, executing a deterministic inspection workflow, and producing evidence-backed PASS/WARN/FAIL reports.
+
+Problem: AI agents used for software quality checks tend to produce unstructured chat output ("the page looks fine") with no audit trail, no reproducibility, and no way to track regressions. QA that lives only in a chat window is worthless when the window closes.
+
+What was built: A structured QA agent triggered by a Telegram message ("Jarvis, QA this URL: [url] Goal: [objective]"). The agent navigates URLs, inspects rendered DOM, audits browser console for errors and warnings, captures desktop and mobile viewport screenshots, and classifies findings as PASS, WARN, or FAIL with severity ratings. A reusable Python helper module (qa_report_helper.py) handles deterministic slug generation, verdict classification, Markdown report formatting, and file persistence. Every run produces a full evidence bundle — Markdown report, screenshot set, metadata — saved to durable storage, with a concise summary sent back via Telegram. Tested with TDD discipline: tests cover filename safety, verdict logic, required report sections, and output naming conventions. A real QA run against the live portfolio site is documented with actual screenshots and findings in the repository.
+
+Key design decisions:
+- Evidence-first design: every run produces artifacts that persist independently of the conversation.
+- Small, testable reporting substrate: report logic is in a tested Python module, not embedded in agent prompts.
+- Natural-language trigger, deterministic execution: the interface is conversational; the process is structured.
+
+Key learnings:
+- Agents need output contracts: without a defined schema for what a completed QA run looks like, agents improvise — and improvised QA is unreliable.
+- TDD applies to agentic helper modules just as it does to any production code.
+- Evidence changes accountability: when QA produces screenshots and structured findings, regressions can be tracked and the system can be held accountable.
+
+Why it matters: Demonstrates practical agentic automation applied to a real engineering workflow — evidence capture, structured verdicts, testable helper substrates, and reproducible output. Shows that agentic systems can be made auditable, not just impressive.
 
 ---
 

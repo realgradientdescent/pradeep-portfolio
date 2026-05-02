@@ -12,12 +12,44 @@ const projects = [
     category: "Agentic Systems",
   },
   {
+    slug: "hermes-obsidian-gbrain",
+    title: "Jarvis: Hermes AI Operating System",
+    summary: "A persistent, always-on AI operating system built on Hermes Agent — with layered memory, a 125-skill procedural library, a 590-file Obsidian knowledge vault backed by GitHub, and cron-driven autonomous workflows accessible via Telegram.",
+    tags: ["Hermes Agent", "Python", "Obsidian", "Telegram", "Cron Automation", "OpenAI"],
+    status: "live",
+    category: "Agentic Platform",
+  },
+  {
     slug: "employee-communication-simulator",
     title: "Employee Communication Simulator",
     summary: "Built a simulation platform for testing how leadership messages land across a 450-person org — with weighted personas, Monte Carlo scenario analysis, multi-provider LLM integration, and executive-ready reporting in PDF and PowerPoint.",
     tags: ["Python", "React 19", "Multi-LLM", "Monte Carlo", "Executive Reporting", "Decision Support"],
     status: "live",
     category: "Decision-Support Systems",
+  },
+  {
+    slug: "browser-workflow-qa-agent",
+    title: "Browser Workflow QA Agent",
+    summary: "An AI agent that performs structured quality assurance on live websites — navigating pages, auditing browser console state, capturing desktop and mobile screenshots, and producing evidence-backed PASS/WARN/FAIL reports triggered by a single natural-language Telegram message.",
+    tags: ["Python", "Browser Automation", "Agentic Workflows", "Telegram", "QA Engineering", "TDD"],
+    status: "live",
+    category: "Agentic QA & Automation",
+  },
+  {
+    slug: "agent-trust-control-plane",
+    title: "Agent Trust Control Plane",
+    summary: "Built a local governance layer for AI agents that classifies proposed actions as allow, approval_required, clarification_required, or blocked — with YAML policies, deterministic risk classification, human approval gates, and JSONL audit trails.",
+    tags: ["Python", "Policy Engine", "Risk Classification", "Audit Logging", "Agent Safety"],
+    status: "live",
+    category: "Agent Governance",
+  },
+  {
+    slug: "opscore-dashboard",
+    title: "OpsCore Dashboard",
+    summary: "A real-time operational dashboard for monitoring containerized AI services on a VPS — with a Python metrics agent collecting system health data and a Next.js frontend on Vercel for remote visibility into CPU, memory, disk, and container status.",
+    tags: ["Next.js", "TypeScript", "Python", "Docker", "Traefik", "Vercel"],
+    status: "live",
+    category: "Infrastructure & Observability",
   },
   {
     slug: "memory-reliability-for-agents",
@@ -72,21 +104,22 @@ const projects = [
                 <p class="text-text-secondary text-sm leading-relaxed mb-4 max-w-2xl">
                   {project.summary}
                 </p>
-                <div class="flex flex-wrap gap-2">
+                <div class="flex flex-wrap gap-2 mb-5">
                   {project.tags.map((tag) => (
                     <span class="px-2.5 py-1 text-xs font-mono rounded-md bg-surface-900 text-text-muted border border-border">
                       {tag}
                     </span>
                   ))}
                 </div>
+                {project.status === "live" && (
+                  <span class="inline-flex items-center gap-1.5 text-sm font-medium text-accent-blue group-hover:gap-3 transition-all duration-200">
+                    View case study
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </span>
+                )}
               </div>
-              {project.status === "live" && (
-                <span class="text-text-muted group-hover:text-accent-blue transition-colors mt-2 md:mt-0">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                </span>
-              )}
             </div>
           </a>
         ))}

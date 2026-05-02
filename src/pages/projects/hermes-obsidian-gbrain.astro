@@ -1,0 +1,398 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import "../../styles/global.css";
+---
+
+<BaseLayout title="Jarvis: Hermes AI Operating System — Pradeep" description="A persistent, always-on personal AI operating system built on Hermes Agent — with a layered memory architecture, a 125-skill procedural library, an Obsidian knowledge vault, and cron-driven autonomous workflows.">
+
+  <article class="py-24">
+    <div class="max-w-3xl mx-auto px-6">
+
+      <!-- Breadcrumb -->
+      <nav class="mb-8">
+        <a href="/projects" class="font-mono text-sm text-text-muted hover:text-accent-blue transition-colors">
+          &larr; back to projects
+        </a>
+      </nav>
+
+      <!-- Header -->
+      <header class="mb-12">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="inline-flex items-center gap-1.5 text-xs font-mono text-success">
+            <span class="w-1.5 h-1.5 rounded-full bg-success" />
+            live
+          </span>
+          <span class="text-xs font-mono text-text-muted">Agentic Platform</span>
+        </div>
+
+        <h1 class="text-3xl md:text-4xl font-bold text-text-primary mb-4 leading-tight">
+          Jarvis: Hermes AI Operating System
+        </h1>
+
+        <p class="text-lg text-text-secondary leading-relaxed">
+          A persistent, always-on AI operating system built on the Hermes Agent framework —
+          combining layered memory, a growing library of reusable skills, an Obsidian knowledge
+          vault backed by GitHub, and cron-driven autonomous workflows accessible from anywhere
+          via Telegram.
+        </p>
+
+        <div class="flex flex-wrap gap-2 mt-6">
+          {["Hermes Agent", "Python", "Obsidian", "Telegram", "Cron Automation", "OpenAI", "Google Workspace"].map((tag) => (
+            <span class="px-2.5 py-1 text-xs font-mono rounded-md bg-surface-800 text-text-muted border border-border">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </header>
+
+      <!-- Contrast callout -->
+      <div class="p-5 rounded-xl bg-surface-800/50 border-l-2 border-accent-blue mb-6">
+        <p class="text-text-secondary text-sm leading-relaxed italic">
+          "Most agent systems solve for capability. This one solves for continuity —
+          an agent that keeps getting smarter, more autonomous, and more useful the longer it runs."
+        </p>
+      </div>
+
+      <!-- OpenClaw contrast note -->
+      <div class="p-5 rounded-xl bg-surface-900 border border-border mb-12">
+        <p class="font-mono text-xs text-accent-blue mb-2">contrast with Multi-Agent OpenClaw</p>
+        <p class="text-text-secondary text-sm leading-relaxed">
+          OpenClaw solves the <strong class="text-text-primary">coordination problem</strong> — how a team of specialized agents route tasks,
+          hand off work, and avoid role confusion. Jarvis solves the <strong class="text-text-primary">persistence problem</strong> — how
+          a single agent accumulates knowledge, builds reusable procedures, and operates autonomously
+          over weeks and months without losing context. Two different design philosophies for two
+          different failure modes.
+        </p>
+      </div>
+
+      <!-- Content -->
+      <div class="space-y-12">
+
+        <!-- Problem -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">01</span>
+            The Problem
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              Capable AI agents still have a fundamental operational problem: they forget.
+              Every session starts cold. Context from last week's research is gone. A workflow
+              that worked once has to be re-explained. Insights get buried in chat history
+              that no one will read again.
+            </p>
+            <p>
+              The result is an assistant that's impressive in a single conversation but doesn't
+              compound. You can't build on it. It doesn't get better. And it certainly doesn't
+              do anything unless you ask it to — no scheduling, no proactive monitoring,
+              no autonomous habits.
+            </p>
+            <p>
+              That gap — between a capable AI and a reliable AI operator — is what Jarvis was
+              built to close.
+            </p>
+          </div>
+        </section>
+
+        <!-- What I Built -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">02</span>
+            What I Built
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              A personal AI operating system running on a VPS, reachable via Telegram 24/7,
+              with a layered architecture designed specifically around durability, knowledge
+              accumulation, and autonomous operation.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
+              <div class="p-4 rounded-lg bg-surface-800/50 border border-border">
+                <p class="font-mono text-accent-blue text-sm mb-1">Layered Memory</p>
+                <p class="text-sm text-text-secondary">USER.md for personal preferences, MEMORY.md for system facts — compact high-value state, not a dump</p>
+              </div>
+              <div class="p-4 rounded-lg bg-surface-800/50 border border-border">
+                <p class="font-mono text-accent-blue text-sm mb-1">Skills Library</p>
+                <p class="text-sm text-text-secondary">125 reusable procedure files across 28 categories — the agent gets smarter by accumulating playbooks, not just better prompts</p>
+              </div>
+              <div class="p-4 rounded-lg bg-surface-800/50 border border-border">
+                <p class="font-mono text-accent-blue text-sm mb-1">Obsidian Knowledge Vault</p>
+                <p class="text-sm text-text-secondary">590 markdown files, git-backed and synced daily — research, reports, and project notes persist as durable assets</p>
+              </div>
+              <div class="p-4 rounded-lg bg-surface-800/50 border border-border">
+                <p class="font-mono text-accent-blue text-sm mb-1">Cron Automation</p>
+                <p class="text-sm text-text-secondary">Daily AI idea briefs, weekly backlog synthesis, vault git syncs — scheduled jobs run without being asked</p>
+              </div>
+            </div>
+
+            <p>
+              The interface is Telegram — mobile-first, always accessible, no terminal required.
+              The underlying model is GPT-5.4 (primary) with fallback routing through DeepSeek
+              and Claude via OpenRouter. Google Workspace integration handles report delivery via
+              Gmail, Docs, and Calendar hooks.
+            </p>
+          </div>
+
+          <!-- Architecture diagram -->
+          <div class="mt-8 rounded-xl overflow-hidden border border-border">
+            <svg viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Jarvis architecture: Telegram interface connects to Hermes runtime with layered memory, skills, and Obsidian vault, with cron automation running in parallel" style="width:100%;height:auto;display:block;">
+              <defs>
+                <marker id="hob-arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                  <polygon points="0 0, 8 3, 0 6" fill="#475569"/>
+                </marker>
+                <marker id="hob-arr-b" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                  <polygon points="0 0, 8 3, 0 6" fill="#3b82f6"/>
+                </marker>
+              </defs>
+              <rect width="700" height="400" fill="#1e293b"/>
+              <text x="22" y="26" font-family="JetBrains Mono, monospace" font-size="11" fill="#3b82f6">Jarvis — System Architecture</text>
+
+              <!-- Telegram -->
+              <rect x="20" y="48" width="140" height="44" rx="6" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"/>
+              <text x="90" y="68" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#3b82f6">Telegram</text>
+              <text x="90" y="84" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#64748b">mobile · 24/7 access</text>
+              <line x1="160" y1="70" x2="194" y2="70" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#hob-arr-b)"/>
+
+              <!-- Cron -->
+              <rect x="20" y="110" width="140" height="44" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+              <text x="90" y="130" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#94a3b8">Cron Jobs</text>
+              <text x="90" y="146" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#64748b">daily briefs · weekly syncs</text>
+              <line x1="160" y1="132" x2="194" y2="100" stroke="#475569" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#hob-arr)"/>
+
+              <!-- Hermes Runtime (core) -->
+              <rect x="196" y="48" width="310" height="100" rx="8" fill="#172554" stroke="#3b82f6" stroke-width="1.5"/>
+              <text x="351" y="70" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#3b82f6" font-weight="600">Hermes Runtime — Jarvis</text>
+              <text x="351" y="87" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#64748b">GPT-5.4 · DeepSeek · Claude (OpenRouter fallback)</text>
+              <rect x="212" y="96" width="120" height="36" rx="4" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+              <text x="272" y="118" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#94a3b8">Tool execution</text>
+              <rect x="344" y="96" width="148" height="36" rx="4" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+              <text x="418" y="118" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#94a3b8">Safety rails · approval gates</text>
+
+              <!-- Google Workspace -->
+              <rect x="524" y="48" width="152" height="44" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+              <text x="600" y="68" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#94a3b8">Google Workspace</text>
+              <text x="600" y="84" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#64748b">Gmail · Docs · Calendar</text>
+              <line x1="506" y1="70" x2="524" y2="70" stroke="#475569" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#hob-arr)"/>
+
+              <!-- Down arrows from runtime -->
+              <line x1="272" y1="148" x2="272" y2="186" stroke="#475569" stroke-width="1.5" marker-end="url(#hob-arr)"/>
+              <line x1="351" y1="148" x2="351" y2="186" stroke="#475569" stroke-width="1.5" marker-end="url(#hob-arr)"/>
+              <line x1="430" y1="148" x2="430" y2="186" stroke="#475569" stroke-width="1.5" marker-end="url(#hob-arr)"/>
+
+              <!-- Memory layers -->
+              <rect x="140" y="190" width="160" height="58" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+              <text x="220" y="212" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#3b82f6">Memory</text>
+              <text x="220" y="228" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#64748b">USER.md · MEMORY.md</text>
+              <text x="220" y="241" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#475569">180+ sessions retained</text>
+
+              <!-- Skills library -->
+              <rect x="316" y="190" width="160" height="58" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+              <text x="396" y="212" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#3b82f6">Skills Library</text>
+              <text x="396" y="228" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#64748b">125 procedures · 28 categories</text>
+              <text x="396" y="241" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#475569">reusable playbooks</text>
+
+              <!-- GitHub -->
+              <rect x="492" y="190" width="160" height="58" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+              <text x="572" y="212" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#3b82f6">GitHub Backup</text>
+              <text x="572" y="228" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#64748b">version-controlled vault</text>
+              <text x="572" y="241" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#475569">daily auto-sync 4:30 AM</text>
+
+              <!-- Obsidian vault -->
+              <line x1="220" y1="248" x2="220" y2="286" stroke="#334155" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#hob-arr)"/>
+              <line x1="396" y1="248" x2="350" y2="286" stroke="#334155" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#hob-arr)"/>
+              <line x1="572" y1="248" x2="480" y2="286" stroke="#334155" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#hob-arr)"/>
+
+              <rect x="140" y="290" width="390" height="90" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1" stroke-dasharray="5,3"/>
+              <text x="335" y="310" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="#475569">OBSIDIAN KNOWLEDGE VAULT (590 files · git-backed)</text>
+              <rect x="154" y="318" width="112" height="48" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+              <text x="210" y="338" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#94a3b8">Research Notes</text>
+              <text x="210" y="353" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#475569">persistent outputs</text>
+              <rect x="278" y="318" width="112" height="48" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+              <text x="334" y="338" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#94a3b8">Project Notes</text>
+              <text x="334" y="353" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#475569">durable context</text>
+              <rect x="402" y="318" width="112" height="48" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+              <text x="458" y="338" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#94a3b8">Reports & Briefs</text>
+              <text x="458" y="353" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#475569">auto-delivered</text>
+            </svg>
+          </div>
+        </section>
+
+        <!-- How it differs from OpenClaw -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">03</span>
+            A Different Design Philosophy
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              Multi-Agent OpenClaw is built around a <strong class="text-text-primary">team</strong> —
+              Jeeves orchestrates, Ada codes, Hermes researches, Scribe documents. The design challenge
+              is coordination: how do specialized agents route work, hand off context, and avoid role
+              confusion?
+            </p>
+            <p>
+              Jarvis is built around a <strong class="text-text-primary">single operator</strong> that
+              doesn't forget. The design challenge is entirely different: how does one agent accumulate
+              knowledge across months, build reusable procedures instead of re-explaining the same
+              task every week, and eventually run jobs without being asked at all?
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
+              <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+                <p class="font-mono text-accent-blue text-xs mb-2">OpenClaw approach</p>
+                <ul class="text-sm text-text-secondary space-y-1.5">
+                  <li>Team of specialists, explicit routing</li>
+                  <li>Coordination doctrine (baton files, role boundaries)</li>
+                  <li>Claude Code desktop environment</li>
+                  <li>Strength: parallelism, specialization</li>
+                  <li>Challenge: handoff reliability</li>
+                </ul>
+              </div>
+              <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+                <p class="font-mono text-accent-blue text-xs mb-2">Jarvis/Hermes approach</p>
+                <ul class="text-sm text-text-secondary space-y-1.5">
+                  <li>Single persistent operator, layered memory</li>
+                  <li>Knowledge accumulation (skills, vault, sessions)</li>
+                  <li>VPS + Telegram, always-on mobile access</li>
+                  <li>Strength: continuity, autonomous scheduling</li>
+                  <li>Challenge: memory discipline, signal vs. noise</li>
+                </ul>
+              </div>
+            </div>
+
+            <p>
+              Neither is universally better — they solve different problems. OpenClaw is the right
+              model when a task needs parallel specialization. Jarvis is the right model when you
+              need an operator that compounds knowledge and works without constant prompting.
+            </p>
+          </div>
+        </section>
+
+        <!-- Key Design Decisions -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">04</span>
+            Key Design Decisions
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              <strong class="text-text-primary">Memory as compact high-value state.</strong>
+              USER.md holds personal preferences and constraints (~1,400 chars). MEMORY.md holds
+              system facts — mount paths, OAuth quirks, deployment notes (~2,200 chars). The discipline
+              here is what's kept out: no task logs, no raw conversation summaries, no ambient noise.
+              Memory that grows unbounded becomes useless.
+            </p>
+            <p>
+              <strong class="text-text-primary">Skills as procedural memory.</strong>
+              125 documented procedures across 28 categories mean the agent doesn't have to reason
+              about how to do a GitHub PR or generate a report — it follows a playbook. This shifts
+              improvement from "better prompting" to "accumulated procedures," which compounds
+              over time in a way that prompt tweaks don't.
+            </p>
+            <p>
+              <strong class="text-text-primary">Obsidian as the knowledge surface.</strong>
+              Rather than letting outputs disappear into chat history, work products get routed into
+              a git-backed Obsidian vault. 590 files, synced daily at 4:30 AM UTC. Research done
+              last month is retrievable. Reports from three weeks ago have a permanent home.
+            </p>
+            <p>
+              <strong class="text-text-primary">Cron as an autonomy layer.</strong>
+              Scheduled jobs — daily idea briefs, weekly backlog synthesis, vault syncs — run
+              without user prompting. This is the difference between a reactive assistant and an
+              agent that has habits: it operates on its own schedule, not just yours.
+            </p>
+          </div>
+        </section>
+
+        <!-- Challenges -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">05</span>
+            Challenges
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              Memory discipline turned out to be harder than memory capacity. The failure mode isn't
+              "the agent forgets things" — it's "the agent's memory fills up with things that shouldn't
+              be in memory." Keeping USER.md and MEMORY.md small and high-signal required active
+              curation, not just appending.
+            </p>
+            <p>
+              Skills library maintenance has similar dynamics. A 125-procedure library is only useful
+              if procedures stay current. Outdated playbooks that silently mislead are worse than
+              no playbook at all — they're wrong with false confidence.
+            </p>
+            <p>
+              The gbrain/QMD integration (a planned knowledge graph layer) is documented in the repo
+              but not yet active in the deployed container. Including it honestly as "documented, not
+              live" is a deliberate choice — this portfolio shows real systems, not inflated claims.
+            </p>
+          </div>
+        </section>
+
+        <!-- What I Learned -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">06</span>
+            What I Learned
+          </h2>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">Compounding beats capability</h3>
+              <p class="text-sm text-text-secondary">An agent that accumulates knowledge and procedures over months is more useful than a more capable agent that starts fresh every session.</p>
+            </div>
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">Memory needs curation, not just storage</h3>
+              <p class="text-sm text-text-secondary">The discipline is what you leave out. Memory that grows unbounded degrades into noise. Compact and high-signal beats comprehensive and cluttered.</p>
+            </div>
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">Scheduled autonomy changes the relationship</h3>
+              <p class="text-sm text-text-secondary">When an agent runs jobs on its own schedule, it stops being a tool you use and starts being infrastructure you rely on.</p>
+            </div>
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">Honest docs build more trust</h3>
+              <p class="text-sm text-text-secondary">Documenting what's live vs. what's planned honestly (gbrain integration) matters. Systems that overclaim erode trust when reality doesn't match.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Why This Matters -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">07</span>
+            Why This Matters
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              Most AI demos show what a model can do in a single impressive session. This project
+              shows what an agent system looks like after months of deliberate operational design —
+              structured memory, a growing skills library, autonomous scheduled workflows, and a
+              knowledge vault that compounds over time.
+            </p>
+            <p>
+              The patterns here — separating profile memory from system facts, building procedural
+              playbooks, routing outputs to durable storage, scheduling jobs that run without prompting
+              — are the same patterns any organization needs when AI agents stop being demos and
+              start being infrastructure.
+            </p>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Navigation -->
+      <div class="mt-16 pt-8 border-t border-border flex justify-between items-center">
+        <a href="/projects/multi-agent-openclaw" class="text-text-secondary hover:text-accent-blue transition-colors text-sm">
+          &larr; Multi-Agent OpenClaw
+        </a>
+        <a href="/projects/employee-communication-simulator" class="text-accent-blue hover:text-accent-blue-hover transition-colors text-sm font-medium">
+          Employee Communication Simulator &rarr;
+        </a>
+      </div>
+
+    </div>
+  </article>
+
+</BaseLayout>

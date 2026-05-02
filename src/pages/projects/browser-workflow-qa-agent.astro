@@ -1,0 +1,366 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import "../../styles/global.css";
+---
+
+<BaseLayout title="Browser Workflow QA Agent — Pradeep" description="An AI-driven QA system that inspects live websites through browser automation, captures screenshots and console evidence, and generates structured reports — triggered by natural language.">
+
+  <article class="py-24">
+    <div class="max-w-3xl mx-auto px-6">
+
+      <!-- Breadcrumb -->
+      <nav class="mb-8">
+        <a href="/projects" class="font-mono text-sm text-text-muted hover:text-accent-blue transition-colors">
+          &larr; back to projects
+        </a>
+      </nav>
+
+      <!-- Header -->
+      <header class="mb-12">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="inline-flex items-center gap-1.5 text-xs font-mono text-success">
+            <span class="w-1.5 h-1.5 rounded-full bg-success" />
+            live
+          </span>
+          <span class="text-xs font-mono text-text-muted">Agentic QA & Automation</span>
+        </div>
+
+        <h1 class="text-3xl md:text-4xl font-bold text-text-primary mb-4 leading-tight">
+          Browser Workflow QA Agent
+        </h1>
+
+        <p class="text-lg text-text-secondary leading-relaxed">
+          An AI agent that performs structured quality assurance on live websites — navigating pages,
+          inspecting console state, capturing desktop and mobile screenshots, and producing
+          evidence-backed reports with <code class="text-accent-blue">PASS</code>,
+          <code class="text-accent-blue">WARN</code>, or <code class="text-accent-blue">FAIL</code> verdicts.
+          Triggered by a single natural-language message.
+        </p>
+
+        <div class="flex flex-wrap gap-2 mt-6">
+          {["Python", "Browser Automation", "Agentic Workflows", "Telegram", "QA Engineering", "TDD"].map((tag) => (
+            <span class="px-2.5 py-1 text-xs font-mono rounded-md bg-surface-800 text-text-muted border border-border">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </header>
+
+      <!-- Thesis callout -->
+      <div class="p-5 rounded-xl bg-surface-800/50 border-l-2 border-accent-blue mb-12">
+        <p class="text-text-secondary text-sm leading-relaxed italic">
+          "Telling an agent 'it looks good' is not a QA workflow. Evidence is:
+          screenshots, console logs, structured verdicts, and reproducible steps."
+        </p>
+      </div>
+
+      <!-- Content -->
+      <div class="space-y-12">
+
+        <!-- Problem -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">01</span>
+            The Problem
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              AI agents are increasingly used for software quality checks — but most produce
+              unstructured chat output: "the page looks fine", "no obvious errors". That's
+              not QA. It's a guess with no audit trail, no reproducibility, and no way to
+              track regressions over time.
+            </p>
+            <p>
+              The real problem is that agents default to summarizing what they see rather than
+              capturing evidence of it. A QA workflow that lives only in a chat window is
+              worthless the moment the window closes.
+            </p>
+          </div>
+        </section>
+
+        <!-- What I Built -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">02</span>
+            What I Built
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              A structured QA agent triggered by a natural-language Telegram message:
+              <code class="text-accent-blue text-sm">"Jarvis, QA this URL: [url] Goal: [objective]"</code>.
+              The agent executes a deterministic inspection workflow and saves a full evidence
+              bundle — not just a chat reply.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
+              <div class="p-4 rounded-lg bg-surface-800/50 border border-border">
+                <p class="font-mono text-accent-blue text-sm mb-1">Browser Inspection</p>
+                <p class="text-sm text-text-secondary">Navigates URLs, inspects rendered DOM, audits console for errors and warnings</p>
+              </div>
+              <div class="p-4 rounded-lg bg-surface-800/50 border border-border">
+                <p class="font-mono text-accent-blue text-sm mb-1">Screenshot Capture</p>
+                <p class="text-sm text-text-secondary">Desktop and mobile viewport screenshots saved as persistent evidence artifacts</p>
+              </div>
+              <div class="p-4 rounded-lg bg-surface-800/50 border border-border">
+                <p class="font-mono text-accent-blue text-sm mb-1">Verdict Engine</p>
+                <p class="text-sm text-text-secondary">Deterministic PASS / WARN / FAIL classification with severity ratings and rationale</p>
+              </div>
+              <div class="p-4 rounded-lg bg-surface-800/50 border border-border">
+                <p class="font-mono text-accent-blue text-sm mb-1">Report Helper</p>
+                <p class="text-sm text-text-secondary">Reusable Python module for slug generation, markdown formatting, and file persistence</p>
+              </div>
+            </div>
+
+            <p>
+              The workflow terminates with a structured Markdown report saved to durable storage
+              and a concise summary sent back via Telegram — so findings persist whether or not
+              the conversation continues.
+            </p>
+          </div>
+
+          <!-- Architecture diagram -->
+          <div class="mt-8 rounded-xl overflow-hidden border border-border">
+            <svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="QA agent workflow: Telegram trigger flows through Hermes/Jarvis agent to browser automation, then report helper, then evidence bundle and Telegram summary" style="width:100%;height:auto;display:block;">
+              <defs>
+                <marker id="qa-arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                  <polygon points="0 0, 8 3, 0 6" fill="#475569"/>
+                </marker>
+              </defs>
+              <rect width="700" height="320" fill="#1e293b"/>
+              <text x="22" y="26" font-family="JetBrains Mono, monospace" font-size="11" fill="#3b82f6">QA Agent — Workflow Pipeline</text>
+
+              <!-- Trigger -->
+              <rect x="20" y="50" width="130" height="52" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+              <text x="85" y="72" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#3b82f6">Telegram</text>
+              <text x="85" y="89" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#64748b">"Jarvis, QA this…"</text>
+              <line x1="150" y1="76" x2="180" y2="76" stroke="#475569" stroke-width="1.5" marker-end="url(#qa-arr)"/>
+
+              <!-- Agent -->
+              <rect x="180" y="50" width="150" height="52" rx="6" fill="#172554" stroke="#3b82f6" stroke-width="1.5"/>
+              <text x="255" y="72" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#3b82f6" font-weight="600">Hermes / Jarvis</text>
+              <text x="255" y="89" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#64748b">interprets objective</text>
+              <line x1="330" y1="76" x2="360" y2="76" stroke="#475569" stroke-width="1.5" marker-end="url(#qa-arr)"/>
+
+              <!-- Browser automation -->
+              <rect x="360" y="50" width="155" height="52" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+              <text x="437" y="72" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#3b82f6">Browser Automation</text>
+              <text x="437" y="89" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#64748b">navigate · inspect · capture</text>
+              <line x1="437" y1="102" x2="437" y2="132" stroke="#475569" stroke-width="1.5" marker-end="url(#qa-arr)"/>
+
+              <!-- Browser actions row -->
+              <rect x="200" y="136" width="116" height="40" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+              <text x="258" y="160" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#94a3b8">Console audit</text>
+              <rect x="326" y="136" width="116" height="40" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+              <text x="384" y="160" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#94a3b8">Screenshots</text>
+              <rect x="452" y="136" width="116" height="40" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+              <text x="510" y="160" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#94a3b8">Security checks</text>
+
+              <!-- Down to report helper -->
+              <line x1="384" y1="176" x2="384" y2="204" stroke="#475569" stroke-width="1.5" marker-end="url(#qa-arr)"/>
+
+              <!-- Report helper -->
+              <rect x="220" y="208" width="240" height="44" rx="6" fill="#172554" stroke="#3b82f6" stroke-width="1.5"/>
+              <text x="340" y="228" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#3b82f6" font-weight="600">qa_report_helper.py</text>
+              <text x="340" y="244" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#64748b">verdict · slug · markdown · persist</text>
+
+              <!-- Evidence bundle outputs -->
+              <line x1="280" y1="252" x2="180" y2="278" stroke="#475569" stroke-width="1.5" marker-end="url(#qa-arr)"/>
+              <line x1="340" y1="252" x2="340" y2="278" stroke="#475569" stroke-width="1.5" marker-end="url(#qa-arr)"/>
+              <line x1="400" y1="252" x2="500" y2="278" stroke="#475569" stroke-width="1.5" marker-end="url(#qa-arr)"/>
+
+              <rect x="90" y="278" width="120" height="32" rx="4" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+              <text x="150" y="298" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#94a3b8">Markdown report</text>
+              <rect x="280" y="278" width="120" height="32" rx="4" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+              <text x="340" y="298" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#94a3b8">Screenshots bundle</text>
+              <rect x="440" y="278" width="120" height="32" rx="4" fill="#0f172a" stroke="#22c55e" stroke-width="1"/>
+              <text x="500" y="298" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#22c55e">Telegram summary</text>
+            </svg>
+          </div>
+        </section>
+
+        <!-- Real run: screenshots -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">03</span>
+            Evidence from a Real Run
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4 mb-6">
+            <p>
+              The agent ran a full QA + security review against
+              <code class="text-accent-blue">realgradientdescent.tech</code> — capturing desktop
+              and mobile state, auditing security headers, and testing the AI chat feature.
+              Verdict: <strong class="text-text-primary">PASS with recommendations.</strong>
+            </p>
+          </div>
+
+          <!-- Screenshot pair -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
+            <div class="rounded-xl overflow-hidden border border-border">
+              <div class="px-4 py-2 bg-surface-900 border-b border-border flex items-center gap-2">
+                <span class="font-mono text-xs text-text-muted">desktop · home</span>
+                <span class="ml-auto inline-flex items-center gap-1 text-xs font-mono text-success">
+                  <span class="w-1.5 h-1.5 rounded-full bg-success" />PASS
+                </span>
+              </div>
+              <img
+                src="https://raw.githubusercontent.com/realgradientdescent/browser-workflow-qa-agent/main/evidence/screenshots/desktop/realgradientdescent-home.png"
+                alt="Desktop screenshot of realgradientdescent.tech homepage captured by the QA agent"
+                class="w-full block"
+                loading="lazy"
+              />
+            </div>
+            <div class="rounded-xl overflow-hidden border border-border">
+              <div class="px-4 py-2 bg-surface-900 border-b border-border flex items-center gap-2">
+                <span class="font-mono text-xs text-text-muted">mobile · projects</span>
+                <span class="ml-auto inline-flex items-center gap-1 text-xs font-mono text-success">
+                  <span class="w-1.5 h-1.5 rounded-full bg-success" />PASS
+                </span>
+              </div>
+              <img
+                src="https://raw.githubusercontent.com/realgradientdescent/browser-workflow-qa-agent/main/evidence/screenshots/mobile/mobile-projects.png"
+                alt="Mobile screenshot of realgradientdescent.tech projects page captured by the QA agent"
+                class="w-full block"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+          <!-- Findings summary -->
+          <div class="rounded-xl border border-border overflow-hidden mt-6">
+            <div class="px-5 py-3 bg-surface-900 border-b border-border">
+              <span class="font-mono text-xs text-text-muted">findings summary — realgradientdescent.tech</span>
+            </div>
+            <div class="divide-y divide-border">
+              <div class="flex items-start gap-4 px-5 py-4">
+                <span class="font-mono text-xs text-success mt-0.5 shrink-0">PASS</span>
+                <p class="text-sm text-text-secondary">HTTPS valid, HSTS enabled, clickjacking protections active, content-type sniffing disabled</p>
+              </div>
+              <div class="flex items-start gap-4 px-5 py-4">
+                <span class="font-mono text-xs text-success mt-0.5 shrink-0">PASS</span>
+                <p class="text-sm text-text-secondary">AI chat API resisted prompt-injection attempts; rate limiting and auth controls in place</p>
+              </div>
+              <div class="flex items-start gap-4 px-5 py-4">
+                <span class="font-mono text-xs text-text-muted mt-0.5 shrink-0">INFO</span>
+                <p class="text-sm text-text-secondary">SEO and discoverability files noted for future addition (<code class="text-accent-blue">robots.txt</code>, <code class="text-accent-blue">sitemap.xml</code>)</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Key Design Decisions -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">04</span>
+            Key Design Decisions
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              <strong class="text-text-primary">Evidence-first, not chat-first.</strong>
+              The workflow is designed around what gets saved, not what gets said. Every run produces
+              a Markdown report, a screenshots bundle, and a metadata file — independent of whether
+              the conversation continues. QA that exists only as chat history isn't QA.
+            </p>
+            <p>
+              <strong class="text-text-primary">Small, testable reporting substrate.</strong>
+              Rather than embedding report logic inside agent prompts, I extracted it into a reusable
+              Python helper (<code class="text-accent-blue">qa_report_helper.py</code>) with
+              deterministic slug generation, verdict classification, and structured Markdown output.
+              TDD discipline: tests cover filename safety, verdict logic, required report sections,
+              and output naming conventions.
+            </p>
+            <p>
+              <strong class="text-text-primary">Natural-language trigger, structured execution.</strong>
+              The Telegram trigger is intentionally casual — one line, conversational. The agent's
+              job is to translate that into a deterministic inspection checklist. The interface is
+              human; the process is not.
+            </p>
+          </div>
+        </section>
+
+        <!-- Challenges -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">05</span>
+            Challenges
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              The boundary between "agent observes" and "agent concludes" required deliberate design.
+              Without explicit constraints, agents tend to collapse multi-step inspection into a single
+              verdict — skipping the evidence capture that makes the verdict trustworthy. The workflow
+              enforces screenshot capture and console logging as required steps, not optional ones.
+            </p>
+            <p>
+              Structuring findings by severity (high / medium / low / info) rather than as a flat
+              list required judgment: what makes something actionable vs. informational? The verdict
+              schema needed to match what a real QA engineer would care about, not just what the
+              agent happened to notice.
+            </p>
+          </div>
+        </section>
+
+        <!-- What I Learned -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">06</span>
+            What I Learned
+          </h2>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">Agents need output contracts</h3>
+              <p class="text-sm text-text-secondary">Without a defined schema for what a "completed QA run" looks like, agents improvise — and improvised QA is unreliable.</p>
+            </div>
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">TDD applies to agentic helpers</h3>
+              <p class="text-sm text-text-secondary">Testing the reporting substrate independently from the agent makes the whole workflow more predictable and debuggable.</p>
+            </div>
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">Evidence changes accountability</h3>
+              <p class="text-sm text-text-secondary">When a QA run produces screenshots and structured findings, you can compare runs, track regressions, and hold the system accountable.</p>
+            </div>
+            <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
+              <h3 class="font-semibold text-text-primary mb-2 text-sm">Real runs reveal real issues</h3>
+              <p class="text-sm text-text-secondary">Running the agent against a live production site (this portfolio) surfaced real findings that chat-based review would have missed.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Why This Matters -->
+        <section>
+          <h2 class="text-xl font-semibold text-text-primary mb-4 flex items-center gap-2">
+            <span class="font-mono text-accent-blue text-sm">07</span>
+            Why This Matters
+          </h2>
+          <div class="text-text-secondary leading-relaxed space-y-4">
+            <p>
+              This project demonstrates practical agentic automation applied to a real engineering
+              need: making quality assurance auditable, reproducible, and persistent. It's not a
+              demo that shows what an agent can say — it's a workflow that shows what an agent can
+              prove.
+            </p>
+            <p>
+              The patterns here — natural-language triggers, deterministic execution workflows,
+              evidence capture, structured verdicts, and testable helper substrates — generalize
+              to any domain where agents need to produce trustworthy outputs rather than
+              impressive-sounding ones.
+            </p>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Navigation -->
+      <div class="mt-16 pt-8 border-t border-border flex justify-between items-center">
+        <a href="/projects/employee-communication-simulator" class="text-text-secondary hover:text-accent-blue transition-colors text-sm">
+          &larr; Employee Communication Simulator
+        </a>
+        <a href="/projects/agent-trust-control-plane" class="text-accent-blue hover:text-accent-blue-hover transition-colors text-sm font-medium">
+          Agent Trust Control Plane &rarr;
+        </a>
+      </div>
+
+    </div>
+  </article>
+
+</BaseLayout>

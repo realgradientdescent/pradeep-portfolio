@@ -11,10 +11,38 @@ const featuredProjects = [
     status: "live",
   },
   {
+    slug: "hermes-obsidian-gbrain",
+    title: "Jarvis: Hermes AI Operating System",
+    summary: "A persistent, always-on AI OS built on Hermes Agent — layered memory, a 125-skill library, a git-backed Obsidian vault, and cron-driven autonomous workflows via Telegram.",
+    tags: ["Hermes Agent", "Python", "Obsidian", "Telegram", "Cron Automation"],
+    status: "live",
+  },
+  {
     slug: "employee-communication-simulator",
     title: "Employee Communication Simulator",
     summary: "Built a simulation platform for testing how leadership messages land across a 450-person org — with weighted personas, Monte Carlo analysis, multi-LLM integration, and executive reporting.",
     tags: ["Simulation", "Multi-LLM", "Monte Carlo", "React", "Decision Support"],
+    status: "live",
+  },
+  {
+    slug: "browser-workflow-qa-agent",
+    title: "Browser Workflow QA Agent",
+    summary: "An AI agent that QA-tests live websites — browser automation, console audits, mobile screenshots, and structured PASS/WARN/FAIL reports triggered by natural language.",
+    tags: ["Python", "Browser Automation", "QA Engineering", "Telegram", "TDD"],
+    status: "live",
+  },
+  {
+    slug: "agent-trust-control-plane",
+    title: "Agent Trust Control Plane",
+    summary: "A local governance layer for AI agents — deterministic policy enforcement, human approval gates, and JSONL audit trails for safe agent autonomy.",
+    tags: ["Python", "Policy Engine", "Agent Safety", "Audit Logging"],
+    status: "live",
+  },
+  {
+    slug: "opscore-dashboard",
+    title: "OpsCore Dashboard",
+    summary: "Real-time monitoring for containerized AI services with a Python agent on the VPS and a Next.js dashboard on Vercel.",
+    tags: ["Next.js", "TypeScript", "Python", "Docker", "Observability"],
     status: "live",
   },
   {
@@ -167,13 +195,21 @@ const suggestedPrompts = [
             <p class="text-text-secondary text-sm leading-relaxed mb-4">
               {project.summary}
             </p>
-            <div class="flex flex-wrap gap-2">
+            <div class="flex flex-wrap gap-2 mb-5">
               {project.tags.map((tag) => (
                 <span class="px-2.5 py-1 text-xs font-mono rounded-md bg-surface-900 text-text-muted border border-border">
                   {tag}
                 </span>
               ))}
             </div>
+            {project.status === "live" && (
+              <span class="inline-flex items-center gap-1.5 text-sm font-medium text-accent-blue group-hover:gap-3 transition-all duration-200">
+                View case study
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </span>
+            )}
           </a>
         ))}
       </div>
