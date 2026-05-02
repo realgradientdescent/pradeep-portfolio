@@ -30,8 +30,8 @@ import "../../styles/global.css";
         </h1>
 
         <p class="text-lg text-text-secondary leading-relaxed">
-          An AI agent that performs structured quality assurance on live websites — navigating pages,
-          inspecting console state, capturing desktop and mobile screenshots, and producing
+          An AI agent that performs structured quality assurance on live websites. Navigates pages,
+          inspects console state, captures desktop and mobile screenshots, and produces
           evidence-backed reports with <code class="text-accent-blue">PASS</code>,
           <code class="text-accent-blue">WARN</code>, or <code class="text-accent-blue">FAIL</code> verdicts.
           Triggered by a single natural-language message.
@@ -65,15 +65,14 @@ import "../../styles/global.css";
           </h2>
           <div class="text-text-secondary leading-relaxed space-y-4">
             <p>
-              AI agents are increasingly used for software quality checks — but most produce
-              unstructured chat output: "the page looks fine", "no obvious errors". That's
-              not QA. It's a guess with no audit trail, no reproducibility, and no way to
-              track regressions over time.
+              AI agents are increasingly used for software quality checks. Most produce unstructured
+              chat output: "the page looks fine", "no obvious errors". That is not QA. It is a guess
+              with no audit trail, no reproducibility, and no way to track regressions over time.
             </p>
             <p>
               The real problem is that agents default to summarizing what they see rather than
-              capturing evidence of it. A QA workflow that lives only in a chat window is
-              worthless the moment the window closes.
+              capturing evidence of it. A QA workflow that lives only in a chat window is worthless
+              the moment the window closes.
             </p>
           </div>
         </section>
@@ -89,7 +88,7 @@ import "../../styles/global.css";
               A structured QA agent triggered by a natural-language Telegram message:
               <code class="text-accent-blue text-sm">"Jarvis, QA this URL: [url] Goal: [objective]"</code>.
               The agent executes a deterministic inspection workflow and saves a full evidence
-              bundle — not just a chat reply.
+              bundle. Not just a chat reply.
             </p>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
@@ -113,7 +112,7 @@ import "../../styles/global.css";
 
             <p>
               The workflow terminates with a structured Markdown report saved to durable storage
-              and a concise summary sent back via Telegram — so findings persist whether or not
+              and a concise summary sent back via Telegram. Findings persist whether or not
               the conversation continues.
             </p>
           </div>
@@ -187,7 +186,7 @@ import "../../styles/global.css";
           <div class="text-text-secondary leading-relaxed space-y-4 mb-6">
             <p>
               The agent ran a full QA + security review against
-              <code class="text-accent-blue">realgradientdescent.tech</code> — capturing desktop
+              <code class="text-accent-blue">realgradientdescent.tech</code>, capturing desktop
               and mobile state, auditing security headers, and testing the AI chat feature.
               Verdict: <strong class="text-text-primary">PASS with recommendations.</strong>
             </p>
@@ -257,8 +256,8 @@ import "../../styles/global.css";
             <p>
               <strong class="text-text-primary">Evidence-first, not chat-first.</strong>
               The workflow is designed around what gets saved, not what gets said. Every run produces
-              a Markdown report, a screenshots bundle, and a metadata file — independent of whether
-              the conversation continues. QA that exists only as chat history isn't QA.
+              a Markdown report, a screenshots bundle, and a metadata file. All independent of whether
+              the conversation continues. QA that exists only as chat history is not QA.
             </p>
             <p>
               <strong class="text-text-primary">Small, testable reporting substrate.</strong>
@@ -270,9 +269,9 @@ import "../../styles/global.css";
             </p>
             <p>
               <strong class="text-text-primary">Natural-language trigger, structured execution.</strong>
-              The Telegram trigger is intentionally casual — one line, conversational. The agent's
+              The Telegram trigger is intentionally casual. One line, conversational. The agent's
               job is to translate that into a deterministic inspection checklist. The interface is
-              human; the process is not.
+              human. The process is not.
             </p>
           </div>
         </section>
@@ -287,7 +286,7 @@ import "../../styles/global.css";
             <p>
               The boundary between "agent observes" and "agent concludes" required deliberate design.
               Without explicit constraints, agents tend to collapse multi-step inspection into a single
-              verdict — skipping the evidence capture that makes the verdict trustworthy. The workflow
+              verdict, skipping the evidence capture that makes the verdict trustworthy. The workflow
               enforces screenshot capture and console logging as required steps, not optional ones.
             </p>
             <p>
@@ -309,7 +308,7 @@ import "../../styles/global.css";
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
             <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
               <h3 class="font-semibold text-text-primary mb-2 text-sm">Agents need output contracts</h3>
-              <p class="text-sm text-text-secondary">Without a defined schema for what a "completed QA run" looks like, agents improvise — and improvised QA is unreliable.</p>
+              <p class="text-sm text-text-secondary">Without a defined schema for what a "completed QA run" looks like, agents improvise. Improvised QA is unreliable.</p>
             </div>
             <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
               <h3 class="font-semibold text-text-primary mb-2 text-sm">TDD applies to agentic helpers</h3>
@@ -336,14 +335,13 @@ import "../../styles/global.css";
             <p>
               This project demonstrates practical agentic automation applied to a real engineering
               need: making quality assurance auditable, reproducible, and persistent. It's not a
-              demo that shows what an agent can say — it's a workflow that shows what an agent can
+              demo that shows what an agent can say. It is a workflow that shows what an agent can
               prove.
             </p>
             <p>
-              The patterns here — natural-language triggers, deterministic execution workflows,
-              evidence capture, structured verdicts, and testable helper substrates — generalize
-              to any domain where agents need to produce trustworthy outputs rather than
-              impressive-sounding ones.
+              Natural-language triggers, deterministic execution workflows, evidence capture,
+              structured verdicts, and testable helper substrates generalize to any domain where
+              agents need to produce trustworthy outputs rather than impressive-sounding ones.
             </p>
           </div>
         </section>

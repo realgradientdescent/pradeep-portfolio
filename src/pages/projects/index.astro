@@ -6,23 +6,25 @@ const projects = [
   {
     slug: "multi-agent-openclaw",
     title: "Multi-Agent OpenClaw Orchestration",
-    summary: "Designed a role-based multi-agent assistant system with explicit orchestration, specialist routing, durable memory, and handoff workflows that made long-running AI work more reliable across sessions.",
+    summary: "Built a role-based multi-agent system with explicit orchestration, specialist routing, durable memory, and handoff workflows. The goal was not impressive demos. It was reliable AI work across sessions.",
     tags: ["Agent Architecture", "Orchestration", "Memory Design", "OpenClaw"],
     status: "live",
     category: "Agentic Systems",
+    featured: true,
   },
   {
     slug: "hermes-obsidian-gbrain",
     title: "Jarvis: Hermes AI Operating System",
-    summary: "A persistent, always-on AI operating system built on Hermes Agent — with layered memory, a 125-skill procedural library, a 590-file Obsidian knowledge vault backed by GitHub, and cron-driven autonomous workflows accessible via Telegram.",
+    summary: "A persistent, always-on AI operating system built on Hermes Agent. Layered memory, a 125-skill library, a 590-file Obsidian knowledge vault backed by GitHub, and cron-driven autonomous workflows. Accessible from anywhere via Telegram.",
     tags: ["Hermes Agent", "Python", "Obsidian", "Telegram", "Cron Automation", "OpenAI"],
     status: "live",
     category: "Agentic Platform",
+    featured: true,
   },
   {
     slug: "employee-communication-simulator",
     title: "Employee Communication Simulator",
-    summary: "Built a simulation platform for testing how leadership messages land across a 450-person org — with weighted personas, Monte Carlo scenario analysis, multi-provider LLM integration, and executive-ready reporting in PDF and PowerPoint.",
+    summary: "Built a simulation platform for testing how leadership messages land across a 450-person org. Weighted personas, Monte Carlo scenario analysis, multi-provider LLM integration, and executive-ready reporting in PDF and PowerPoint.",
     tags: ["Python", "React 19", "Multi-LLM", "Monte Carlo", "Executive Reporting", "Decision Support"],
     status: "live",
     category: "Decision-Support Systems",
@@ -30,7 +32,7 @@ const projects = [
   {
     slug: "browser-workflow-qa-agent",
     title: "Browser Workflow QA Agent",
-    summary: "An AI agent that performs structured quality assurance on live websites — navigating pages, auditing browser console state, capturing desktop and mobile screenshots, and producing evidence-backed PASS/WARN/FAIL reports triggered by a single natural-language Telegram message.",
+    summary: "An AI agent that performs structured QA on live websites. Navigate pages, audit console state, capture desktop and mobile screenshots, produce evidence-backed PASS/WARN/FAIL reports. Triggered by a single Telegram message.",
     tags: ["Python", "Browser Automation", "Agentic Workflows", "Telegram", "QA Engineering", "TDD"],
     status: "live",
     category: "Agentic QA & Automation",
@@ -38,7 +40,7 @@ const projects = [
   {
     slug: "agent-trust-control-plane",
     title: "Agent Trust Control Plane",
-    summary: "Built a local governance layer for AI agents that classifies proposed actions as allow, approval_required, clarification_required, or blocked — with YAML policies, deterministic risk classification, human approval gates, and JSONL audit trails.",
+    summary: "Built a local governance layer for AI agents. Every proposed action is classified as allow, approval_required, clarification_required, or blocked. YAML policies, deterministic risk classification, human approval gates, and JSONL audit trails.",
     tags: ["Python", "Policy Engine", "Risk Classification", "Audit Logging", "Agent Safety"],
     status: "live",
     category: "Agent Governance",
@@ -46,7 +48,7 @@ const projects = [
   {
     slug: "opscore-dashboard",
     title: "OpsCore Dashboard",
-    summary: "A real-time operational dashboard for monitoring containerized AI services on a VPS — with a Python metrics agent collecting system health data and a Next.js frontend on Vercel for remote visibility into CPU, memory, disk, and container status.",
+    summary: "A real-time operational dashboard for monitoring containerized AI services on a VPS. Python metrics agent on the server, Next.js frontend on Vercel, remote visibility into CPU, memory, disk, and container health.",
     tags: ["Next.js", "TypeScript", "Python", "Docker", "Traefik", "Vercel"],
     status: "live",
     category: "Infrastructure & Observability",
@@ -54,7 +56,7 @@ const projects = [
   {
     slug: "memory-reliability-for-agents",
     title: "Durable Memory for AI Agents",
-    summary: "A reliability engineering case study on designing a structured memory and reminder durability layer for a multi-agent AI operating system, using explicit source-of-truth artifacts, retrieval rules, and handoff workflows to make long-running agent work recoverable and trustworthy.",
+    summary: "A reliability engineering case study on making long-running AI systems trustworthy. Explicit source-of-truth artifacts, retrieval rules, and handoff workflows. The kind of work that matters on Tuesday morning, not just when everything is going well.",
     tags: ["Reliability", "Memory Design", "Agent Systems", "Durable State", "Operational Hygiene"],
     status: "live",
     category: "AI Reliability",
@@ -78,12 +80,18 @@ const projects = [
           <a
             href={project.status === "live" ? `/projects/${project.slug}` : "#"}
             class:list={[
-              "group block p-6 md:p-8 rounded-xl border transition-all duration-300",
-              project.status === "live"
-                ? "bg-surface-800/50 border-border hover:border-accent-blue/40 hover:bg-surface-800"
-                : "bg-surface-800/20 border-border/50 opacity-50 cursor-default",
+              "group relative block p-6 md:p-8 rounded-xl border transition-all duration-300 overflow-hidden animate-on-scroll",
+              (project as any).featured && project.status === "live"
+                ? "bg-surface-800 border-accent-blue/20 hover:border-accent-blue/50 shadow-sm"
+                : project.status === "live"
+                  ? "bg-surface-800/50 border-border hover:border-accent-blue/40 hover:bg-surface-800"
+                  : "bg-surface-800/20 border-border/50 opacity-50 cursor-default",
             ]}
+            data-animate-delay={index * 60}
           >
+            {(project as any).featured && project.status === "live" && (
+              <div class="absolute left-0 top-0 bottom-0 w-0.5 bg-gradient-to-b from-accent-blue/70 via-accent-blue/40 to-transparent" />
+            )}
             <div class="flex flex-col md:flex-row md:items-start justify-between gap-4">
               <div class="flex-1">
                 <div class="flex items-center gap-3 mb-3">
@@ -92,6 +100,11 @@ const projects = [
                     <span class="inline-flex items-center gap-1.5 text-xs font-mono text-success">
                       <span class="w-1.5 h-1.5 rounded-full bg-success" />
                       live
+                    </span>
+                  )}
+                  {(project as any).featured && project.status === "live" && (
+                    <span class="inline-flex items-center gap-1 text-xs font-mono text-accent-blue bg-accent-blue/10 border border-accent-blue/20 px-2 py-0.5 rounded-md">
+                      flagship
                     </span>
                   )}
                   {project.status === "upcoming" && (

@@ -30,9 +30,9 @@ import "../../styles/global.css";
         </h1>
 
         <p class="text-lg text-text-secondary leading-relaxed">
-          Designing a role-based multi-agent personal operating system in OpenClaw — with explicit
-          orchestration, specialist routing, durable memory, and handoff workflows that made
-          long-running AI work more reliable across sessions.
+          A role-based multi-agent personal operating system in OpenClaw. Explicit orchestration,
+          specialist routing, durable memory, and handoff workflows. Built to make AI work reliable
+          across sessions, not just impressive within one.
         </p>
 
         <div class="flex flex-wrap gap-2 mt-6">
@@ -47,7 +47,7 @@ import "../../styles/global.css";
       <!-- Thesis callout -->
       <div class="p-5 rounded-xl bg-surface-800/50 border-l-2 border-accent-blue mb-12">
         <p class="text-text-secondary text-sm leading-relaxed italic">
-          "The real challenge in agent systems is rarely just intelligence — it's coordination,
+          "The real challenge in agent systems is rarely intelligence. It is coordination,
           continuity, and controlled behavior over time."
         </p>
       </div>
@@ -66,7 +66,7 @@ import "../../styles/global.css";
               A single assistant can do many things, but once work becomes varied, ongoing, and
               cross-functional, managing it through one undifferentiated agent gets messy fast.
             </p>
-            <p>A monolithic assistant setup creates recurring issues: role confusion (the same agent tries to do research, coding, messaging, and organization all at once), weak continuity across sessions, poor specialization where every task gets the same generic treatment, hard-to-audit work where it's unclear who did what, and brittle delegation where cross-agent work drifts without durable state.</p>
+            <p>A monolithic assistant creates predictable problems. Role confusion: the same agent handles research, coding, messaging, and organization simultaneously. Weak continuity across sessions. Every task gets the same generic treatment. Cross-agent work drifts without durable state. The mess is structural, not accidental.</p>
           </div>
         </section>
 
@@ -102,10 +102,10 @@ import "../../styles/global.css";
             </div>
 
             <p>
-              The routing policy was made official — not left as an implicit prompt suggestion — so
-              the system would treat it as durable operating truth. Specialists execute within bounded
-              roles, sensitive actions remain gated, and cross-agent work gets durable handoff state
-              via baton files instead of relying on conversation alone.
+              The routing policy was made explicit, not left as an implicit prompt suggestion. The
+              system treats it as durable operating truth. Specialists execute within bounded roles.
+              Sensitive actions stay gated. Cross-agent work moves through baton files, not
+              conversation history.
             </p>
           </div>
 
@@ -187,7 +187,7 @@ import "../../styles/global.css";
               <strong class="text-text-primary">File-backed memory over session memory.</strong> Instead of assuming the system would remember, I leaned on durable artifacts: a reminder ledger, structured project notes, policy decisions in recoverable locations, and baton files for cross-session delegated work. This turned continuity from an illusion into infrastructure.
             </p>
             <p>
-              <strong class="text-text-primary">Bounded autonomy.</strong> Specialists could analyze, draft, stage, verify, and recommend — but not silently cross external or risky boundaries just because they technically could. The distinction between "can do" and "should do" was an explicit part of the design.
+              <strong class="text-text-primary">Bounded autonomy.</strong> Specialists could analyze, draft, stage, verify, and recommend. They could not silently cross external or risky boundaries just because they technically could. The distinction between "can do" and "should do" was an explicit part of the design.
             </p>
           </div>
         </section>
@@ -201,13 +201,13 @@ import "../../styles/global.css";
           <div class="text-text-secondary leading-relaxed space-y-4">
             <p>
               Even with memory written down, specialists sometimes answered from stale role priors
-              instead of current official rules. The issue wasn't just "does memory exist" — it was
+              instead of current official rules. The issue was not just "does memory exist." It was
               whether the right files were visible and loaded early enough for each specialist.
             </p>
             <p>
               Startup doctrine mattered more than expected. A canonical file in a shared workspace
               doesn't help if specialists don't have an explicit discovery path to it. And after
-              repairs, live sessions could still behave as if old rules were in force — fresh-session
+              repairs, live sessions could still behave as if old rules were in force. Fresh-session
               testing turned out to be essential after doctrine changes.
             </p>
           </div>
@@ -223,7 +223,7 @@ import "../../styles/global.css";
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
             <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
               <h3 class="font-semibold text-text-primary mb-2 text-sm">Systems fail at the seams</h3>
-              <p class="text-sm text-text-secondary">The hard part is often not raw capability — it's routing, startup visibility, artifact discoverability, and persistence across sessions.</p>
+              <p class="text-sm text-text-secondary">The hard part is rarely raw capability. It is routing, startup visibility, artifact discoverability, and persistence across sessions.</p>
             </div>
             <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
               <h3 class="font-semibold text-text-primary mb-2 text-sm">Memory must be retrievable</h3>
@@ -248,14 +248,14 @@ import "../../styles/global.css";
           </h2>
           <div class="text-text-secondary leading-relaxed space-y-4">
             <p>
-              This project demonstrates systems thinking, workflow design, role architecture,
-              memory-aware product design, and practical understanding of agent limitations.
-              It's not about using AI casually — it's about designing an operating model for AI agents.
+              This project demonstrates systems thinking, workflow design, role architecture, and
+              practical understanding of agent limitations. It is not about using AI casually.
+              It is about designing an operating model for AI agents.
             </p>
             <p>
-              The patterns here — explicit routing, durable handoffs, bounded autonomy, and
-              file-backed memory — generalize beyond a personal assistant. They are the operating
-              fundamentals any team needs once AI agents start doing real, ongoing work alongside humans.
+              Explicit routing, durable handoffs, bounded autonomy, and file-backed memory
+              generalize beyond a personal assistant. They are the operating fundamentals any team
+              needs once AI agents start doing real, ongoing work alongside humans.
             </p>
           </div>
         </section>

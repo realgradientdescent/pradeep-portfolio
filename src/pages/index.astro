@@ -13,28 +13,28 @@ const featuredProjects = [
   {
     slug: "hermes-obsidian-gbrain",
     title: "Jarvis: Hermes AI Operating System",
-    summary: "A persistent, always-on AI OS built on Hermes Agent — layered memory, a 125-skill library, a git-backed Obsidian vault, and cron-driven autonomous workflows via Telegram.",
+    summary: "A persistent, always-on AI OS built on Hermes Agent. Layered memory, a 125-skill library, a git-backed Obsidian vault, and cron-driven autonomous workflows via Telegram.",
     tags: ["Hermes Agent", "Python", "Obsidian", "Telegram", "Cron Automation"],
     status: "live",
   },
   {
     slug: "employee-communication-simulator",
     title: "Employee Communication Simulator",
-    summary: "Built a simulation platform for testing how leadership messages land across a 450-person org — with weighted personas, Monte Carlo analysis, multi-LLM integration, and executive reporting.",
+    summary: "Built a simulation platform for testing how leadership messages land across a 450-person org. Weighted personas, Monte Carlo analysis, multi-LLM integration, and executive reporting.",
     tags: ["Simulation", "Multi-LLM", "Monte Carlo", "React", "Decision Support"],
     status: "live",
   },
   {
     slug: "browser-workflow-qa-agent",
     title: "Browser Workflow QA Agent",
-    summary: "An AI agent that QA-tests live websites — browser automation, console audits, mobile screenshots, and structured PASS/WARN/FAIL reports triggered by natural language.",
+    summary: "An AI agent that QA-tests live websites. Browser automation, console audits, mobile screenshots, and structured PASS/WARN/FAIL reports triggered by natural language.",
     tags: ["Python", "Browser Automation", "QA Engineering", "Telegram", "TDD"],
     status: "live",
   },
   {
     slug: "agent-trust-control-plane",
     title: "Agent Trust Control Plane",
-    summary: "A local governance layer for AI agents — deterministic policy enforcement, human approval gates, and JSONL audit trails for safe agent autonomy.",
+    summary: "A local governance layer for AI agents. Deterministic policy enforcement, human approval gates, and JSONL audit trails for safe agent autonomy.",
     tags: ["Python", "Policy Engine", "Agent Safety", "Audit Logging"],
     status: "live",
   },
@@ -58,22 +58,22 @@ const capabilities = [
   {
     icon: "brain",
     title: "AI Enablement & Strategy",
-    description: "Translating AI capabilities into practical engineering strategy. Making teams effective with AI, not just aware of it.",
+    description: "Turning AI capability into engineering practice. Awareness does not ship software.",
   },
   {
     icon: "workflow",
     title: "Agentic Systems & Workflows",
-    description: "Designing multi-agent architectures with memory, routing, and orchestration that actually work across sessions.",
+    description: "Designing multi-agent architectures with memory, routing, and orchestration built for sessions that end and restart.",
   },
   {
     icon: "layers",
     title: "Engineering Leadership",
-    description: "Building and leading teams that ship. Balancing product instinct with technical depth, and strategy with execution.",
+    description: "Building and leading teams that ship. Technical depth and product instinct at the same time. Neither one works alone.",
   },
   {
     icon: "hammer",
     title: "Hands-On Building",
-    description: "Not just directing — building. From agent systems to portfolio copilots, I stay close to the craft.",
+    description: "Not just directing. Building. Agent systems, copilots, governance frameworks. Close to the craft by choice.",
   },
 ];
 
@@ -109,9 +109,9 @@ const suggestedPrompts = [
 
         <!-- Positioning -->
         <p class="text-lg md:text-xl text-text-secondary leading-relaxed max-w-2xl mb-10">
-          I turn complex systems into working products and good engineers into great teams.
-          From multi-agent AI orchestration to the copilot you're talking to right now —
-          I build the things that make teams faster.
+          I turn complex systems into working products. I turn good engineers into great teams.
+          Everything on the Projects page I built myself. The leadership perspective comes from
+          the craft, not from strategy decks.
         </p>
 
         <!-- CTAs -->
@@ -143,8 +143,8 @@ const suggestedPrompts = [
       </h2>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {capabilities.map((cap) => (
-          <div class="p-6 rounded-xl bg-surface-800/50 border border-border hover:border-accent-blue/30 transition-colors duration-300">
+        {capabilities.map((cap, i) => (
+          <div class="animate-on-scroll p-6 rounded-xl bg-surface-800/50 border border-border hover:border-accent-blue/30 transition-colors duration-300" data-animate-delay={i * 80}>
             <h3 class="text-lg font-semibold text-text-primary mb-2">{cap.title}</h3>
             <p class="text-text-secondary text-sm leading-relaxed">{cap.description}</p>
           </div>
@@ -167,15 +167,16 @@ const suggestedPrompts = [
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {featuredProjects.map((project) => (
+        {featuredProjects.map((project, i) => (
           <a
             href={project.status === "live" ? `/projects/${project.slug}` : "#"}
             class:list={[
-              "group block p-6 rounded-xl border transition-all duration-300",
+              "animate-on-scroll group block p-6 rounded-xl border transition-all duration-300",
               project.status === "live"
                 ? "bg-surface-800/50 border-border hover:border-accent-blue/40 hover:bg-surface-800"
                 : "bg-surface-800/20 border-border/50 opacity-60 cursor-default",
             ]}
+            data-animate-delay={i * 60}
           >
             {project.status === "live" && (
               <span class="inline-flex items-center gap-1.5 text-xs font-mono text-success mb-3">
@@ -225,21 +226,21 @@ const suggestedPrompts = [
 
         <div class="space-y-6 text-text-secondary leading-relaxed">
           <p>
-            I think the interesting challenge in AI right now is not raw intelligence — it's
+            The interesting challenge in AI right now is not raw intelligence. It is
             <span class="text-text-primary font-medium">coordination, continuity, and controlled behavior over time</span>.
-            Single-turn AI is largely solved. What's hard is making AI systems that reliably do real work across sessions,
-            tools, and teams.
+            Single-turn AI is mostly solved. What is hard is building systems that do real work
+            reliably across sessions, tools, and teams.
           </p>
           <p>
-            That's why I gravitate toward agentic systems — multi-agent architectures, memory design,
-            orchestration, and the operational patterns that make AI useful rather than impressive.
-            I care less about what a model can do in a demo and more about what it can do on Tuesday
-            morning when context is stale and the task is ambiguous.
+            That is why I work on agentic systems. Multi-agent architectures, memory design,
+            orchestration, and the operational patterns that separate useful AI from impressive AI.
+            A model that works in a demo is not the same thing as a model that works on Tuesday
+            morning. That gap is the whole problem.
           </p>
           <p>
-            As a leader, I bring this same lens to teams: how do we make AI a real capability in our
-            engineering practice, not just a feature we bolt on? How do we build systems and processes
-            that actually improve because AI is part of them?
+            As a leader, I apply the same thinking to teams. Not how do we add AI to the product.
+            How do we make engineering fundamentally better because AI is part of how we work.
+            The second question is harder and more worth asking.
           </p>
         </div>
       </div>
@@ -254,9 +255,9 @@ const suggestedPrompts = [
           <p class="font-mono text-accent-blue text-sm mb-3">interactive</p>
           <h2 class="text-3xl font-bold text-text-primary mb-4">Ask Pradeep AI</h2>
           <p class="text-text-secondary mb-8 leading-relaxed">
-            I built a copilot grounded in my real professional context. It can answer questions about
-            my background, projects, working style, and perspective on AI — all from curated source material.
-            No hallucinations, no speculation.
+            I built a copilot grounded in my actual professional context. It answers questions about
+            my background, projects, working style, and perspective on AI from curated source material.
+            No hallucinations. No speculation.
           </p>
 
           <!-- Suggested prompts -->
@@ -290,8 +291,8 @@ const suggestedPrompts = [
     <div class="max-w-6xl mx-auto px-6 text-center">
       <h2 class="text-3xl font-bold text-text-primary mb-4">Let's talk</h2>
       <p class="text-text-secondary mb-8 max-w-lg mx-auto">
-        Looking for an engineering leader who builds with AI, not just talks about it?
-        I'd love to connect.
+        Looking for an engineering leader who builds with AI, not just talks about it.
+        I would like to connect.
       </p>
       <div class="flex flex-wrap justify-center gap-4">
         <a

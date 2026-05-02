@@ -32,8 +32,8 @@ import "../../styles/global.css";
         <p class="text-lg text-text-secondary leading-relaxed">
           A file-backed governance layer for AI agents that classifies proposed actions as
           <code class="text-accent-blue">allow</code>, <code class="text-accent-blue">approval_required</code>,
-          <code class="text-accent-blue">clarification_required</code>, or <code class="text-accent-blue">blocked</code>
-          — enforcing human oversight where it matters without slowing down safe work.
+          <code class="text-accent-blue">clarification_required</code>, or <code class="text-accent-blue">blocked</code>.
+          Human oversight where it matters. No friction where it does not.
         </p>
 
         <div class="flex flex-wrap gap-2 mt-6">
@@ -49,7 +49,7 @@ import "../../styles/global.css";
       <div class="p-5 rounded-xl bg-surface-800/50 border-l-2 border-accent-blue mb-12">
         <p class="text-text-secondary text-sm leading-relaxed italic">
           "Tool-using agents can send messages, edit files, delete data, push code, and spend money.
-          The question isn't whether they should act — it's whether anyone is checking before they do."
+          The question is not whether they should act. It is whether anyone is checking before they do."
         </p>
       </div>
 
@@ -64,16 +64,16 @@ import "../../styles/global.css";
           </h2>
           <div class="text-text-secondary leading-relaxed space-y-4">
             <p>
-              As AI agents gain tool access — file systems, APIs, cloud resources, communication
-              channels — they can execute high-stakes actions without meaningful human review. Most
-              agent frameworks treat safety as a prompt concern: "be careful" baked into system messages
-              that agents can interpret loosely or ignore under accumulated context pressure.
+              As AI agents gain tool access to file systems, APIs, cloud resources, and communication
+              channels, they can execute high-stakes actions without meaningful human review. Most
+              agent frameworks treat safety as a prompt concern: "be careful" baked into system
+              messages that agents can interpret loosely or ignore under accumulated context pressure.
             </p>
             <p>
-              The failure mode isn't a rogue agent acting maliciously. It's an ambiguous destructive
+              The failure mode is not a rogue agent acting maliciously. It is an ambiguous destructive
               request that escalates unchecked because no structural gate exists between "the agent
               thinks this is fine" and "the action is irreversible." Without a governance layer,
-              the only safeguard is the model's own judgment — which is exactly what governance
+              the only safeguard is the model's own judgment. That is exactly what governance
               should not depend on.
             </p>
           </div>
@@ -112,8 +112,8 @@ import "../../styles/global.css";
             </div>
 
             <p>
-              The CLI accepts structured proposals — agent name, action type, target, tool, destructiveness
-              flag, and stated intent — and returns a decision with full rationale. A static HTML dashboard
+              The CLI accepts structured proposals: agent name, action type, target, tool, destructiveness
+              flag, and stated intent. It returns a decision with full rationale. A static HTML dashboard
               provides oversight visibility across all decisions and pending approvals.
             </p>
           </div>
@@ -191,13 +191,13 @@ import "../../styles/global.css";
               <strong class="text-text-primary">Deterministic over probabilistic.</strong>
               The risk engine uses rule-matching against explicit policies, not model-based judgment.
               Safety classification should not depend on the same type of reasoning it's meant to
-              govern. A YAML policy that says "external sends require approval" always fires — it
-              doesn't get overridden by a persuasive prompt.
+              govern. A YAML policy that says "external sends require approval" always fires. It
+              does not get overridden by a persuasive prompt.
             </p>
             <p>
               <strong class="text-text-primary">Clarification as a first-class decision.</strong>
               Most governance systems have binary gates: allow or block. But real agent failures often
-              start with ambiguity — a request that could be safe or destructive depending on intent
+              start with ambiguity: a request that could be safe or destructive depending on intent
               the agent hasn't confirmed. Adding <code class="text-accent-blue">clarification_required</code> as
               a distinct decision type catches the class of errors where agents escalate ambiguous
               requests into irreversible actions.
@@ -248,7 +248,7 @@ import "../../styles/global.css";
             </div>
             <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
               <h3 class="font-semibold text-text-primary mb-2 text-sm">Ambiguity is the real risk</h3>
-              <p class="text-sm text-text-secondary">Most dangerous agent actions aren't obviously wrong — they're ambiguous requests that escalate without clarification.</p>
+              <p class="text-sm text-text-secondary">Most dangerous agent actions are not obviously wrong. They are ambiguous requests that escalate without clarification.</p>
             </div>
             <div class="p-5 rounded-lg bg-surface-800/50 border border-border">
               <h3 class="font-semibold text-text-primary mb-2 text-sm">Audit trails change behavior</h3>
@@ -269,17 +269,16 @@ import "../../styles/global.css";
           </h2>
           <div class="text-text-secondary leading-relaxed space-y-4">
             <p>
-              As AI agents move from demos to production — executing real actions on real systems —
-              governance becomes a hard requirement, not a nice-to-have. This project demonstrates
-              how to build that governance layer: deterministic policy enforcement, human approval
-              gates, clarification workflows for ambiguous cases, and full audit trails.
+              As AI agents move from demos to production, executing real actions on real systems,
+              governance becomes a hard requirement. This project demonstrates how to build that
+              governance layer: deterministic policy enforcement, human approval gates, clarification
+              workflows for ambiguous cases, and full audit trails.
             </p>
             <p>
-              The patterns here — structured policy registries, risk classification, approval
-              workflows, and file-backed audit infrastructure — are the building blocks any
-              organization needs once agents start taking actions that matter. It's the difference
-              between trusting an agent because you hope it's safe and trusting it because you
-              can prove it.
+              Structured policy registries, risk classification, approval workflows, and file-backed
+              audit infrastructure are the building blocks any organization needs once agents start
+              taking actions that matter. The difference between trusting an agent because you hope
+              it is safe and trusting it because you can prove it.
             </p>
           </div>
         </section>

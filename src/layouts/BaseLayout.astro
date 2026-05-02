@@ -166,5 +166,24 @@ const navLinks = [
       menu?.classList.toggle('hidden');
     });
   </script>
+
+  <!-- Scroll-triggered animations -->
+  <script>
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const el = entry.target as HTMLElement;
+            const delay = el.dataset.animateDelay ?? '0';
+            el.style.animationDelay = delay + 'ms';
+            el.classList.add('visible');
+            observer.unobserve(el);
+          }
+        });
+      },
+      { threshold: 0.08 }
+    );
+    document.querySelectorAll('.animate-on-scroll').forEach((el) => observer.observe(el));
+  </script>
 </body>
 </html>

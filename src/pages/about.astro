@@ -10,7 +10,8 @@ import "../styles/global.css";
 
       <p class="font-mono text-accent-blue text-sm mb-3">~/about</p>
 
-      <div class="flex flex-col sm:flex-row sm:items-center gap-6 mb-10">
+      <!-- Header: headshot + name -->
+      <div class="flex flex-col sm:flex-row sm:items-center gap-6 mb-8">
         <img
           src="/profile-headshot.png"
           alt="Pradeep Kolakkampadath"
@@ -20,27 +21,46 @@ import "../styles/global.css";
           loading="eager"
         />
         <div>
-          <h1 class="text-4xl font-bold text-text-primary mb-1">About Pradeep</h1>
-          <p class="text-text-muted text-sm">Director of Software Engineering · Greater St. Louis</p>
+          <h1 class="text-4xl font-bold text-text-primary mb-1">Pradeep Kolakkampadath</h1>
+          <p class="text-text-secondary text-base">Director of Software Engineering</p>
+          <p class="text-text-muted text-sm mt-0.5">Greater St. Louis · AI Enablement · Agentic Systems</p>
+        </div>
+      </div>
+
+      <!-- Career snapshot stats -->
+      <div class="animate-on-scroll flex flex-wrap gap-8 py-6 mb-10 border-y border-border">
+        <div>
+          <div class="text-2xl font-bold text-text-primary">20+</div>
+          <div class="text-xs text-text-muted font-mono mt-0.5">years in software</div>
+        </div>
+        <div>
+          <div class="text-2xl font-bold text-text-primary">50+</div>
+          <div class="text-xs text-text-muted font-mono mt-0.5">person org led</div>
+        </div>
+        <div>
+          <div class="text-2xl font-bold text-accent-blue">7</div>
+          <div class="text-xs text-text-muted font-mono mt-0.5">AI projects live</div>
+        </div>
+        <div>
+          <div class="text-2xl font-bold text-text-primary">2</div>
+          <div class="text-xs text-text-muted font-mono mt-0.5">agentic platforms built</div>
         </div>
       </div>
 
       <!-- Professional Summary -->
-      <div class="space-y-6 text-text-secondary leading-relaxed mb-16">
-        <p class="text-lg">
-          I'm a Software Engineering Director with a deep interest in how AI changes the way
-          teams build software and the way organizations operate. I don't just follow AI from
-          a strategy deck — I build with it, hands-on.
+      <div class="space-y-5 text-text-secondary leading-relaxed mb-16 animate-on-scroll" data-animate-delay="80">
+        <p class="text-lg text-text-primary font-medium leading-relaxed">
+          Most engineering leaders talk about AI. I build it. Then I use what I built to lead better.
         </p>
         <p>
-          My current work sits at the intersection of engineering leadership and practical AI systems.
-          I've led teams through complex product builds, and on my own time I design multi-agent
-          architectures, experiment with memory and orchestration patterns, and build tools that
-          push my understanding of what's possible with AI right now.
+          I run an engineering enablement organization at Evernorth Health Services. On nights and
+          weekends, I ship multi-agent AI systems. Persistent operating systems, governance layers,
+          QA agents, simulation platforms. Building is not a hobby. It is how I stay ahead of what
+          is actually possible, and how I earn the right to lead AI adoption at scale.
         </p>
         <p>
-          I'm looking for my next role in AI enablement leadership — somewhere I can help engineering
-          teams become genuinely more effective with AI, not just bolting it onto existing workflows.
+          My next move is into AI enablement leadership. Roles where the question is how to make an
+          entire engineering organization better with AI. Not whether to add a chatbot to the product.
         </p>
       </div>
 
@@ -53,13 +73,13 @@ import "../styles/global.css";
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[
             { title: "AI-to-production translation", desc: "Turning AI capabilities into engineering practices that teams can actually adopt." },
-            { title: "Systems & workflow design", desc: "Thinking in terms of agents, memory, routing, and how systems behave over time." },
+            { title: "Agentic systems design", desc: "Multi-agent architectures with memory, routing, and durable state that work across sessions." },
             { title: "Product-minded leadership", desc: "Balancing what's technically interesting with what's worth building for real users." },
             { title: "Cross-functional communication", desc: "Bridging the gap between technical depth and business understanding." },
-            { title: "Hands-on prototyping", desc: "Building working systems, not just directing. Close to the craft." },
+            { title: "Hands-on building", desc: "Not just directing. Building. Close to the craft by choice, not circumstance." },
             { title: "Team development", desc: "Growing engineers who think in systems and ship with confidence." },
-          ].map((s) => (
-            <div class="p-4 rounded-lg bg-surface-800/50 border border-border">
+          ].map((s, i) => (
+            <div class="animate-on-scroll p-4 rounded-lg bg-surface-800/50 border border-border hover:border-accent-blue/20 transition-colors duration-200" data-animate-delay={i * 70}>
               <h3 class="font-medium text-text-primary text-sm mb-1">{s.title}</h3>
               <p class="text-text-secondary text-sm">{s.desc}</p>
             </div>
@@ -75,15 +95,15 @@ import "../styles/global.css";
         </h2>
         <div class="space-y-4 text-text-secondary leading-relaxed">
           <p>
-            I lead by building context and trust, not by prescription. I want to understand the
-            problem deeply before committing to a direction, and I want my teams to have the same
-            understanding. I prefer structured clarity over rigid process — clear ownership, explicit
-            decisions, and room for people to do their best work.
+            I lead by building context and trust, not by prescription. Understanding the problem
+            matters more than committing to a direction quickly. I want my teams to have the same
+            depth of understanding I do. I prefer structured clarity over rigid process. Clear
+            ownership. Explicit decisions. Room for people to do their best work.
           </p>
           <p>
-            I'm opinionated about quality but pragmatic about shipping. I believe the best teams
-            iterate fast with a clear sense of direction, and I try to create that environment
-            whether I'm leading a team or building something solo.
+            I am opinionated about quality but pragmatic about shipping. The best teams iterate
+            fast with a clear sense of direction. I try to build that environment whether I am
+            leading a team or building something myself.
           </p>
         </div>
       </div>
@@ -96,16 +116,15 @@ import "../styles/global.css";
         </h2>
         <div class="space-y-4 text-text-secondary leading-relaxed">
           <p>
-            I'm targeting senior engineering leadership roles at the intersection of engineering
-            and AI enablement — positions where I can shape how engineering teams build with AI
-            at a strategic and tactical level. Specific titles vary by company; the substance is
-            what matters.
+            I am targeting senior engineering leadership roles at the intersection of engineering
+            and AI enablement. Positions where I can shape how engineering teams build with AI at
+            both the strategic and tactical level. Specific titles vary by company. The substance
+            is what matters.
           </p>
           <p>
-            I'm most excited by organizations that see AI as a capability to be woven into engineering
-            practice, not just a product feature to ship. I want to work somewhere the question is
-            "how do we make our entire engineering org better with AI?" rather than "can we add a
-            chatbot to the product?"
+            I am most interested in organizations that see AI as a capability to weave into
+            engineering practice, not a product feature to ship. The question I want to work on
+            is how to make an entire engineering org better with AI. Not whether to launch a chatbot.
           </p>
         </div>
       </div>
@@ -131,10 +150,10 @@ import "../styles/global.css";
             through line is turning capabilities into products teams actually use.
           </p>
           <p>
-            In parallel I build AI systems hands-on — multi-agent architectures, memory and routing
-            design, durable state, and the operational patterns that make AI useful rather than
-            impressive. The building directly informs the leadership perspective: AI enablement that
-            works on Tuesday morning, not just in a demo.
+            In parallel I build AI systems. Multi-agent architectures, memory and routing design,
+            durable state, and the operational patterns that make AI useful rather than impressive.
+            The building directly informs the leadership. AI enablement that works on Tuesday
+            morning, not just in a demo.
           </p>
         </div>
         <div class="mt-6">

@@ -30,9 +30,9 @@ import "../../styles/global.css";
         </h1>
 
         <p class="text-lg text-text-secondary leading-relaxed">
-          A real-time operational dashboard that provides centralized visibility into multiple
-          containerized AI services running on a VPS — with a Python metrics agent on the server
-          and a Next.js frontend deployed to Vercel for remote monitoring.
+          A real-time operational dashboard providing centralized visibility into containerized
+          AI services running on a VPS. Python metrics agent on the server. Next.js frontend
+          deployed to Vercel for remote monitoring from anywhere.
         </p>
 
         <div class="flex flex-wrap gap-2 mt-6">
@@ -47,7 +47,7 @@ import "../../styles/global.css";
       <!-- Thesis callout -->
       <div class="p-5 rounded-xl bg-surface-800/50 border-l-2 border-accent-blue mb-12">
         <p class="text-text-secondary text-sm leading-relaxed italic">
-          "If you're running AI agents in production, you need to see what they're doing — not just
+          "If you're running AI agents in production, you need to see what they're doing. Not just
           whether they responded, but whether the infrastructure underneath them is healthy."
         </p>
       </div>
@@ -63,16 +63,15 @@ import "../../styles/global.css";
           </h2>
           <div class="text-text-secondary leading-relaxed space-y-4">
             <p>
-              I was running multiple containerized services on a VPS — OpenClaw (multi-agent
-              orchestration), Hermes (communications agent), and the portfolio site itself — all
+              I was running multiple containerized services on a VPS: OpenClaw (multi-agent
+              orchestration), Hermes (communications agent), and the portfolio site itself. All
               behind a Traefik reverse proxy. Each service had its own health characteristics, resource
               consumption patterns, and failure modes.
             </p>
             <p>
               Without centralized monitoring, diagnosing issues meant SSH-ing into the box and
-              running ad-hoc Docker commands. There was no single view of system health, no
-              historical metrics, and no way to check status from a phone or browser without
-              terminal access.
+              running ad-hoc Docker commands. No single view of system health. No historical
+              metrics. No way to check status from a phone without terminal access.
             </p>
           </div>
         </section>
@@ -190,8 +189,8 @@ import "../../styles/global.css";
             Dashboard in Action
           </h2>
           <p class="text-text-secondary leading-relaxed mb-6">
-            The live Vercel deployment provides four views — system overview, agent telemetry,
-            container health, and cost tracking — all pulling real-time data from the VPS agent.
+            The live Vercel deployment provides four views: system overview, agent telemetry,
+            container health, and cost tracking. All pulling real-time data from the VPS agent.
           </p>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -266,7 +265,7 @@ import "../../styles/global.css";
               <strong class="text-text-primary">Read from state directories, not container internals.</strong>
               Rather than instrumenting each service, the agent reads from mounted state directories
               that services already write to. This means monitoring doesn't require changes to
-              monitored services — it observes their existing file-based state.
+              monitored services. It observes their existing file-based state.
             </p>
           </div>
         </section>
@@ -329,14 +328,13 @@ import "../../styles/global.css";
             <p>
               This project demonstrates full-stack infrastructure thinking: designing a monitoring
               system that covers the Python agent, TypeScript dashboard, Docker containerization,
-              Traefik routing, and Vercel deployment — all as a single coherent system rather than
+              Traefik routing, and Vercel deployment as a single coherent system rather than
               isolated pieces.
             </p>
             <p>
               It shows the operational side of running AI services in production. Building agents
-              is one thing; keeping them running, visible, and debuggable is another. OpsCore is
-              the answer to "how do you know your agents are healthy?" — with real metrics, not
-              just hope.
+              is one thing. Keeping them running, visible, and debuggable is another. OpsCore is
+              the answer to "how do you know your agents are healthy?" Real metrics, not hope.
             </p>
           </div>
         </section>
